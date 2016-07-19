@@ -11,7 +11,7 @@ setup(
     include_package_data=True,  # declarations in MANIFEST.in
     license='LICENSE',
     url = 'https://github.com/worthwhile/django-herald/',
-    download_url = 'https://github.com/worthwhile/django-herald/tarball/'+VERSION
+    download_url = 'https://github.com/worthwhile/django-herald/tarball/'+VERSION,
     description="Django library for separating the message content from transmission method",
     long_description=open('README.md').read(),
     keywords = ['django', 'notifications', 'messaging'],
