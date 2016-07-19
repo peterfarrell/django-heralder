@@ -9,7 +9,7 @@ setup(
     version=VERSION,
     author='Worthwhile',
     author_email='devs@worthwhile.com',
-    install_requires=['django>=1.7'],
+    install_requires=['django>=1.8', 'six'],
     packages=find_packages(),
     include_package_data=True,  # declarations in MANIFEST.in
     license='LICENSE',
