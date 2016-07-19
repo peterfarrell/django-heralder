@@ -9,12 +9,13 @@ setup(
     version=VERSION,
     author='Worthwhile',
     author_email='devs@worthwhile.com',
+    install_requires=['django>=1.7'],
     packages=find_packages(),
     include_package_data=True,  # declarations in MANIFEST.in
     license='LICENSE',
-    url = 'https://github.com/worthwhile/django-herald/',
-    download_url = 'https://github.com/worthwhile/django-herald/tarball/'+VERSION,
+    url='https://github.com/worthwhile/django-herald/',
+    download_url='https://github.com/worthwhile/django-herald/tarball/'+VERSION,
     description="Django library for separating the message content from transmission method",
     long_description=open('README.md').read(),
-    keywords = ['django', 'notifications', 'messaging'],
+    keywords=['django', 'notifications', 'messaging'],
 )
