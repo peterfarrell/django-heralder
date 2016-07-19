@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-herald',
-    version='0.1b1',
+    version='0.1',
     author='Worthwhile',
     author_email='devs@worthwhile.com',
     packages=find_packages(),
