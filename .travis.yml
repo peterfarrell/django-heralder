@@ -18,6 +18,7 @@ env:
 
 install:
   - travis_retry pip install $DJANGO
+  - travis_retry pip install coverage==4.1
 
 script:
   - coverage run --source herald runtests.py -v 2
