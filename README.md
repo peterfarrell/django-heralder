@@ -4,6 +4,7 @@
 [![Build Status](https://travis-ci.org/worthwhile/django-herald.svg?branch=master)](https://travis-ci.org/worthwhile/django-herald)
 [![Coverage Status](https://coveralls.io/repos/github/worthwhile/django-herald/badge.svg?branch=master)](https://coveralls.io/github/worthwhile/django-herald?branch=master)
 
+[![Logo](https://github.com/worthwhile/django-herald/blob/master/twc-github-herald-logo-2.png)](https://github.com/worthwhile/django-herald)
 
 Django library for separating the message content from transmission method
 
