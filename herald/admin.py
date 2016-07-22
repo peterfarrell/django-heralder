@@ -7,11 +7,9 @@ from functools import update_wrapper
 from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.admin.options import csrf_protect_m
-from django.contrib.admin.templatetags.admin_urls import add_preserved_filters
 from django.contrib.admin.utils import unquote
 from django.contrib import messages
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
 
 from .models import SentNotification
 
@@ -79,18 +77,4 @@ class SentNotificationAdmin(admin.ModelAdmin):
         else:
             self.message_user(request, 'The notification failed to resend.', messages.ERROR)
 
-        opts = self.model._meta  # pylint: disable=W0212
-
-        if self.has_change_permission(request, None):
-            post_url = reverse('admin:%s_%s_changelist' %
-                               (opts.app_label, opts.model_name),
-                               current_app=self.admin_site.name)
-            preserved_filters = self.get_preserved_filters(request)
-            post_url = add_preserved_filters(
-                {'preserved_filters': preserved_filters, 'opts': opts}, post_url
-            )
-        else:
-            post_url = reverse('admin:index',
-                               current_app=self.admin_site.name)
-
-        return HttpResponseRedirect(post_url)
+        return self.response_post_save_change(request, obj)

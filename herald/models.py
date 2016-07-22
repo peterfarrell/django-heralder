@@ -6,18 +6,7 @@ import json
 import six
 
 from django.db import models
-
-
-def import_class(name):
-    """
-    Helper to import a class by dotted name
-    """
-
-    components = name.split('.')
-    mod = __import__(components[0])
-    for comp in components[1:]:
-        mod = getattr(mod, comp)
-    return mod
+from django.utils.module_loading import import_string
 
 
 @six.python_2_unicode_compatible
@@ -62,7 +51,7 @@ class SentNotification(models.Model):
         Re-sends the notification by calling the notification class' resend method
         """
 
-        notification_class = import_class(self.notification_class)
+        notification_class = import_string(self.notification_class)
         notification_class.resend(self)
 
     def get_extra_data(self):

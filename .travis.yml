@@ -17,7 +17,7 @@ env:
 
 install:
   - travis_retry pip install $DJANGO
-  - travis_retry pip install coveralls six pytz
+  - travis_retry pip install coveralls six pytz mock
 
 script:
   - coverage run --source herald runtests.py -v 2
