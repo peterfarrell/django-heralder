@@ -17,11 +17,10 @@ env:
 
 install:
   - travis_retry pip install $DJANGO
-  - travis_retry pip install coverage==4.1 six
+  - travis_retry pip install coveralls six
 
 script:
   - coverage run --source herald runtests.py -v 2
-  - coverage report
 
 notifications:
   email: false
@@ -35,3 +34,6 @@ matrix:
   allow_failures:
     - env: DJANGO='https://github.com/django/django/archive/master.tar.gz'
   fast_finish: true
+
+after_success:
+    - coveralls
