@@ -1,3 +1,4 @@
+from django.core import mail
 from django.test import TestCase, override_settings
 
 from mock import patch
@@ -44,6 +45,11 @@ class BaseNotificationTests(TestCase):
             mocked_resend.assert_called_once()
             obj = mocked_resend.call_args[0][0]
             self.assertEqual(obj.recipients, 'test@test.com')
+
+    def test_real_send(self):
+        MyNotification().send()
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEquals(mail.outbox[0].to, ['test@test.com'])
 
     def test_render_no_type(self):
         class DummyNotification(NotificationBase):

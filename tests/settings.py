@@ -32,6 +32,8 @@ USE_TZ = True
 
 SECRET_KEY = 'foobar'
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 TEMPLATES = [{
     'BACKEND': 'django.template.backends.django.DjangoTemplates',
     'APP_DIRS': True,
