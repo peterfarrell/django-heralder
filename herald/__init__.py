@@ -1,6 +1,7 @@
 """
 Notification classes. Used for sending texts and emails
 """
+__version__ = '0.1.2'
 
 from django.utils.module_loading import autodiscover_modules
 
@@ -38,5 +39,3 @@ def autodiscover():
     Auto discover notification registrations in any file called "notifications" in any app.
     """
     autodiscover_modules('notifications', register_to=registry)
-
-

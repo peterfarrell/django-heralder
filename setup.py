@@ -1,14 +1,20 @@
 from setuptools import find_packages, setup
 
+VERSION = __import__('herald').__version__
 
-VERSION = '0.1.2'
+install_requires = ['django>=1.8', 'six']
+
+dev_requires = ['pytz']
 
 setup(
     name='django-herald',
     version=VERSION,
     author='Worthwhile',
     author_email='devs@worthwhile.com',
-    install_requires=['django>=1.8', 'six'],
+    install_requires=install_requires,
+    extra_require={
+        'dev': install_requires + dev_requires,
+    },
     packages=find_packages(),
     include_package_data=True,  # declarations in MANIFEST.in
     license='MIT',
@@ -27,5 +33,6 @@ setup(
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'License :: OSI Approved :: MIT License',
     ],
 )

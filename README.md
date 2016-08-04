@@ -58,3 +58,7 @@ Django library for separating the message content from transmission method
         WelcomeEmail(user).send()
 
 5. View the sent emails in django admin and even be able to resend it.
+
+# Running Tests
+
+	python runtests.py
