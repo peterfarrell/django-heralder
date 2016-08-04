@@ -2,6 +2,15 @@ from setuptools import find_packages, setup
 
 VERSION = __import__('herald').__version__
 
+def read_file(filename):
+    """Read a file into a string"""
+    path = os.path.abspath(os.path.dirname(__file__))
+    filepath = os.path.join(path, filename)
+    try:
+        return open(filepath).read()
+    except IOError:
+        return ''
+
 install_requires = ['django>=1.8', 'six']
 
 dev_requires = ['pytz']
@@ -21,7 +30,7 @@ setup(
     url='https://github.com/worthwhile/django-herald/',
     download_url='https://github.com/worthwhile/django-herald/tarball/'+VERSION,
     description="Django library for separating the message content from transmission method",
-    long_description=open('README.md').read(),
+    long_description=read_file('README.md'),
     keywords=['django', 'notifications', 'messaging'],
     classifiers=[
         'Framework :: Django',
