@@ -13,17 +13,18 @@ from herald.models import SentNotification
 
 
 MSG = 'Successfully deleted {num} notification(s)'
+NOTIFICATION_CLASS = 'tests.notifications.MyNotification'
 
 
 class DeleteNotificationNoArgs(TestCase):
 
     def test_delete_today(self):
         SentNotification(
-            notification_class='tests.notifications.MyNotification',
+            notification_class=NOTIFICATION_CLASS,
             date_sent=timezone.now()
         ).save()
         SentNotification(
-            notification_class='tests.notifications.MyNotification',
+            notification_class=NOTIFICATION_CLASS,
             date_sent=timezone.now()+timedelta(days=1)
         ).save()
         out = StringIO()
@@ -32,7 +33,7 @@ class DeleteNotificationNoArgs(TestCase):
 
     def test_do_not_delete_tomorrow(self):
         SentNotification(
-            notification_class='tests.notifications.MyNotification',
+            notification_class=NOTIFICATION_CLASS,
             date_sent=timezone.now()+timedelta(days=1)
         ).save()
         out = StringIO()
@@ -41,7 +42,7 @@ class DeleteNotificationNoArgs(TestCase):
 
     def test_do_not_delete_yesterday(self):
         SentNotification(
-            notification_class='tests.notifications.MyNotification',
+            notification_class=NOTIFICATION_CLASS,
             date_sent=timezone.now() - timedelta(days=1)
         ).save()
         out = StringIO()
