@@ -104,19 +104,15 @@ class NotificationBase(object):
         :return: the rendered content
         """
 
-        if render_type not in self.render_types:
-            return None
+        assert(render_type in self.render_types, 'Invalid Render Type')
 
-        try:
-            content = render_to_string('herald/{}/{}.{}'.format(
-                render_type,
-                self.template_name,
-                'txt' if render_type == 'text' else render_type
-            ), context)
+        content = render_to_string('herald/{}/{}.{}'.format(
+            render_type,
+            self.template_name,
+            'txt' if render_type == 'text' else render_type
+        ), context)
 
-            return content
-        except TemplateDoesNotExist:
-            return None
+        return content
 
     @staticmethod
     def get_demo_args():
