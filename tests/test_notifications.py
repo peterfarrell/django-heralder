@@ -55,15 +55,13 @@ class BaseNotificationTests(TestCase):
         class DummyNotification(NotificationBase):
             pass
 
-        render = DummyNotification().render('text', {})
-        self.assertRaises(TemplateDoesNotExist, render)
+        self.assertRaises(TemplateDoesNotExist, DummyNotification().render('text', {}))
 
     def test_render_invalid_template(self):
         class DummyNotification(NotificationBase):
             render_types = ['text']
             template_name = 'does_not_exist'
-        render = DummyNotification().render('text', {})
-        self.assertRaises(TemplateDoesNotExist, render)
+        self.assertRaises(TemplateDoesNotExist, DummyNotification().render('text', {}))
 
     def test_render_invalid(self):
         class DummyNotification(NotificationBase):
