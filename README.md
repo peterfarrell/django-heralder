@@ -11,7 +11,7 @@ Django library for separating the message content from transmission method
 # Installation
 
 1. `pip install django-herald`
-2. Add `herald` to `INSTALLED_APPS`.
+2. Add `herald` and `django.contrib.sites` to `INSTALLED_APPS`.
 3. Add herald's URLS:
 
         if settings.DEBUG:
