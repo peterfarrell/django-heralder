@@ -1,6 +1,6 @@
 from django.core import mail
 from django.test import TestCase, override_settings
-
+from django.template import TemplateDoesNotExist
 from mock import patch
 
 from herald.base import NotificationBase, EmailNotification, TwilioTextNotification
@@ -55,14 +55,15 @@ class BaseNotificationTests(TestCase):
         class DummyNotification(NotificationBase):
             pass
 
-        self.assertIsNone(DummyNotification().render('text', {}))
+        render = DummyNotification().render('text', {})
+        self.assertRaises(TemplateDoesNotExist, render)
 
     def test_render_invalid_template(self):
         class DummyNotification(NotificationBase):
             render_types = ['text']
             template_name = 'does_not_exist'
-
-        self.assertIsNone(DummyNotification().render('text', {}))
+        render = DummyNotification().render('text', {})
+        self.assertRaises(TemplateDoesNotExist, render)
 
     def test_render_invalid(self):
         class DummyNotification(NotificationBase):
