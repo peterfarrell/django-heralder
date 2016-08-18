@@ -59,6 +59,10 @@ Django library for separating the message content from transmission method
 
 5. View the sent emails in django admin and even be able to resend it.
 
+## Asynchronous Email Sending
+
+If you are sending slightly different emails to a large number of people, it might take quite a while to process. By default, Django will process this all synchronously. For asynchronous support, we recommend django-celery-email. It is very straightfoward to setup and integrate: https://github.com/pmclanahan/django-celery-email
+
 # Running Tests
 
 	python runtests.py
