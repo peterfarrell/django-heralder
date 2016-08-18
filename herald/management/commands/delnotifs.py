@@ -15,11 +15,6 @@ def valid_date(s):
         raise argparse.ArgumentTypeError(msg)
 
 
-def daterange(start_date, end_date):
-    for n in range(int((end_date - start_date).days) + 1):
-        yield start_date + datetime.timedelta(n)
-
-
 class Command(BaseCommand):
     help = 'Deletes notifications between the date ranges specified.'
 
