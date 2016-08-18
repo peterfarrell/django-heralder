@@ -27,6 +27,7 @@ class Command(BaseCommand):
         start_date = options['start'].date() if options['start'] else today
         end_date = options['end'].date() if options['end'] else today + datetime.timedelta(days=1)
         qs = SentNotification.objects.filter(date_sent__range=[start_date, end_date])
+        present_notifications = qs.count()
         deleted_notifications = qs.delete()
-        deleted_num = deleted_notifications[0] if deleted_notifications is not None else qs.count()
+        deleted_num = deleted_notifications[0] if deleted_notifications is not None else present_notifications
         self.stdout.write('Successfully deleted {num} notification(s)'.format(num=deleted_num))
