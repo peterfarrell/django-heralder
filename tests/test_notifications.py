@@ -58,6 +58,7 @@ class BaseNotificationTests(TestCase):
         with self.assertRaises(AssertionError):
             DummyNotification().render('text', {})
 
+
     def test_render_invalid_template(self):
         class DummyNotification(NotificationBase):
             render_types = ['text']
@@ -65,6 +66,7 @@ class BaseNotificationTests(TestCase):
 
         with self.assertRaises(TemplateDoesNotExist):
             DummyNotification().render('text', {})
+
 
     def test_render_invalid(self):
         class DummyNotification(NotificationBase):
