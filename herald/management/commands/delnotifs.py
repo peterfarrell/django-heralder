@@ -23,7 +23,7 @@ class Command(BaseCommand):
         parser.add_argument('--end', help="up to this date, format YYYY-MM-DD", type=valid_date)
 
     def handle(self, *args, **options):
-        today = timezone.now().date()
+        today = timezone.now().replace(hour=0, minute=0, second=0, microsecond=0)
         start_date = options['start'].date() if options['start'] else today
         end_date = options['end'].date() if options['end'] else today + datetime.timedelta(days=1)
         deleted_notifications = SentNotification.objects.filter(date_sent__range=[start_date, end_date]).delete()
