@@ -1,6 +1,5 @@
 from django.core import mail
 from django.test import TestCase, override_settings
-
 from mock import patch
 
 from herald.base import NotificationBase, EmailNotification, TwilioTextNotification
@@ -55,7 +54,8 @@ class BaseNotificationTests(TestCase):
         class DummyNotification(NotificationBase):
             pass
 
-        self.assertIsNone(DummyNotification().render('text', {}))
+        with self.assertRaises(AssertionError):
+            DummyNotification().render('text', {})
 
     def test_render_invalid_template(self):
         class DummyNotification(NotificationBase):

@@ -3,8 +3,8 @@ Base notification classes
 """
 
 import json
-import six
 
+import six
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives
@@ -104,8 +104,7 @@ class NotificationBase(object):
         :return: the rendered content
         """
 
-        if render_type not in self.render_types:
-            return None
+        assert render_type in self.render_types, 'Invalid Render Type'
 
         try:
             content = render_to_string('herald/{}/{}.{}'.format(
@@ -113,10 +112,12 @@ class NotificationBase(object):
                 self.template_name,
                 'txt' if render_type == 'text' else render_type
             ), context)
-
-            return content
         except TemplateDoesNotExist:
-            return None
+            content = None
+            if settings.DEBUG:
+                raise
+
+        return content
 
     @staticmethod
     def get_demo_args():

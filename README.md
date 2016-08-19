@@ -11,7 +11,7 @@ Django library for separating the message content from transmission method
 # Installation
 
 1. `pip install django-herald`
-2. Add `herald` to `INSTALLED_APPS`.
+2. Add `herald` and `django.contrib.sites` to `INSTALLED_APPS`.
 3. Add herald's URLS:
 
         if settings.DEBUG:
@@ -58,6 +58,10 @@ Django library for separating the message content from transmission method
         WelcomeEmail(user).send()
 
 5. View the sent emails in django admin and even be able to resend it.
+
+## Asynchronous Email Sending
+
+If you are sending slightly different emails to a large number of people, it might take quite a while to process. By default, Django will process this all synchronously. For asynchronous support, we recommend django-celery-email. It is very straightfoward to setup and integrate: https://github.com/pmclanahan/django-celery-email
 
 # Running Tests
 
