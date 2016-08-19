@@ -1,4 +1,26 @@
+<style>
+table {
+    width:100%;
+}
+
+th {
+    text-align: left;
+}
+</style>
+
+<h1>Notification Preview</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Preview Link(s)</th>
+    <th>Bases</th>
+  </tr>
 {% for index, name, types, bases in notifications %}
-    {{ name }} ({% for type in types %}<a href="{% url 'herald_preview' index type %}">{{ type }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}) -
-    {% for base in bases %}{{ base }}{% if not forloop.last %}, {% endif %}{% endfor %}<br/>
+<tr>
+    <td>{{ name }}</td>
+    <td>{% for type in types %}<a href="{% url 'herald_preview' index type %}">{{ type }}</a>{% if not forloop.last %}, {% endif %}{% endfor %} </td>
+    <td>{% for base in bases %}{{ base }}{% if not forloop.last %}, {% endif %}{% endfor %}</td>
+</tr>
 {% endfor %}
+</table>
