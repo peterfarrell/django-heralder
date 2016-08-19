@@ -59,9 +59,25 @@ Django library for separating the message content from transmission method
 
 5. View the sent emails in django admin and even be able to resend it.
 
+
+## Deleting Old Notifications
+
+The `delnotifs` command is useful for purging the notification history.
+
+The default usage will delete everything from sent during today:
+
+    python manage.py delnotifs
+
+However, you can also pass arguments for `start` or `end` dates. `end` is up to, but not including that date.
+
+    python manage.py delnotifs --start='2016-01-01' --end='2016-01-10'
+
+
+
 ## Asynchronous Email Sending
 
 If you are sending slightly different emails to a large number of people, it might take quite a while to process. By default, Django will process this all synchronously. For asynchronous support, we recommend django-celery-email. It is very straightfoward to setup and integrate: https://github.com/pmclanahan/django-celery-email
+
 
 # Running Tests
 
