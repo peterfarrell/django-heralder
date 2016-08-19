@@ -112,7 +112,7 @@ class NotificationBase(object):
                 self.template_name,
                 'txt' if render_type == 'text' else render_type
             ), context)
-        except TemplateDoesNotExist as e:
+        except TemplateDoesNotExist:
             content = None
             if settings.DEBUG:
                 raise

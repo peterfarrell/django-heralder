@@ -1,5 +1,4 @@
 from django.core import mail
-from django.template import TemplateDoesNotExist
 from django.test import TestCase, override_settings
 from mock import patch
 
@@ -58,14 +57,12 @@ class BaseNotificationTests(TestCase):
         with self.assertRaises(AssertionError):
             DummyNotification().render('text', {})
 
-
     def test_render_invalid_template(self):
         class DummyNotification(NotificationBase):
             render_types = ['text']
             template_name = 'does_not_exist'
 
         self.assertIsNone(DummyNotification().render('text', {}))
-
 
     def test_render_invalid(self):
         class DummyNotification(NotificationBase):
