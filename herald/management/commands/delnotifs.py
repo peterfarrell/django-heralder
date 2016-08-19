@@ -24,8 +24,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         today = timezone.now().replace(hour=0, minute=0, second=0, microsecond=0)
-        start_date = options['start'].date() if options['start'] else today
-        end_date = options['end'].date() if options['end'] else today + datetime.timedelta(days=1)
+        start_date = options['start'] if options['start'] else today
+        end_date = options['end'] if options['end'] else today + datetime.timedelta(days=1)
         qs = SentNotification.objects.filter(date_sent__range=[start_date, end_date])
         present_notifications = qs.count()
         deleted_notifications = qs.delete()
