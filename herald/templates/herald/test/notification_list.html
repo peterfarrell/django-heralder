@@ -1,3 +1,6 @@
-{% for index, name, types in notifications %}
-    {{ name }} ({% for type in types %}<a href="{% url 'herald_preview' index type %}">{{ type }}</a>{% if not forloop.last %}, {% endif %}{% endfor %})<br/>
+{% for index, name, types, bases in notifications %}
+    {{ name }} ({% for type in types %}<a href="{% url 'herald_preview' index type %}">{{ type }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}) -
+    {% for base in bases %}{{ base }}{% if not forloop.last %}, {% endif %}{% endfor %}<br/>
+
+
 {% endfor %}
