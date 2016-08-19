@@ -63,6 +63,14 @@ Django library for separating the message content from transmission method
 
 If you are sending slightly different emails to a large number of people, it might take quite a while to process. By default, Django will process this all synchronously. For asynchronous support, we recommend django-celery-email. It is very straightfoward to setup and integrate: https://github.com/pmclanahan/django-celery-email
 
+## Adding headers to EmailNotification.
+
+If you need to add extra headers to your email notification, you can assign a dictionary of headers to the headers attribute.
+
+       email = WelcomeEmail(user)
+       email.headers = {'Disposition-Notification-To': '<test@example.com>' }
+       email.send()
+
 # Running Tests
 
 	python runtests.py
