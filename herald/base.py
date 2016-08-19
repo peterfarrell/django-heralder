@@ -8,6 +8,7 @@ import six
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives
+from django.template import TemplateDoesNotExist
 from django.template.loader import render_to_string
 from django.utils import timezone
 
@@ -105,11 +106,16 @@ class NotificationBase(object):
 
         assert render_type in self.render_types, 'Invalid Render Type'
 
-        content = render_to_string('herald/{}/{}.{}'.format(
-            render_type,
-            self.template_name,
-            'txt' if render_type == 'text' else render_type
-        ), context)
+        try:
+            content = render_to_string('herald/{}/{}.{}'.format(
+                render_type,
+                self.template_name,
+                'txt' if render_type == 'text' else render_type
+            ), context)
+        except TemplateDoesNotExist as e:
+            content = None
+            if settings.DEBUG:
+                raise
 
         return content
 

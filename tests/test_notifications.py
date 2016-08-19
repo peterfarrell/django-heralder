@@ -64,8 +64,7 @@ class BaseNotificationTests(TestCase):
             render_types = ['text']
             template_name = 'does_not_exist'
 
-        with self.assertRaises(TemplateDoesNotExist):
-            DummyNotification().render('text', {})
+        self.assertIsNone(DummyNotification().render('text', {}))
 
 
     def test_render_invalid(self):
