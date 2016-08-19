@@ -1,9 +1,7 @@
 import datetime
-import argparse
 
 from django.utils import timezone
 from django.core.management.base import BaseCommand
-from django.core import exceptions
 
 from ...models import SentNotification
 
