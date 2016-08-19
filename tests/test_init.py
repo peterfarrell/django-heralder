@@ -11,8 +11,8 @@ class InitTests(TestCase):
 
         registry.register(TestNotification)
 
-        self.assertEqual(len(registry._registry), 2)
+        self.assertEqual(len(registry._registry), 3)
 
         registry.unregister(TestNotification)
 
-        self.assertEqual(len(registry._registry), 1)
+        self.assertEqual(len(registry._registry), 2)
