@@ -4,6 +4,9 @@ Models for notifications app.
 
 import json
 import six
+from django.contrib.auth import get_user_model
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 
 from django.db import models
 from django.utils.module_loading import import_string
@@ -64,3 +67,13 @@ class SentNotification(models.Model):
         else:
             return json.loads(self.extra_data)
 
+
+class UserPreference(models.Model):
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    user_id = models.PositiveIntegerField()
+    user = GenericForeignKey('content_type', 'user_id')
+    subscribed = models.BooleanField(default=True)
+    notification_class = models.CharField(max_length=255)
+
+    class Meta:
+        unique_together = (('user_id', 'content_type', 'notification_class'),)
