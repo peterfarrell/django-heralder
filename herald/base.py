@@ -179,6 +179,7 @@ class EmailNotification(NotificationBase):
     cc = None  # pylint: disable=C0103
     headers = None
     reply_to = None
+    attachments = None
 
     def get_context_data(self):
         context = super(EmailNotification, self).get_context_data()
@@ -216,7 +217,8 @@ class EmailNotification(NotificationBase):
         return extra_data
 
     @staticmethod
-    def _send(recipients, text_content=None, html_content=None, sent_from=None, subject=None, extra_data=None):
+    def _send(recipients, text_content=None, html_content=None, sent_from=None, subject=None, extra_data=None,
+              attachments=None):
         if extra_data is None:
             extra_data = {}
 
@@ -228,7 +230,8 @@ class EmailNotification(NotificationBase):
             bcc=extra_data.get('bcc', None),
             headers=extra_data.get('headers', None),
             cc=extra_data.get('cc', None),
-            reply_to=extra_data.get('reply_to', None)
+            reply_to=extra_data.get('reply_to', None),
+            attachments=attachments
         )
 
         if html_content:

@@ -63,6 +63,17 @@ Django library for separating the message content from transmission method
 
 If you are sending slightly different emails to a large number of people, it might take quite a while to process. By default, Django will process this all synchronously. For asynchronous support, we recommend django-celery-email. It is very straightfoward to setup and integrate: https://github.com/pmclanahan/django-celery-email
 
+## Email Attachments
+
+To send attachments, assign a list of tuples to the attachments attribute of your EmailNotification instance. The tuples should consist of the filename, the raw attachment data, and the mimetype.  It is up to you to get the attachment data.  Like this:
+
+    email = WelcomeEmail(user)
+    raw_data = get_pdf_data()
+    email.attachments = [('Report.pdf', raw_data, 'application/pdf')]
+    email.send()
+
+You may also use email.MIMEBase.MIMEBase instances instead of tuples.  See the documentation for attachments under EmailMessage Objects in the Django documentation
+
 # Running Tests
 
 	python runtests.py
