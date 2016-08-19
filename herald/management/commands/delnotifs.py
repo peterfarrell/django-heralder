@@ -3,16 +3,13 @@ import argparse
 
 from django.utils import timezone
 from django.core.management.base import BaseCommand
+from django.core import exceptions
 
 from ...models import SentNotification
 
 
 def valid_date(s):
-    try:
-        return datetime.datetime.strptime(s, "%Y-%m-%d")
-    except ValueError:
-        msg = "Not a valid date: '{0}'.".format(s)
-        raise argparse.ArgumentTypeError(msg)
+    return datetime.datetime.strptime(s, "%Y-%m-%d")
 
 
 class Command(BaseCommand):
