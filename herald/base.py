@@ -23,6 +23,7 @@ class NotificationBase(object):
     render_types = []
     template_name = None
     context = None
+    user = None
 
     def get_context_data(self):
         """
@@ -39,7 +40,7 @@ class NotificationBase(object):
 
         return context
 
-    def send(self, raise_exception=False):
+    def send(self, raise_exception=False, user=None):
         """
         Handles the preparing the notification for sending. Called to trigger the send from code.
         If raise_exception is True, it will raise any exceptions rather than simply logging them.
@@ -61,7 +62,8 @@ class NotificationBase(object):
             sent_from=sent_from,
             subject=subject,
             extra_data=json.dumps(extra_data) if extra_data else None,
-            notification_class='{}.{}'.format(self.__class__.__module__, self.__class__.__name__)
+            notification_class='{}.{}'.format(self.__class__.__module__, self.__class__.__name__),
+            user=user
         )
 
         return self.resend(sent_notification, raise_exception=raise_exception)
@@ -133,6 +135,15 @@ class NotificationBase(object):
         Takes a saved sent_notification and sends it again.
         returns boolean whether or not the notification was sent successfully
         """
+
+        # handle skipping a notification based on user preference
+        if hasattr(sent_notification.user, 'usernotification'):
+            notifications = sent_notification.user.usernotification
+            if notifications.disabled_notifications.filter(notification_class=cls.__name__).exists():
+                sent_notification.date_sent = timezone.now()
+                sent_notification.status = sent_notification.STATUS_USER_DISABLED
+                sent_notification.save()
+                return True
 
         try:
             cls._send(

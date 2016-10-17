@@ -7,7 +7,15 @@ class MyNotification(EmailNotification):
     template_name = 'hello_world'
     to_emails = ['test@test.com']
 
+
 registry.register(MyNotification)
+
+class MyOtherNotification(EmailNotification):
+    context = {'hello': 'world'}
+    template_name = 'hello_world'
+    to_emails = ['test@test.com']
+
+registry.register(MyOtherNotification)
 
 
 class MyTwilioNotification(TwilioTextNotification):
