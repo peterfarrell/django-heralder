@@ -79,6 +79,20 @@ However, you can also pass arguments for `start` or `end` dates. `end` is up to,
 If you are sending slightly different emails to a large number of people, it might take quite a while to process. By default, Django will process this all synchronously. For asynchronous support, we recommend django-celery-email. It is very straightfoward to setup and integrate: https://github.com/pmclanahan/django-celery-email
 
 
+## User Disabled Notifications
+
+If you want to disable certain notifications per user, add a record to the UserNotification table and
+add notifications to the disabled_notifications many to many table.
+
+For example:
+        user = User.objects.get(id=user.id)
+
+        notification = Notification.objects.get(notification_class='MyNotification')
+
+        # disable the notification
+        user.usernotification.disabled_notifications.add(notification)
+
+
 # Running Tests
 
 	python runtests.py

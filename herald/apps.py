@@ -20,7 +20,7 @@ class HeraldConfig(AppConfig):
         self.module.autodiscover()
 
         try:
-            # add any unregistered notifications to database.
+            # add any new notifications to database.
             for index, klass in enumerate(registry._registry):
                 Notification.objects.get_or_create(notification_class=klass.__name__)
         except OperationalError:
