@@ -71,7 +71,7 @@ class SentNotification(models.Model):
 
 class Notification(models.Model):
     """
-    NotificationClasses are created on app init.  use the admin to allow them to be disabled or not.
+    NotificationClasses are created on app init.
     """
     notification_class = models.CharField(max_length=80, unique=True)
     can_disable = models.BooleanField(default=True)
