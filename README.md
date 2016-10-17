@@ -70,6 +70,7 @@ If you want to disable certain notifications per user, add a record to the UserN
 add notifications to the disabled_notifications many to many table.
 
 For example:
+
         user = User.objects.get(id=user.id)
 
         notification = Notification.objects.get(notification_class='MyNotification')
