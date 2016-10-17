@@ -9,10 +9,12 @@ class InitTests(TestCase):
         class TestNotification(EmailNotification):
             pass
 
+        oldvalue = len(registry._registry)
+
         registry.register(TestNotification)
 
-        self.assertEqual(len(registry._registry), 2)
+        self.assertEqual(len(registry._registry), oldvalue + 1)
 
         registry.unregister(TestNotification)
 
-        self.assertEqual(len(registry._registry), 1)
+        self.assertEqual(len(registry._registry), oldvalue)
