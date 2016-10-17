@@ -3,7 +3,7 @@ Django app config for herald. Using this to call autodiscover
 """
 
 from django.apps import AppConfig
-from django.db.utils import OperationalError
+from django.db.utils import OperationalError, ProgrammingError
 
 
 class HeraldConfig(AppConfig):
@@ -25,4 +25,7 @@ class HeraldConfig(AppConfig):
                 Notification.objects.get_or_create(notification_class=klass.__name__)
         except OperationalError:
             # if the table is not created yet, just keep going.
+            pass
+        except ProgrammingError:
+            # if the database is not created yet, keep going (ie: during testing)
             pass
