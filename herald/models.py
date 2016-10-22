@@ -69,6 +69,7 @@ class SentNotification(models.Model):
             return json.loads(self.extra_data)
 
 
+@six.python_2_unicode_compatible
 class Notification(models.Model):
     """
     NotificationClasses are created on app init.
@@ -79,7 +80,7 @@ class Notification(models.Model):
     def __str__(self):
         return self.notification_class
 
-
+@six.python_2_unicode_compatible
 class UserNotification(models.Model):
     """
     Add a User Notification record, then add disabled notifications to disable records.
@@ -91,3 +92,4 @@ class UserNotification(models.Model):
         primary_key=True
     )
     disabled_notifications = models.ManyToManyField(Notification)
+    
