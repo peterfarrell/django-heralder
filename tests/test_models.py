@@ -30,7 +30,7 @@ class SentNotificationTests(TestCase):
             notification.resend()
             mocked_resend.assert_called_once_with(notification)
 
-            
+
 class NotificationTests(TestCase):
     def test_str(self):
         notification = Notification(notification_class='tests.notifications.MyNotification')
