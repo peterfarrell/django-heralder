@@ -92,4 +92,3 @@ class UserNotification(models.Model):
         primary_key=True
     )
     disabled_notifications = models.ManyToManyField(Notification)
-    
