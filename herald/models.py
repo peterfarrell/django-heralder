@@ -80,7 +80,7 @@ class Notification(models.Model):
     def __str__(self):
         return self.notification_class
 
-@six.python_2_unicode_compatible
+
 class UserNotification(models.Model):
     """
     Add a User Notification record, then add disabled notifications to disable records.
