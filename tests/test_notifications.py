@@ -164,3 +164,21 @@ class TwilioNotificationTests(TestCase):
             'TWILIO_DEFAULT_FROM_NUMBER setting is required for sending a TwilioTextNotification',
             TestNotification().get_sent_from
         )
+
+    def test_send(self):
+        with patch.object(TwilioTextNotification, 'setup_client') as mocked_client:
+            mocked_client.messages.create.return_value = 0
+
+            class TestNotification(TwilioTextNotification):
+                from_number = '1231231234'
+
+            self.assertEquals(TestNotification._send(['1231231234']), 1)
+
+    def test_setup_client(self):
+        class TestNotification(TwilioTextNotification):
+            from_number = '1231231234'
+
+        with self.assertRaises(Exception):
+            TestNotification.setup_client()
+
+
