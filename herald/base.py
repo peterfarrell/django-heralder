@@ -280,15 +280,12 @@ class TwilioTextNotification(NotificationBase):
         num_of_messages = 0
 
         for recipient in recipients:
-            try:
-                client.messages.create(
-                    body=text_content,
-                    to=recipient,
-                    from_=sent_from
-                )
-                num_of_messages += 1
-            except:
-                pass
+            client.messages.create(
+                body=text_content,
+                to=recipient,
+                from_=sent_from
+            )
+            num_of_messages += 1
 
         return num_of_messages
 
