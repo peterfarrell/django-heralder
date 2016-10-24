@@ -1,6 +1,6 @@
 from django.core import mail
 from django.test import TestCase, override_settings
-from mock import patch
+from mock import patch, MagicMock
 
 from herald.base import NotificationBase, EmailNotification, TwilioTextNotification
 from herald.models import SentNotification
@@ -178,7 +178,26 @@ class TwilioNotificationTests(TestCase):
         class TestNotification(TwilioTextNotification):
             from_number = '1231231234'
 
-        with self.assertRaises(Exception):
-            TestNotification.setup_client()
+        self.assertRaisesMessage(
+            Exception,
+            'Twilio is required for sending a TwilioTextNotification.',
+            TestNotification.setup_client
+        )
+
+        with patch.dict('sys.modules', {'twilio': MagicMock()}):
+
+            self.assertRaisesMessage(
+                Exception,
+                'TWILIO_ACCOUNT_SID and TWILIO_AUTH_TOKEN settings'
+                ' are required for sending a TwilioTextNotification',
+                TestNotification.setup_client
+            )
+
+        with patch.dict('sys.modules', {'twilio': MagicMock()}), \
+             override_settings(TWILIO_ACCOUNT_SID='foo', TWILIO_AUTH_TOKEN='bar'):
+            try:
+                TestNotification.setup_client()
+            except Exception:
+                self.fail('Unexpected failure; maybe there are new settings to override?')
 
 
