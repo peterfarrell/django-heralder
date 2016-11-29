@@ -24,6 +24,8 @@ class NotificationBase(object):
     template_name = None
     context = None
     user = None
+    can_disable = True
+    verbose_name = None
 
     def get_context_data(self):
         """

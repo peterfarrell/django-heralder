@@ -93,6 +93,13 @@ For example:
         # disable the notification
         user.usernotification.disabled_notifications.add(notification)
 
+By default, notifications can be disabled.  You can put can_disable = False in your notification class and the system will
+populate the database with this default.  Your Notification class can also override the verbose_name by setting it in your
+inherited Notification class.  Like this:
+
+    class MyNotification(EmailNotification):
+        can_disable = False
+        verbose_name = "My Required Notification"
 
 # Running Tests
 
