@@ -83,7 +83,7 @@ class SentNotificationAdmin(admin.ModelAdmin):
         return self.response_post_save_change(request, obj)
 
 
-@admin.register(SentNotification)
+@admin.register(Notification)
 class NotificationAdmin(admin.ModelAdmin):
     """
     Admin for viewing/managing notifications in the system
