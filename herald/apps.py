@@ -23,7 +23,7 @@ class HeraldConfig(AppConfig):
 
         try:
             # add any new notifications to database.
-            for klass in enumerate(registry._registry):
+            for index, klass in enumerate(registry._registry):
                 if klass.verbose_name:
                     verbose_name = klass.verbose_name
                 else:
