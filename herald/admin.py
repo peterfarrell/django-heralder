@@ -83,4 +83,11 @@ class SentNotificationAdmin(admin.ModelAdmin):
         return self.response_post_save_change(request, obj)
 
 
-admin.site.register(Notification)
+@admin.register(SentNotification)
+class NotificationAdmin(admin.ModelAdmin):
+    """
+    Admin for viewing/managing notifications in the system
+    """
+    list_display = ('notification_class', 'verbose_name', 'can_disable')
+    search_fields = ('notification_class', 'verbose_name')
+
