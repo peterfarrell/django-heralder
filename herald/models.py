@@ -79,7 +79,7 @@ class Notification(models.Model):
     can_disable = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.notification_class
+        return self.verbose_name if self.verbose_name else self.notification_class
 
 
 class UserNotification(models.Model):
