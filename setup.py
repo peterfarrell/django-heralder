@@ -26,7 +26,7 @@ setup(
     extra_require={
         'dev': install_requires + dev_requires,
     },
-    packages=find_packages(),
+    packages=find_packages(include=('herald', 'herald.*')),
     include_package_data=True,  # declarations in MANIFEST.in
     license='MIT',
     url='https://github.com/worthwhile/django-herald/',
