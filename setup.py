@@ -3,6 +3,7 @@ from setuptools import find_packages, setup
 
 VERSION = __import__('herald').__version__
 
+
 def read_file(filename):
     """Read a file into a string"""
     path = os.path.abspath(os.path.dirname(__file__))
