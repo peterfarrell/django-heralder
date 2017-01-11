@@ -1,23 +1,18 @@
-def register_notification(*models, **kwargs):
+def register_notification():
     """
     Registers the given notification with Django Herold
-    :param views:
-    :param kwargs:
-    :return:
+
     """
-    from django.contrib.admin import ModelAdmin
-    from django.contrib.admin.sites import site, AdminSite
 
-    def _notification_wrapper(admin_class):
-        admin_site = kwargs.pop('site', site)
+    from herald import registry
+    from herald.base import NotificationBase
 
-        if not isinstance(admin_site, AdminSite):
-            raise ValueError('site must subclass AdminSite')
+    def _notification_wrapper(notification_class):
 
-        if not issubclass(admin_class, ModelAdmin):
-            raise ValueError('Wrapped class must subclass ModelAdmin.')
+        if not issubclass(notification_class, NotificationBase):
+            raise ValueError('Notification must subclass NotificationBase.')
 
-        admin_site.register(models, admin_class=admin_class)
+        registry.register(notification_class)
 
-        return admin_class
+        return notification_class
     return _notification_wrapper
