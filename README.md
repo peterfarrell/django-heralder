@@ -45,10 +45,10 @@ Django library for separating the message content from transmission method
         
         Alternatively, a class decorator can be used.
         
+        from herald import registry
         from herald.base import EmailNotification
-        from herald.decorators import register_notification
         
-        @register_notification()
+        @register.register_decorator()
         class WelcomeEmail(EmailNotification):  # extend from EmailNotification for emails
            template_name = 'welcome_email'  # name of template, without extension
            subject = 'Welcome'  # subject of email
