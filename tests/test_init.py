@@ -16,3 +16,10 @@ class InitTests(TestCase):
         registry.unregister(TestNotification)
 
         self.assertEqual(len(registry._registry), 3)
+
+    def test_register_decorator(self):
+        @registry.register_decorator()
+        class TestNotification(EmailNotification):
+            pass
+
+        self.assertEqual(len(registry._registry), 4)

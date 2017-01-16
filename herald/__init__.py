@@ -16,8 +16,13 @@ class NotificationRegistry(object):
 
     def register(self, kls):
         """
-        Register a notificaion class
+        Register a notification class
         """
+
+        from .base import NotificationBase
+
+        if not issubclass(kls, NotificationBase):
+                raise ValueError('Notification must subclass NotificationBase.')
 
         self._registry.append(kls)
 
@@ -27,6 +32,19 @@ class NotificationRegistry(object):
         """
 
         self._registry.remove(kls)
+
+    def register_decorator(self):
+        """
+        Registers the given notification with Django Herold
+
+        """
+
+        def _notification_wrapper(kls):
+
+            self.register(kls)
+
+            return kls
+        return _notification_wrapper
 
 
 registry = NotificationRegistry()  # pylint: disable=C0103
