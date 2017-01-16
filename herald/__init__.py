@@ -16,7 +16,7 @@ class NotificationRegistry(object):
 
     def register(self, kls):
         """
-        Register a notificaion class
+        Register a notification class
         """
 
         from .base import NotificationBase
