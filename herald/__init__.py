@@ -19,7 +19,7 @@ class NotificationRegistry(object):
         Register a notificaion class
         """
 
-        from herald.base import NotificationBase
+        from .base import NotificationBase
 
         if not issubclass(kls, NotificationBase):
                 raise ValueError('Notification must subclass NotificationBase.')

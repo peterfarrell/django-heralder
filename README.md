@@ -48,7 +48,7 @@ Django library for separating the message content from transmission method
         from herald import registry
         from herald.base import EmailNotification
         
-        @register.register_decorator()
+        @registry.register_decorator()
         class WelcomeEmail(EmailNotification):  # extend from EmailNotification for emails
            template_name = 'welcome_email'  # name of template, without extension
            subject = 'Welcome'  # subject of email
