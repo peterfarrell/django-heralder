@@ -1,4 +1,4 @@
-=== 0.1.5 (01-06-2017) ===
+=== 0.1.5 (02-10-2017) ===
 - Added decorator to register notifications
 - Fixed issue where an extra migration would get created in django 1.10
 - Initial support for django 1.11
