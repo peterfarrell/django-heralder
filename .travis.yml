@@ -13,14 +13,14 @@ python:
 
 env:
   - DJANGO='https://github.com/django/django/archive/master.tar.gz'
-  - DJANGO='django>=1.11a1,<1.11.99'
+  - DJANGO='django>=1.11rc1,<1.11.99'
   - DJANGO='django>=1.10.0,<1.11.0'
   - DJANGO='django>=1.9.0,<1.10.0'
   - DJANGO='django>=1.8.0,<1.9.0'
 
 install:
-  - travis_retry pip install $DJANGO
-  - travis_retry pip install coveralls six pytz mock twilio
+  - travis_retry pip install --upgrade $DJANGO
+  - travis_retry pip install --upgrade coveralls six pytz mock twilio
 
 script:
   - coverage run --source herald runtests.py -v 2
@@ -35,7 +35,7 @@ matrix:
     - python: "3.3"
       env: DJANGO='https://github.com/django/django/archive/master.tar.gz'
     - python: "3.3"
-      env: DJANGO='django>=1.11a1,<1.11.99'
+      env: DJANGO='django>=1.11rc1,<1.11.99'
     - python: "3.3"
       env: DJANGO='django>=1.10.0,<1.11.0'
     - python: "3.3"
