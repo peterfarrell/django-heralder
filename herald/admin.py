@@ -5,11 +5,17 @@ Admin for notifications
 from functools import update_wrapper
 
 from django.conf.urls import url
-from django.contrib import admin
+from django.contrib import admin, messages
 from django.contrib.admin.options import csrf_protect_m
 from django.contrib.admin.utils import unquote
-from django.contrib import messages
-from django.core.urlresolvers import reverse
+from django.utils.safestring import mark_safe
+
+try:
+    # django >= 1.10
+    from django.urls import reverse
+except ImportError:
+    # django <= 1.9
+    from django.core.urlresolvers import reverse
 
 from .models import SentNotification
 
@@ -38,8 +44,7 @@ class SentNotificationAdmin(admin.ModelAdmin):
             args=(obj.pk, )
         )
 
-        return '<a href="{}">Resend</a>'.format(resend_url)
-    resend.allow_tags = True
+        return mark_safe('<a href="{}">Resend</a>'.format(resend_url))
 
     def get_urls(self):
         urls = super(SentNotificationAdmin, self).get_urls()
