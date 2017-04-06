@@ -3,6 +3,7 @@ from setuptools import find_packages, setup
 
 VERSION = __import__('herald').__version__
 
+
 def read_file(filename):
     """Read a file into a string"""
     path = os.path.abspath(os.path.dirname(__file__))
@@ -25,7 +26,7 @@ setup(
     extra_require={
         'dev': install_requires + dev_requires,
     },
-    packages=find_packages(),
+    packages=find_packages(include=('herald', 'herald.*')),
     include_package_data=True,  # declarations in MANIFEST.in
     license='MIT',
     url='https://github.com/worthwhile/django-herald/',

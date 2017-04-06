@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('subject', models.CharField(max_length=255, null=True, blank=True)),
                 ('extra_data', models.TextField(null=True, blank=True)),
                 ('date_sent', models.DateTimeField()),
-                ('status', models.PositiveSmallIntegerField(default=0, choices=[(0, b'Pending'), (1, b'Success'), (2, b'Failed')])),
+                ('status', models.PositiveSmallIntegerField(default=0, choices=[(0, 'Pending'), (1, 'Success'), (2, 'Failed')])),
                 ('notification_class', models.CharField(max_length=255)),
                 ('error_message', models.CharField(max_length=255, null=True, blank=True)),
             ],

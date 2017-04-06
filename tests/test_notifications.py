@@ -1,6 +1,7 @@
 from django.core import mail
 from django.test import TestCase, override_settings
-from mock import patch, MagicMock
+from mock import patch
+from twilio.rest.resources import Messages
 
 from herald.base import NotificationBase, EmailNotification, TwilioTextNotification
 from herald.models import SentNotification
@@ -150,14 +151,14 @@ class TwilioNotificationTests(TestCase):
 
     def test_get_sent_from_default(self):
         class TestNotification(TwilioTextNotification):
-            from_email = None
+            from_number = None
 
         with override_settings(TWILIO_DEFAULT_FROM_NUMBER='1231231234'):
             self.assertEqual(TestNotification().get_sent_from(), '1231231234')
 
     def test_get_sent_from_default_error(self):
         class TestNotification(TwilioTextNotification):
-            from_email = None
+            from_number = None
 
         self.assertRaisesMessage(
             Exception,
@@ -165,39 +166,20 @@ class TwilioNotificationTests(TestCase):
             TestNotification().get_sent_from
         )
 
+    @override_settings(
+        TWILIO_ACCOUNT_SID='sid',
+        TWILIO_AUTH_TOKEN='token'
+    )
     def test_send(self):
-        with patch.object(TwilioTextNotification, 'setup_client') as mocked_client:
-            mocked_client.messages.create.return_value = 0
-
-            class TestNotification(TwilioTextNotification):
-                from_number = '1231231234'
-
-            self.assertEquals(TestNotification._send(['1231231234']), 1)
-
-    def test_setup_client(self):
         class TestNotification(TwilioTextNotification):
             from_number = '1231231234'
+            to_number = '1231231234'
+            template_name = 'hello_world'
 
-        self.assertRaisesMessage(
-            Exception,
-            'Twilio is required for sending a TwilioTextNotification.',
-            TestNotification.setup_client
-        )
-
-        with patch.dict('sys.modules', {'twilio': MagicMock()}):
-
-            self.assertRaisesMessage(
-                Exception,
-                'TWILIO_ACCOUNT_SID and TWILIO_AUTH_TOKEN settings'
-                ' are required for sending a TwilioTextNotification',
-                TestNotification.setup_client
+        with patch.object(Messages, 'create') as mocked_create:
+            TestNotification().send()
+            mocked_create.assert_called_once_with(
+                body='Hello World',
+                to='1231231234',
+                from_='1231231234'
             )
-
-        with patch.dict('sys.modules', {'twilio': MagicMock()}), \
-             override_settings(TWILIO_ACCOUNT_SID='foo', TWILIO_AUTH_TOKEN='bar'):
-            try:
-                TestNotification.setup_client()
-            except Exception:
-                self.fail('Unexpected failure; maybe there are new settings to override?')
-
-

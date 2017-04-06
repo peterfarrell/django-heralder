@@ -42,6 +42,13 @@ Django library for separating the message content from transmission method
 
         registry.register(WelcomeEmail)  # finally, register your notification class
 
+        # Alternatively, a class decorator can be used to register the notification:
+
+        @registry.register_decorator()
+        class WelcomeEmail(EmailNotification):
+            ...
+
+
 2. Create templates for rendering the email using this file structure:
 
         templates/
@@ -73,11 +80,37 @@ However, you can also pass arguments for `start` or `end` dates. `end` is up to,
     python manage.py delnotifs --start='2016-01-01' --end='2016-01-10'
 
 
-
 ## Asynchronous Email Sending
 
 If you are sending slightly different emails to a large number of people, it might take quite a while to process. By default, Django will process this all synchronously. For asynchronous support, we recommend django-celery-email. It is very straightfoward to setup and integrate: https://github.com/pmclanahan/django-celery-email
 
+
+## herald.contrib.auth
+
+Django has built-in support for sending password reset emails. If you would like to send those emails using herald, you can use the notification class in herald.contrib.auth.
+
+First, add `herald.contrib.auth` to `INSTALLED_APPS` (in addition to `herald`).
+
+Second, use the `HeraldPasswordResetForm` in place of django's built in `PasswordResetForm`. This step is entirely dependant on your project structure, but it essentially just involves changing the form class on the password reset view in some way:
+
+    # you may simply just need to override the password reset url like so:
+    url(r'^password_reset/$', password_reset, name='password_reset', {'password_reset_form': HeraldPasswordResetForm}),
+
+    # of if you are using something like django-authtools:
+    url(r'^password_reset/$', PasswordResetView.as_view(form_class=HeraldPasswordResetForm), name='password_reset'),
+
+    # or you may have a customized version of the password reset view:
+    class MyPasswordResetView(FormView):
+        form_class = HeraldPasswordResetForm  # change the form class here
+
+    # or, you may have a custom password reset form already. In that case, you will want to extend from the HeraldPasswordResetForm:
+    class MyPasswordResetForm(HeraldPasswordResetForm):
+        ...
+
+    # alternatively, you could even just send the notification wherever you wish, seperate from the form:
+    PasswordResetEmail(some_user).send()
+
+Third, you may want to customize the templates for the email. By default, herald will use the `registration/password_reset_email.html` that is provided by django for both the html and text versions of the email. But you can simply override `herald/html/password_reset.html` and/or `herald/text/password_reset.txt` to suit your needs.
 
 ## User Disabled Notifications
 
@@ -103,4 +136,4 @@ inherited Notification class.  Like this:
 
 # Running Tests
 
-	python runtests.py
+    python runtests.py

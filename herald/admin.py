@@ -5,11 +5,17 @@ Admin for notifications
 from functools import update_wrapper
 
 from django.conf.urls import url
-from django.contrib import admin
-from django.contrib import messages
+from django.contrib import admin, messages
 from django.contrib.admin.options import csrf_protect_m
 from django.contrib.admin.utils import unquote
-from django.core.urlresolvers import reverse
+from django.utils.safestring import mark_safe
+
+try:
+    # django >= 1.10
+    from django.urls import reverse
+except ImportError:
+    # django <= 1.9
+    from django.core.urlresolvers import reverse
 
 from .models import SentNotification, Notification
 
@@ -23,7 +29,7 @@ class SentNotificationAdmin(admin.ModelAdmin):
     list_display = ('notification_class', 'recipients', 'subject', 'date_sent', 'status')
     list_filter = ('status', 'notification_class')
     date_hierarchy = 'date_sent'
-    readonly_fields = ('resend',)
+    readonly_fields = ('resend', )
     search_fields = ('recipients', 'subject', 'text_content', 'html_content', 'sent_from')
 
     def resend(self, obj):
@@ -35,12 +41,10 @@ class SentNotificationAdmin(admin.ModelAdmin):
         resend_url = reverse(
             'admin:%s_%s_resend' % (opts.app_label, opts.model_name),
             current_app=self.admin_site.name,
-            args=(obj.pk,)
+            args=(obj.pk, )
         )
 
-        return '<a href="{}">Resend</a>'.format(resend_url)
-
-    resend.allow_tags = True
+        return mark_safe('<a href="{}">Resend</a>'.format(resend_url))
 
     def get_urls(self):
         urls = super(SentNotificationAdmin, self).get_urls()
@@ -50,20 +54,18 @@ class SentNotificationAdmin(admin.ModelAdmin):
             """
             Copied from super class
             """
-
             def wrapper(*args, **kwargs):
                 """
                 Copied from super class
                 """
                 return self.admin_site.admin_view(view)(*args, **kwargs)
-
             return update_wrapper(wrapper, view)
 
         info = opts.app_label, opts.model_name
 
         return [
-                   url(r'^(.+)/resend/$', wrap(self.resend_view), name='%s_%s_resend' % info),
-               ] + urls
+            url(r'^(.+)/resend/$', wrap(self.resend_view), name='%s_%s_resend' % info),
+        ] + urls
 
     @csrf_protect_m
     def resend_view(self, request, object_id, extra_context=None):  # pylint: disable=W0613
