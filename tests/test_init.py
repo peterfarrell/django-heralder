@@ -11,15 +11,15 @@ class InitTests(TestCase):
 
         registry.register(TestNotification)
 
-        self.assertEqual(len(registry._registry), 4)
+        self.assertEqual(len(registry._registry), 5)
 
         registry.unregister(TestNotification)
 
-        self.assertEqual(len(registry._registry), 3)
+        self.assertEqual(len(registry._registry), 4)
 
     def test_register_decorator(self):
         @registry.register_decorator()
         class TestNotification(EmailNotification):
             pass
 
-        self.assertEqual(len(registry._registry), 4)
+        self.assertEqual(len(registry._registry), 5)
