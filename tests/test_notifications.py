@@ -38,6 +38,9 @@ class BaseNotificationTests(TestCase):
     def test_private_send(self):
         self.assertRaises(NotImplementedError, NotificationBase()._send, [])
 
+    def test_get_attachments(self):
+        self.assertIsNone(NotificationBase().get_attachments())
+
     def test_send(self):
         with patch.object(MyNotification, 'resend') as mocked_resend:
             MyNotification().send()
@@ -49,6 +52,7 @@ class BaseNotificationTests(TestCase):
         MyNotification().send()
         self.assertEqual(len(mail.outbox), 1)
         self.assertEquals(mail.outbox[0].to, ['test@test.com'])
+        self.assertEqual(mail.outbox[0].attachments[0][1],'Some Report Data')
 
     def test_render_no_type(self):
         class DummyNotification(NotificationBase):

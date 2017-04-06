@@ -67,12 +67,27 @@ If you are sending slightly different emails to a large number of people, it mig
 
 To send attachments, assign a list of tuples to the attachments attribute of your EmailNotification instance. The tuples should consist of the filename, the raw attachment data, and the mimetype.  It is up to you to get the attachment data.  Like this:
 
+    from sorl.thumbnail import get_thumbnail
+
     email = WelcomeEmail(user)
+
+    im = get_thumbnail(image_file.name, '600x600', quality=95)
+    my_image = MIMEImage(im.read())
+    my_image.add_header('Content-ID', '<{}>'.format('coupon.jpg'))
+
     raw_data = get_pdf_data()
-    email.attachments = [('Report.pdf', raw_data, 'application/pdf')]
+
+    email.attachments = [
+        ('Report.pdf', raw_data, 'application/pdf'),
+        my_image,
+    ]
     email.send()
 
-You may also use email.MIMEBase.MIMEBase instances instead of tuples.  See the documentation for attachments under EmailMessage Objects in the Django documentation
+You may also use email.MIMEBase.MIMEBase instances as your data.  See the documentation for attachments under EmailMessage Objects/attachments in the Django documentation.
+
+If you use MIMEImages, you can refer to them in your email templates using the Content ID (cid) like this:
+
+    <img src="cid:{{image_file.name}}" />
 
 # Running Tests
 

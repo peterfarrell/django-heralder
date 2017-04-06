@@ -13,7 +13,7 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 
 from .models import SentNotification
-
+import jsonpickle
 
 class NotificationBase(object):
     """
@@ -61,7 +61,8 @@ class NotificationBase(object):
             sent_from=sent_from,
             subject=subject,
             extra_data=json.dumps(extra_data) if extra_data else None,
-            notification_class='{}.{}'.format(self.__class__.__module__, self.__class__.__name__)
+            notification_class='{}.{}'.format(self.__class__.__module__, self.__class__.__name__),
+            attachments = jsonpickle.dumps(self.get_attachments())
         )
 
         return self.resend(sent_notification, raise_exception=raise_exception)
@@ -93,6 +94,14 @@ class NotificationBase(object):
         Returns a subject string. Optional.
         """
 
+        return None
+
+    def get_attachments(self):
+        """
+        Return a list of attachments or None.    
+        
+        This only works with email.
+        """
         return None
 
     def render(self, render_type, context):
@@ -141,7 +150,8 @@ class NotificationBase(object):
                 sent_notification.html_content,
                 sent_notification.sent_from,
                 sent_notification.subject,
-                sent_notification.get_extra_data()
+                sent_notification.get_extra_data(),
+                sent_notification.get_attachments(),
             )
             sent_notification.status = sent_notification.STATUS_SUCCESS
         except Exception as exc:  # pylint: disable=W0703
@@ -215,6 +225,14 @@ class EmailNotification(NotificationBase):
             extra_data['reply_to'] = self.reply_to
 
         return extra_data
+
+    def get_attachments(self):
+        """
+        Return a list of attachments or None.    
+
+        This only works with email.
+        """
+        return self.attachments
 
     @staticmethod
     def _send(recipients, text_content=None, html_content=None, sent_from=None, subject=None, extra_data=None,
