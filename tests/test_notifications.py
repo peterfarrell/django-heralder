@@ -52,6 +52,10 @@ class BaseNotificationTests(TestCase):
         MyNotification().send()
         self.assertEqual(len(mail.outbox), 1)
         self.assertEquals(mail.outbox[0].to, ['test@test.com'])
+
+    def test_real_send_attachments(self):
+        MyNotification().send()
+        self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].attachments[0][1],'Some Report Data')
 
     def test_render_no_type(self):
