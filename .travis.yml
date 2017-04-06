@@ -20,7 +20,7 @@ env:
 
 install:
   - travis_retry pip install --upgrade $DJANGO
-  - travis_retry pip install --upgrade coveralls six pytz mock twilio
+  - travis_retry pip install --upgrade -r requirements.txt
 
 script:
   - coverage run --source herald runtests.py -v 2

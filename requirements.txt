@@ -2,3 +2,5 @@ django>=1.8
 six
 mock
 twilio
+coveralls
+pytz
