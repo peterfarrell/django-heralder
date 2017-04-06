@@ -89,6 +89,8 @@ If you use MIMEImages, you can refer to them in your email templates using the C
 
     <img src="cid:{{image_file.name}}" />
 
+Attachments can cause your database to become quite large, so you should be sure to run the management commands to purge the database of old messages.
+
 # Running Tests
 
 	python runtests.py
