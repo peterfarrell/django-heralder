@@ -1,5 +1,6 @@
-django>=1.8
 six
 mock
 jsonpickle
 twilio
+coveralls
+pytz

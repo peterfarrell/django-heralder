@@ -1,7 +1,13 @@
 from django.core import mail
 from django.test import TestCase, override_settings
 from mock import patch
-from twilio.rest.resources import Messages
+
+try:
+    # twilio version 6
+    from twilio.rest.api.v2010.account import MessageList
+except ImportError:
+    # twillio version < 6
+    from twilio.rest.resources import Messages as MessageList
 
 from herald.base import NotificationBase, EmailNotification, TwilioTextNotification
 from herald.models import SentNotification
@@ -184,7 +190,7 @@ class TwilioNotificationTests(TestCase):
             to_number = '1231231234'
             template_name = 'hello_world'
 
-        with patch.object(Messages, 'create') as mocked_create:
+        with patch.object(MessageList, 'create') as mocked_create:
             TestNotification().send()
             mocked_create.assert_called_once_with(
                 body='Hello World',
