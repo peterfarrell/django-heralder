@@ -76,8 +76,8 @@ class NotificationBase(object):
             subject=subject,
             extra_data=json.dumps(extra_data) if extra_data else None,
             notification_class='{}.{}'.format(self.__class__.__module__, self.__class__.__name__),
-            user=user
-            attachments=jsonpickle.dumps(self.get_attachments())
+            user=user,
+            attachments=jsonpickle.dumps(self.get_attachments()),
         )
 
         return self.resend(sent_notification, raise_exception=raise_exception)
