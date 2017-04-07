@@ -179,7 +179,8 @@ class NotificationBase(object):
         return sent_notification.status == sent_notification.STATUS_SUCCESS
 
     @staticmethod
-    def _send(recipients, text_content=None, html_content=None, sent_from=None, subject=None, extra_data=None):
+    def _send(recipients, text_content=None, html_content=None, sent_from=None, subject=None, extra_data=None,
+              attachments=None):
         """
         Handles the actual sending of the notification. Sub classes must override this
         """
@@ -308,7 +309,8 @@ class TwilioTextNotification(NotificationBase):
         return from_number
 
     @staticmethod
-    def _send(recipients, text_content=None, html_content=None, sent_from=None, subject=None, extra_data=None):
+    def _send(recipients, text_content=None, html_content=None, sent_from=None, subject=None, extra_data=None,
+              attachments=None):
         try:
             import twilio
         except ImportError:
