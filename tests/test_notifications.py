@@ -1,6 +1,7 @@
 from django.core import mail
 from django.test import TestCase, override_settings
 from mock import patch
+from twilio.rest.resources import Messages
 
 from herald.base import NotificationBase, EmailNotification, TwilioTextNotification
 from herald.models import SentNotification
@@ -158,17 +159,35 @@ class TwilioNotificationTests(TestCase):
 
     def test_get_sent_from_default(self):
         class TestNotification(TwilioTextNotification):
-            from_email = None
+            from_number = None
 
         with override_settings(TWILIO_DEFAULT_FROM_NUMBER='1231231234'):
             self.assertEqual(TestNotification().get_sent_from(), '1231231234')
 
     def test_get_sent_from_default_error(self):
         class TestNotification(TwilioTextNotification):
-            from_email = None
+            from_number = None
 
         self.assertRaisesMessage(
             Exception,
             'TWILIO_DEFAULT_FROM_NUMBER setting is required for sending a TwilioTextNotification',
             TestNotification().get_sent_from
         )
+
+    @override_settings(
+        TWILIO_ACCOUNT_SID='sid',
+        TWILIO_AUTH_TOKEN='token'
+    )
+    def test_send(self):
+        class TestNotification(TwilioTextNotification):
+            from_number = '1231231234'
+            to_number = '1231231234'
+            template_name = 'hello_world'
+
+        with patch.object(Messages, 'create') as mocked_create:
+            TestNotification().send()
+            mocked_create.assert_called_once_with(
+                body='Hello World',
+                to='1231231234',
+                from_='1231231234'
+            )

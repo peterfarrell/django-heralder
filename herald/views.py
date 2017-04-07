@@ -1,6 +1,8 @@
 """
 Views for testing notifications. Should not be present in production
 """
+import inspect
+
 
 from django.http import HttpResponse
 from django.views.generic import TemplateView, View
@@ -19,7 +21,7 @@ class TestNotificationList(TemplateView):
         context = super(TestNotificationList, self).get_context_data(**kwargs)
 
         context['notifications'] = [
-            (index, x.__name__, x.render_types) for index, x in enumerate(registry._registry)  # pylint: disable=W0212
+            (index, x.__name__, x.render_types, (y.__name__ for y in x.__bases__)) for index, x in enumerate(registry._registry)  # pylint: disable=W0212
         ]
 
         return context

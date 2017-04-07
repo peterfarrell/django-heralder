@@ -1,3 +1,5 @@
+import django
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -14,9 +16,10 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'herald',
     'tests',
+    'herald.contrib.auth',
 )
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -24,9 +27,16 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.messages.middleware.MessageMiddleware',
 ]
 
+if django.VERSION < (1, 10):
+    MIDDLEWARE_CLASSES = MIDDLEWARE + [
+        'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    ]
+
 SITE_ID = 1
 
 ROOT_URLCONF = 'tests.urls'
+
+DEBUG = True
 
 USE_TZ = True
 

@@ -1,7 +1,13 @@
 from django.contrib.auth import get_user_model
-from django.core.urlresolvers import reverse
 from django.test import TestCase, Client
 from django.utils import timezone
+
+try:
+    # django >= 1.10
+    from django.urls import reverse
+except ImportError:
+    # django <= 1.9
+    from django.core.urlresolvers import reverse
 
 from mock import patch
 

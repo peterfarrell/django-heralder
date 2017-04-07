@@ -1,7 +1,5 @@
 from django.test import TestCase, Client
 
-from herald.base import NotificationBase
-
 
 class ViewsTests(TestCase):
     def test_index(self):

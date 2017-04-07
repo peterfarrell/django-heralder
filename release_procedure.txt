@@ -1,0 +1,5 @@
+1. Bump version number in herald/__init__.py
+2. Verify entry in CHANGELOG
+3. python setup.py sdist bdist_wheel
+4. twine upload -s dist/django-herald-{version}.tar.gz dist/django_herald-{version}-py2.py3-none-any.whl
+5. Add release on GitHub

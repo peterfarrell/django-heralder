@@ -9,16 +9,18 @@ python:
   - "3.3"
   - "3.4"
   - "3.5"
+  - "3.6"
 
 env:
   - DJANGO='https://github.com/django/django/archive/master.tar.gz'
+  - DJANGO='django==1.11rc1'
   - DJANGO='django>=1.10.0,<1.11.0'
   - DJANGO='django>=1.9.0,<1.10.0'
   - DJANGO='django>=1.8.0,<1.9.0'
 
 install:
-  - travis_retry pip install $DJANGO
-  - travis_retry pip install coveralls six pytz mock
+  - travis_retry pip install --upgrade $DJANGO
+  - travis_retry pip install --upgrade coveralls six pytz mock twilio
 
 script:
   - coverage run --source herald runtests.py -v 2
@@ -28,12 +30,25 @@ notifications:
 
 matrix:
   exclude:
+    - python: "2.7"
+      env: DJANGO='https://github.com/django/django/archive/master.tar.gz'
     - python: "3.3"
       env: DJANGO='https://github.com/django/django/archive/master.tar.gz'
+    - python: "3.3"
+      env: DJANGO='django==1.11rc1'
     - python: "3.3"
       env: DJANGO='django>=1.10.0,<1.11.0'
     - python: "3.3"
       env: DJANGO='django>=1.9.0,<1.10.0'
+    - python: "3.4"
+      env: DJANGO='https://github.com/django/django/archive/master.tar.gz'
+    - python: "3.6"
+      env: DJANGO='django>=1.10.0,<1.11.0'
+    - python: "3.6"
+      env: DJANGO='django>=1.9.0,<1.10.0'
+    - python: "3.6"
+      env: DJANGO='django>=1.8.0,<1.9.0'
+
   allow_failures:
     - env: DJANGO='https://github.com/django/django/archive/master.tar.gz'
   fast_finish: true

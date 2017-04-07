@@ -50,8 +50,17 @@ class NotificationBase(object):
         context = self.get_context_data()
 
         recipients = self.get_recipients()
-        text_content = self.render('text', context)
-        html_content = self.render('html', context)
+
+        if 'text' in self.render_types:
+            text_content = self.render('text', context)
+        else:
+            text_content = None
+
+        if 'html' in self.render_types:
+            html_content = self.render('html', context)
+        else:
+            html_content = None
+
         sent_from = self.get_sent_from()
         subject = self.get_subject()
         extra_data = self.get_extra_data()
