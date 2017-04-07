@@ -1,6 +1,8 @@
-from herald.base import EmailNotification
-from herald import registry
 from email.mime.image import MIMEImage
+
+from herald import registry
+from herald.base import EmailNotification
+
 
 class MyNotification(EmailNotification):
     context = {'hello': 'world'}
@@ -8,6 +10,8 @@ class MyNotification(EmailNotification):
     to_emails = ['test@test.com']
 
     def get_attachments(self):
+        # this returns two attachments, one a text file, the other an inline attachment that can be referred to in a
+        # template using cid: notation
         fp = open('python.jpeg', 'rb')
         img = MIMEImage(fp.read())
         img.add_header('Content-ID', '<{}>'.format('python.jpg'))
@@ -18,5 +22,6 @@ class MyNotification(EmailNotification):
             ('Report.txt', raw_data, 'text/plain'),
             img,
         ]
+
 
 registry.register(MyNotification)

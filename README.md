@@ -65,29 +65,36 @@ If you are sending slightly different emails to a large number of people, it mig
 
 ## Email Attachments
 
-To send attachments, assign a list of tuples to the attachments attribute of your EmailNotification instance. The tuples should consist of the filename, the raw attachment data, and the mimetype.  It is up to you to get the attachment data.  Like this:
-
-    from sorl.thumbnail import get_thumbnail
-
-    email = WelcomeEmail(user)
-
-    im = get_thumbnail(image_file.name, '600x600', quality=95)
-    my_image = MIMEImage(im.read())
-    my_image.add_header('Content-ID', '<{}>'.format('coupon.jpg'))
+To send attachments, assign a list of tuples to the attachments attribute of your EmailNotification instance, or override the get_attachments() method. The tuples should consist of the filename, the raw attachment data, and the mimetype.  It is up to you to get the attachment data.  Like this:
 
     raw_data = get_pdf_data()
 
     email.attachments = [
-        ('Report.pdf', raw_data, 'application/pdf'),
-        my_image,
+       ('Report.pdf', raw_data, 'application/pdf'),
+       ('report.txt', 'text version of report', 'text/plain')
     ]
     email.send()
 
-You may also use email.MIMEBase.MIMEBase instances as your data.  See the documentation for attachments under EmailMessage Objects/attachments in the Django documentation.
+You can also provide a MIMEBase object instead of a tuple.  See the documentation for attachments under EmailMessage Objects/attachments in the Django documentation.
 
-If you use MIMEImages, you can refer to them in your email templates using the Content ID (cid) like this:
+# Inline Attachments
+
+Sometimes you want to embed an image directly into the email content.  Do that by using a MIMEImage assigning a content id header to a MIMEImage, like this:
+
+    email = WelcomeEmail(user)
+    im = get_thumbnail(image_file.name, '600x600', quality=95)
+    my_image = MIMEImage(im.read()) # MIMEImage inherits from MIMEBase
+    my_image.add_header('Content-ID', '<{}>'.format(image_file.name))
+
+You can refer to these images in your html email templates using the Content ID (cid) like this:
 
     <img src="cid:{{image_file.name}}" />
+
+# Othe MIME attachments
+
+You can also attach any MIMEBase objects as regular attachments, but you must add a content-disposition header, or they will be inaccessible:  
+
+    my_image.add_header('Content-Disposition', 'attachment; filename="python.jpg"')
 
 Attachments can cause your database to become quite large, so you should be sure to run the management commands to purge the database of old messages.
 

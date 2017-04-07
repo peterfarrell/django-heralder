@@ -3,7 +3,9 @@ Base notification classes
 """
 
 import json
+from email.mime.base import MIMEBase
 
+import jsonpickle
 import six
 from django.conf import settings
 from django.contrib.sites.models import Site
@@ -13,7 +15,7 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 
 from .models import SentNotification
-import jsonpickle
+
 
 class NotificationBase(object):
     """
@@ -62,7 +64,7 @@ class NotificationBase(object):
             subject=subject,
             extra_data=json.dumps(extra_data) if extra_data else None,
             notification_class='{}.{}'.format(self.__class__.__module__, self.__class__.__name__),
-            attachments = jsonpickle.dumps(self.get_attachments())
+            attachments=jsonpickle.dumps(self.get_attachments())
         )
 
         return self.resend(sent_notification, raise_exception=raise_exception)
@@ -249,11 +251,24 @@ class EmailNotification(NotificationBase):
             headers=extra_data.get('headers', None),
             cc=extra_data.get('cc', None),
             reply_to=extra_data.get('reply_to', None),
-            attachments=attachments
         )
 
         if html_content:
             mail.attach_alternative(html_content, 'text/html')
+
+        if attachments:
+            for attachment in attachments:
+                # All mimebase attachments must have a Content-ID or Content-Disposition header
+                # or they will show up as unnamed attachments"
+                if isinstance(attachment, MIMEBase):
+                    if attachment.get('Content-ID',False):
+                        # if you are sending attachment with content id,
+                        # subtype must be 'related'.
+                        mail.mixed_subtype = 'related'
+
+                    mail.attach(attachment)
+                else:
+                    mail.attach(*attachment)
 
         mail.send()
 
