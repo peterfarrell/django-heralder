@@ -1,7 +1,9 @@
-from herald.base import EmailNotification, TwilioTextNotification
+from email.mime.image import MIMEImage
+
 from herald import registry
 from herald.base import EmailNotification
-from email.mime.image import MIMEImage
+from herald.base import TwilioTextNotification
+
 
 class MyNotification(EmailNotification):
     context = {'hello': 'world'}
@@ -30,5 +32,6 @@ class MyTwilioNotification(TwilioTextNotification):
     context = {'hello': 'world'}
     template_name = 'hello_world'
     to_emails = ['test@test.com']
+
 
 registry.register(MyTwilioNotification)
