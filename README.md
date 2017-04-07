@@ -90,7 +90,7 @@ You can refer to these images in your html email templates using the Content ID 
 
     <img src="cid:{{image_file.name}}" />
 
-# Othe MIME attachments
+# Other MIME attachments
 
 You can also attach any MIMEBase objects as regular attachments, but you must add a content-disposition header, or they will be inaccessible:  
 
