@@ -139,6 +139,26 @@ Sometimes you want to embed an image directly into the email content.  Do that b
 You can refer to these images in your html email templates using the Content ID (cid) like this:
 
     <img src="cid:{{image_file.name}}" />
+    
+You would of course need to add the "image_file" to your template context in the example above.  You can also accomplish this using file operations.  In this example we overrode the get_attachments method of an EmailNotification.
+
+    class MyNotification(EmailNotification):
+        context = {'hello': 'world'}
+        template_name = 'welcome_email'
+        to_emails = ['somebody@example.com']
+        subject = "My email test"
+            
+        def get_attachments(self):
+            fp = open('python.jpeg', 'rb')
+            img = MIMEImage(fp.read())
+            img.add_header('Content-ID', '<{}>'.format('python.jpeg'))
+            return [
+                img,
+            ]
+
+And in your template you would refer to it like this, and you would not need to add anything to the context:
+
+    <img src="cid:python.jpeg" />
 
 ### Other MIME attachments
 
