@@ -3,7 +3,9 @@ Base notification classes
 """
 
 import json
+from email.mime.base import MIMEBase
 
+import jsonpickle
 import six
 from django.conf import settings
 from django.contrib.sites.models import Site
@@ -70,7 +72,8 @@ class NotificationBase(object):
             sent_from=sent_from,
             subject=subject,
             extra_data=json.dumps(extra_data) if extra_data else None,
-            notification_class='{}.{}'.format(self.__class__.__module__, self.__class__.__name__)
+            notification_class='{}.{}'.format(self.__class__.__module__, self.__class__.__name__),
+            attachments=jsonpickle.dumps(self.get_attachments())
         )
 
         return self.resend(sent_notification, raise_exception=raise_exception)
@@ -102,6 +105,14 @@ class NotificationBase(object):
         Returns a subject string. Optional.
         """
 
+        return None
+
+    def get_attachments(self):
+        """
+        Return a list of attachments or None.    
+        
+        This only works with email.
+        """
         return None
 
     def render(self, render_type, context):
@@ -150,7 +161,8 @@ class NotificationBase(object):
                 sent_notification.html_content,
                 sent_notification.sent_from,
                 sent_notification.subject,
-                sent_notification.get_extra_data()
+                sent_notification.get_extra_data(),
+                sent_notification.get_attachments(),
             )
             sent_notification.status = sent_notification.STATUS_SUCCESS
         except Exception as exc:  # pylint: disable=W0703
@@ -167,7 +179,8 @@ class NotificationBase(object):
         return sent_notification.status == sent_notification.STATUS_SUCCESS
 
     @staticmethod
-    def _send(recipients, text_content=None, html_content=None, sent_from=None, subject=None, extra_data=None):
+    def _send(recipients, text_content=None, html_content=None, sent_from=None, subject=None, extra_data=None,
+              attachments=None):
         """
         Handles the actual sending of the notification. Sub classes must override this
         """
@@ -188,6 +201,7 @@ class EmailNotification(NotificationBase):
     cc = None  # pylint: disable=C0103
     headers = None
     reply_to = None
+    attachments = None
 
     def get_context_data(self):
         context = super(EmailNotification, self).get_context_data()
@@ -224,8 +238,17 @@ class EmailNotification(NotificationBase):
 
         return extra_data
 
+    def get_attachments(self):
+        """
+        Return a list of attachments or None.    
+
+        This only works with email.
+        """
+        return self.attachments
+
     @staticmethod
-    def _send(recipients, text_content=None, html_content=None, sent_from=None, subject=None, extra_data=None):
+    def _send(recipients, text_content=None, html_content=None, sent_from=None, subject=None, extra_data=None,
+              attachments=None):
         if extra_data is None:
             extra_data = {}
 
@@ -237,11 +260,25 @@ class EmailNotification(NotificationBase):
             bcc=extra_data.get('bcc', None),
             headers=extra_data.get('headers', None),
             cc=extra_data.get('cc', None),
-            reply_to=extra_data.get('reply_to', None)
+            reply_to=extra_data.get('reply_to', None),
         )
 
         if html_content:
             mail.attach_alternative(html_content, 'text/html')
+
+        if attachments:
+            for attachment in attachments:
+                # All mimebase attachments must have a Content-ID or Content-Disposition header
+                # or they will show up as unnamed attachments"
+                if isinstance(attachment, MIMEBase):
+                    if attachment.get('Content-ID',False):
+                        # if you are sending attachment with content id,
+                        # subtype must be 'related'.
+                        mail.mixed_subtype = 'related'
+
+                    mail.attach(attachment)
+                else:
+                    mail.attach(*attachment)
 
         mail.send()
 
@@ -272,7 +309,8 @@ class TwilioTextNotification(NotificationBase):
         return from_number
 
     @staticmethod
-    def _send(recipients, text_content=None, html_content=None, sent_from=None, subject=None, extra_data=None):
+    def _send(recipients, text_content=None, html_content=None, sent_from=None, subject=None, extra_data=None,
+              attachments=None):
         try:
             # twilio version 6
             from twilio.rest import Client

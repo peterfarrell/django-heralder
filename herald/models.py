@@ -3,6 +3,7 @@ Models for notifications app.
 """
 
 import json
+import jsonpickle
 import six
 
 from django.db import models
@@ -35,6 +36,7 @@ class SentNotification(models.Model):
     status = models.PositiveSmallIntegerField(choices=STATUSES, default=STATUS_PENDING)
     notification_class = models.CharField(max_length=255)
     error_message = models.CharField(max_length=255, null=True, blank=True)
+    attachments = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.notification_class
@@ -64,3 +66,8 @@ class SentNotification(models.Model):
         else:
             return json.loads(self.extra_data)
 
+    def get_attachments(self):
+        if self.attachments:
+            return jsonpickle.loads(self.attachments)
+        else:
+            return None
