@@ -121,13 +121,13 @@ Each attachment in the list can be one of the following:
 
 1. A tuple which consists of the filename, the raw attachment data, and the mimetype. It is up to you to get the attachment data. Like this:
 
-    raw_data = get_pdf_data()
+        raw_data = get_pdf_data()
 
-    email.attachments = [
-       ('Report.pdf', raw_data, 'application/pdf'),
-       ('report.txt', 'text version of report', 'text/plain')
-    ]
-    email.send()
+        email.attachments = [
+           ('Report.pdf', raw_data, 'application/pdf'),
+           ('report.txt', 'text version of report', 'text/plain')
+        ]
+        email.send()
 
 2. A MIMEBase object. See the documentation for attachments under EmailMessage Objects/attachments in the Django documentation.
 
