@@ -115,7 +115,11 @@ Third, you may want to customize the templates for the email. By default, herald
 
 ## Email Attachments
 
-To send attachments, assign a list of tuples to the attachments attribute of your EmailNotification instance, or override the get_attachments() method. The tuples should consist of the filename, the raw attachment data, and the mimetype.  It is up to you to get the attachment data.  Like this:
+To send attachments, assign a list of attachments to the attachments attribute of your EmailNotification instance, or override the get_attachments() method.
+
+Each attachment in the list can be one of the following:
+
+1. A tuple which consists of the filename, the raw attachment data, and the mimetype. It is up to you to get the attachment data. Like this:
 
     raw_data = get_pdf_data()
 
@@ -125,7 +129,9 @@ To send attachments, assign a list of tuples to the attachments attribute of you
     ]
     email.send()
 
-You can also provide a MIMEBase object instead of a tuple.  See the documentation for attachments under EmailMessage Objects/attachments in the Django documentation.
+2. A MIMEBase object. See the documentation for attachments under EmailMessage Objects/attachments in the Django documentation.
+
+3. A django `File` object.
 
 ### Inline Attachments
 
