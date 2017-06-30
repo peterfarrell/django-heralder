@@ -89,6 +89,7 @@ class NotificationBase(object):
 
             for attachment in attachments:
                 if isinstance(attachment, File):
+                    attachment.seek(0)
                     new_attachments.append((attachment.name, attachment.read(), guess_type(attachment.name)[0]))
                 else:
                     new_attachments.append(attachment)
