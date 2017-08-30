@@ -17,7 +17,7 @@ except ImportError:
     # django <= 1.9
     from django.core.urlresolvers import reverse
 
-from .models import SentNotification
+from .models import SentNotification, Notification
 
 
 @admin.register(SentNotification)
@@ -83,3 +83,13 @@ class SentNotificationAdmin(admin.ModelAdmin):
             self.message_user(request, 'The notification failed to resend.', messages.ERROR)
 
         return self.response_post_save_change(request, obj)
+
+
+@admin.register(Notification)
+class NotificationAdmin(admin.ModelAdmin):
+    """
+    Admin for viewing/managing notifications in the system
+    """
+    list_display = ('notification_class', 'verbose_name', 'can_disable')
+    search_fields = ('notification_class', 'verbose_name')
+

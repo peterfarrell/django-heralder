@@ -3,11 +3,11 @@ from mock import patch
 
 from django.test import TestCase
 
-from herald.models import SentNotification
+from herald.models import SentNotification, Notification
 from tests.notifications import MyNotification
 
 
-class ModelsTests(TestCase):
+class SentNotificationTests(TestCase):
     def test_str(self):
         notification = SentNotification(notification_class='tests.notifications.MyNotification')
         self.assertEqual(six.text_type(notification), 'tests.notifications.MyNotification')
@@ -29,3 +29,9 @@ class ModelsTests(TestCase):
         with patch.object(MyNotification, 'resend') as mocked_resend:
             notification.resend()
             mocked_resend.assert_called_once_with(notification)
+
+
+class NotificationTests(TestCase):
+    def test_str(self):
+        notification = Notification(notification_class='tests.notifications.MyNotification')
+        self.assertEqual(six.text_type(notification), 'tests.notifications.MyNotification')
