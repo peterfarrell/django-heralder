@@ -45,6 +45,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='sentnotification',
             name='status',
-            field=models.PositiveSmallIntegerField(choices=[(0, b'Pending'), (1, b'Success'), (2, b'Failed'), (3, b'User Disabled')], default=0),
+            field=models.PositiveSmallIntegerField(choices=[(0, 'Pending'), (1, 'Success'), (2, 'Failed'), (3, 'User Disabled')], default=0),
         ),
     ]
