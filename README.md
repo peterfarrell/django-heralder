@@ -41,13 +41,13 @@ Django library for separating the message content from transmission method
                return [User.objects.order_by('?')[0]]
 
         registry.register(WelcomeEmail)  # finally, register your notification class
-        
+
         # Alternatively, a class decorator can be used to register the notification:
-        
+
         @registry.register_decorator()
         class WelcomeEmail(EmailNotification):
             ...
-        
+
 
 2. Create templates for rendering the email using this file structure:
 
@@ -95,23 +95,44 @@ Second, use the `HeraldPasswordResetForm` in place of django's built in `Passwor
 
     # you may simply just need to override the password reset url like so:
     url(r'^password_reset/$', password_reset, name='password_reset', {'password_reset_form': HeraldPasswordResetForm}),
-    
+
     # of if you are using something like django-authtools:
     url(r'^password_reset/$', PasswordResetView.as_view(form_class=HeraldPasswordResetForm), name='password_reset'),
-    
+
     # or you may have a customized version of the password reset view:
     class MyPasswordResetView(FormView):
         form_class = HeraldPasswordResetForm  # change the form class here
-        
+
     # or, you may have a custom password reset form already. In that case, you will want to extend from the HeraldPasswordResetForm:
     class MyPasswordResetForm(HeraldPasswordResetForm):
         ...
-        
+
     # alternatively, you could even just send the notification wherever you wish, seperate from the form:
     PasswordResetEmail(some_user).send()
 
 Third, you may want to customize the templates for the email. By default, herald will use the `registration/password_reset_email.html` that is provided by django for both the html and text versions of the email. But you can simply override `herald/html/password_reset.html` and/or `herald/text/password_reset.txt` to suit your needs.
 
+## User Disabled Notifications
+
+If you want to disable certain notifications per user, add a record to the UserNotification table and
+add notifications to the disabled_notifications many to many table.
+
+For example:
+
+        user = User.objects.get(id=user.id)
+
+        notification = Notification.objects.get(notification_class='MyNotification')
+
+        # disable the notification
+        user.usernotification.disabled_notifications.add(notification)
+
+By default, notifications can be disabled.  You can put can_disable = False in your notification class and the system will
+populate the database with this default.  Your Notification class can also override the verbose_name by setting it in your
+inherited Notification class.  Like this:
+
+    class MyNotification(EmailNotification):
+        can_disable = False
+        verbose_name = "My Required Notification"
 
 ## Email Attachments
 
