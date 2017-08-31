@@ -24,18 +24,16 @@ class HeraldConfig(AppConfig):
         try:
             # add any new notifications to database.
             for index, klass in enumerate(registry._registry):
-                if klass.verbose_name:
-                    verbose_name = klass.verbose_name
-                else:
-                    verbose_name = re.sub(
-                        r'((?<=[a-z])[A-Z]|(?<!\A)[A-Z](?=[a-z]))',
-                        r' \1',
-                        klass.__name__
-                    )
+                notification, created = Notification.objects.get_or_create(
+                    notification_class=klass.get_class_path(),
+                    defaults={
+                        'verbose_name': klass.get_verbose_name(),
+                        'can_disable': klass.can_disable,
+                    }
+                )
 
-                notification, created = Notification.objects.get_or_create(notification_class=klass.__name__)
-                if created:
-                    notification.verbose_name = verbose_name
+                if not created:
+                    notification.verbose_name = klass.get_verbose_name()
                     notification.can_disable = klass.can_disable
                     notification.save()
 

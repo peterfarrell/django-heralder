@@ -7,6 +7,7 @@ from email.mime.base import MIMEBase
 from mimetypes import guess_type
 
 import jsonpickle
+import re
 import six
 
 from django.conf import settings
@@ -47,6 +48,21 @@ class NotificationBase(object):
 
         return context
 
+    @classmethod
+    def get_verbose_name(cls):
+        if cls.verbose_name:
+            return cls.verbose_name
+        else:
+            return re.sub(
+                r'((?<=[a-z])[A-Z]|(?<!\A)[A-Z](?=[a-z]))',
+                r' \1',
+                cls.__name__
+            )
+
+    @classmethod
+    def get_class_path(cls):
+        return '{}.{}'.format(cls.__module__, cls.__name__)
+
     def send(self, raise_exception=False, user=None):
         """
         Handles the preparing the notification for sending. Called to trigger the send from code.
@@ -78,7 +94,7 @@ class NotificationBase(object):
             sent_from=sent_from,
             subject=subject,
             extra_data=json.dumps(extra_data) if extra_data else None,
-            notification_class='{}.{}'.format(self.__class__.__module__, self.__class__.__name__),
+            notification_class=self.get_class_path(),
             attachments=self._get_encoded_attachments(),
             user=user,
         )
@@ -181,7 +197,7 @@ class NotificationBase(object):
         # handle skipping a notification based on user preference
         if hasattr(sent_notification.user, 'usernotification'):
             notifications = sent_notification.user.usernotification
-            if notifications.disabled_notifications.filter(notification_class=cls.__name__).exists():
+            if notifications.disabled_notifications.filter(notification_class=cls.get_class_path()).exists():
                 sent_notification.date_sent = timezone.now()
                 sent_notification.status = sent_notification.STATUS_USER_DISABLED
                 sent_notification.save()
