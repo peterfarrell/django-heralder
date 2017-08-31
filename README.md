@@ -121,7 +121,7 @@ For example:
 
         user = User.objects.get(id=user.id)
 
-        notification = Notification.objects.get(notification_class='MyNotification')
+        notification = Notification.objects.get(notification_class=MyNotification.get_class_path())
 
         # disable the notification
         user.usernotification.disabled_notifications.add(notification)
