@@ -1,3 +1,7 @@
+=== 0.1.7 (08-31-2017) ===
+- User disabled notifications support
+
+
 === 0.1.6 (06-30-2017) ===
 - Email attachments support
 
