@@ -8,12 +8,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-    replaces = [
-        (b'herald', '0002_auto_20161017_1201'), (b'herald', '0003_auto_20161021_1448'),
-        (b'herald', '0004_notification_verbose_name'), (b'herald', '0005_merge_20170407_1316'),
-        (b'herald', '0006_auto_20170825_1813')
-    ]
-
     dependencies = [
         ('auth', '__latest__'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
