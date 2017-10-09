@@ -1,7 +1,7 @@
 """
 Notification classes. Used for sending texts and emails
 """
-__version__ = '0.1.8'
+__version__ = '0.1.9'
 
 default_app_config = 'herald.apps.HeraldConfig'
 
