@@ -1,3 +1,7 @@
+=== 0.1.9 (10-09-2017) ===
+- Changed SentNotification.error_message to a TextField to fix issues when message is longer than 255 characters
+
+
 === 0.1.8 (09-05-2017) ===
 - Fix for migration bug introduced in 0.1.7
 
