@@ -13,6 +13,7 @@ def read_file(filename):
     except IOError:
         return ''
 
+
 install_requires = ['django>=1.8', 'six', 'jsonpickle']
 
 dev_requires = ['pytz']
