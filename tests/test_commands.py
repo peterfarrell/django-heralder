@@ -1,8 +1,7 @@
 """
 Testing custom commands
 """
-
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 from django.core.management import call_command
 from django.core.exceptions import ValidationError
@@ -11,13 +10,21 @@ from django.utils import timezone
 from django.utils.six import StringIO
 
 from herald.models import SentNotification
-
+from herald.management.commands.delnotifs import valid_date
 
 MSG = 'Successfully deleted {num} notification(s)'
 NOTIFICATION_CLASS = 'tests.notifications.MyNotification'
 
 
+
+
 class DeleteNotificationNoArgs(TestCase):
+    
+     def test_date_validator(self):
+        self.assertEqual(
+            valid_date('2017-01-01'),
+            datetime(2017,1,1)
+        )
 
     def test_delete_today(self):
         SentNotification(
