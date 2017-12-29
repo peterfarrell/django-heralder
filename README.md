@@ -6,7 +6,15 @@
 
 [![Logo](https://github.com/worthwhile/django-herald/blob/master/logo.png)](https://github.com/worthwhile/django-herald)
 
-Django library for separating the message content from transmission method
+A Django messaging library.
+
+Features:
+
+- Class-based declaration and registry approach, like Django Admin
+- Supports multiple transmission methods (Email, SMS, Slack, etc)
+- Browser-based previewing of messages
+- Maintains a history of messaging sending attempts and can view these messages
+- Disabling notifications per user
 
 # Installation
 
