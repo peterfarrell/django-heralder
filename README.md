@@ -9,7 +9,7 @@
 A Django messaging library that features:
 
 - Class-based declaration and registry approach, like Django Admin
-- Supports multiple transmission methods (Email, SMS, Slack, etc)
+- Supports multiple transmission methods (Email, SMS, Slack, etc) per message
 - Browser-based previewing of messages
 - Maintains a history of messaging sending attempts and can view these messages
 - Disabling notifications per user
