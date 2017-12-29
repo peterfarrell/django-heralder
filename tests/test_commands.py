@@ -19,8 +19,8 @@ NOTIFICATION_CLASS = 'tests.notifications.MyNotification'
 
 
 class DeleteNotificationNoArgs(TestCase):
-    
-     def test_date_validator(self):
+
+    def test_date_validator(self):
         self.assertEqual(
             valid_date('2017-01-01'),
             datetime(2017,1,1)
