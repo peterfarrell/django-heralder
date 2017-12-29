@@ -6,9 +6,7 @@
 
 [![Logo](https://github.com/worthwhile/django-herald/blob/master/logo.png)](https://github.com/worthwhile/django-herald)
 
-A Django messaging library.
-
-Features:
+A Django messaging library that features:
 
 - Class-based declaration and registry approach, like Django Admin
 - Supports multiple transmission methods (Email, SMS, Slack, etc)
