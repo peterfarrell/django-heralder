@@ -2,8 +2,6 @@
 Django app config for herald. Using this to call autodiscover
 """
 
-import re
-
 from django.apps import AppConfig
 from django.db.utils import OperationalError, ProgrammingError
 
@@ -16,10 +14,11 @@ class HeraldConfig(AppConfig):
     name = 'herald'
 
     def ready(self):
-        from .models import Notification
         from herald import registry
 
         self.module.autodiscover()
+
+        Notification = self.get_model('Notification')
 
         try:
             # add any new notifications to database.

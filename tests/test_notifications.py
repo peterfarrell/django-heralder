@@ -1,4 +1,8 @@
+import jsonpickle
 from django.core import mail
+from django.core.files import File
+from django.core.mail import EmailMultiAlternatives
+from django.template import TemplateDoesNotExist
 from django.test import TestCase, override_settings
 from mock import patch
 
@@ -55,6 +59,18 @@ class BaseNotificationTests(TestCase):
             obj = mocked_resend.call_args[0][0]
             self.assertEqual(obj.recipients, 'test@test.com')
 
+    def test_send_no_text(self):
+        class DummyNotification(EmailNotification):
+            render_types = ['html']
+            to_emails = ['test@test.com']
+
+        with patch.object(DummyNotification, 'resend') as mocked_resend:
+            DummyNotification().send()
+            mocked_resend.assert_called_once()
+            obj = mocked_resend.call_args[0][0]
+            self.assertEqual(obj.recipients, 'test@test.com')
+            self.assertIsNone(obj.text_content)
+
     def test_real_send(self):
         MyNotification().send()
         self.assertEqual(len(mail.outbox), 1)
@@ -78,6 +94,15 @@ class BaseNotificationTests(TestCase):
             template_name = 'does_not_exist'
 
         self.assertIsNone(DummyNotification().render('text', {}))
+
+    @override_settings(DEBUG=True)
+    def test_render_invalid_template_debug(self):
+        class DummyNotification(NotificationBase):
+            render_types = ['text']
+            template_name = 'does_not_exist'
+
+        with self.assertRaises(TemplateDoesNotExist):
+            DummyNotification().render('text', {})
 
     def test_render_invalid(self):
         class DummyNotification(NotificationBase):
@@ -107,6 +132,40 @@ class BaseNotificationTests(TestCase):
         with patch.object(NotificationBase, '_send') as mocked__send:
             result = NotificationBase.resend(notification)
             self.assertTrue(result)
+
+    def test_get_verbose_name(self):
+        class TestNotification(EmailNotification):
+            pass
+
+        self.assertEqual(TestNotification.get_verbose_name(), 'Test Notification')
+
+        class TestNotification2(EmailNotification):
+            verbose_name = 'A verbose name'
+
+        self.assertEqual(TestNotification2.get_verbose_name(), 'A verbose name')
+
+    def test_get_encoded_attachments_none(self):
+        class TestNotification(EmailNotification):
+            attachments = []
+
+        self.assertJSONEqual(TestNotification()._get_encoded_attachments(), [])
+
+    def test_get_encoded_attachments_basic(self):
+        class TestNotification(EmailNotification):
+            attachments = [('Report.txt', 'raw_data', 'text/plain')]
+
+        self.assertJSONEqual(
+            TestNotification()._get_encoded_attachments(),
+            [{'py/tuple': ['Report.txt', 'raw_data', 'text/plain']}]
+        )
+
+    def test_get_encoded_attachments_file(self):
+        class TestNotification(EmailNotification):
+            attachments = [File(open('tests/python.jpeg', 'rb'))]
+
+        attachments = jsonpickle.loads(TestNotification()._get_encoded_attachments())
+        self.assertEqual(attachments[0][0], 'tests/python.jpeg')
+        self.assertEqual(attachments[0][2], 'image/jpeg')
 
 
 class EmailNotificationTests(TestCase):
@@ -148,6 +207,18 @@ class EmailNotificationTests(TestCase):
             'headers': {'HEADER': 'test'},
             'reply_to': 'reply_to@test.com',
         })
+
+    def test_send_html_content(self):
+        class TestNotification(EmailNotification):
+            subject = 'test subject'
+
+        with patch.object(EmailMultiAlternatives, 'attach_alternative') as mocked_attach_alternative:
+            TestNotification._send([], text_content='Text')
+            mocked_attach_alternative.assert_not_called()
+
+        with patch.object(EmailMultiAlternatives, 'attach_alternative') as mocked_attach_alternative:
+            TestNotification._send([], html_content='Text')
+            mocked_attach_alternative.assert_called_once_with('Text', 'text/html')
 
 
 class TwilioNotificationTests(TestCase):
@@ -197,3 +268,13 @@ class TwilioNotificationTests(TestCase):
                 to='1231231234',
                 from_='1231231234'
             )
+
+    def test_send_no_settings(self):
+        class TestNotification(TwilioTextNotification):
+            from_number = '1231231234'
+            to_number = '1231231234'
+            template_name = 'hello_world'
+
+        with self.assertRaisesMessage(Exception, 'TWILIO_ACCOUNT_SID and TWILIO_AUTH_TOKEN settings are required for '
+                                                 'sending a TwilioTextNotification'):
+            TestNotification().send(raise_exception=True)

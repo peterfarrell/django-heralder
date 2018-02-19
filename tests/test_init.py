@@ -2,6 +2,7 @@ from django.test import TestCase
 
 from herald import registry
 from herald.base import EmailNotification
+from herald.models import Notification
 
 
 class InitTests(TestCase):
@@ -23,3 +24,16 @@ class InitTests(TestCase):
             pass
 
         self.assertEqual(len(registry._registry), 5)
+
+        registry.unregister(TestNotification)
+
+        self.assertEqual(len(registry._registry), 4)
+
+    def test_register_invalid(self):
+        class TestNotification(object):
+            pass
+
+        with self.assertRaises(ValueError):
+            registry.register(TestNotification)
+
+        self.assertEqual(len(registry._registry), 4)
