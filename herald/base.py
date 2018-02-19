@@ -104,19 +104,16 @@ class NotificationBase(object):
     def _get_encoded_attachments(self):
         attachments = self.get_attachments()
 
-        if attachments:
-            new_attachments = []
+        new_attachments = []
 
-            for attachment in attachments:
-                if isinstance(attachment, File):
-                    attachment.seek(0)
-                    new_attachments.append((attachment.name, attachment.read(), guess_type(attachment.name)[0]))
-                else:
-                    new_attachments.append(attachment)
+        for attachment in attachments or []:
+            if isinstance(attachment, File):
+                attachment.seek(0)
+                new_attachments.append((attachment.name, attachment.read(), guess_type(attachment.name)[0]))
+            else:
+                new_attachments.append(attachment)
 
-            attachments = new_attachments
-
-        return jsonpickle.dumps(attachments)
+        return jsonpickle.dumps(new_attachments)
 
     def get_recipients(self):
         """
@@ -174,6 +171,7 @@ class NotificationBase(object):
             ), context)
         except TemplateDoesNotExist:
             content = None
+
             if settings.DEBUG:
                 raise
 
@@ -298,8 +296,8 @@ class EmailNotification(NotificationBase):
     @staticmethod
     def _send(recipients, text_content=None, html_content=None, sent_from=None, subject=None, extra_data=None,
               attachments=None):
-        if extra_data is None:
-            extra_data = {}
+
+        extra_data = extra_data or {}
 
         mail = EmailMultiAlternatives(
             subject=subject,

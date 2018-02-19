@@ -26,6 +26,7 @@ class MyNotification(EmailNotification):
 
 registry.register(MyNotification)
 
+
 class MyOtherNotification(EmailNotification):
     context = {'hello': 'world'}
     template_name = 'hello_world'
