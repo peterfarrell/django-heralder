@@ -121,10 +121,10 @@ class MyPasswordResetView(FormView):
 # or, you may have a custom password reset form already. In that case, you will want to extend from the HeraldPasswordResetForm:
 class MyPasswordResetForm(HeraldPasswordResetForm):
     ...
-```
 
 # alternatively, you could even just send the notification wherever you wish, seperate from the form:
 PasswordResetEmail(some_user).send()
+```
 
 Third, you may want to customize the templates for the email. By default, herald will use the `registration/password_reset_email.html` that is provided by django for both the html and text versions of the email. But you can simply override `herald/html/password_reset.html` and/or `herald/text/password_reset.txt` to suit your needs.
 
