@@ -9,13 +9,7 @@ from django.contrib import admin, messages
 from django.contrib.admin.options import csrf_protect_m
 from django.contrib.admin.utils import unquote
 from django.utils.safestring import mark_safe
-
-try:
-    # django >= 1.10
-    from django.urls import reverse
-except ImportError:
-    # django <= 1.9
-    from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 from .models import SentNotification, Notification
 

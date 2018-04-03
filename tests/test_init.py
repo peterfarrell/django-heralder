@@ -2,7 +2,6 @@ from django.test import TestCase
 
 from herald import registry
 from herald.base import EmailNotification
-from herald.models import Notification
 
 
 class InitTests(TestCase):
