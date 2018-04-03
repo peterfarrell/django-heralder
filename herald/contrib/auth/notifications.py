@@ -8,16 +8,10 @@ from django.contrib.sites.models import Site
 from django.template import loader
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
+from django.urls import reverse
 
-try:
-    # django >= 1.10
-    from django.urls import reverse
-except ImportError:
-    # django <= 1.9
-    from django.core.urlresolvers import reverse
-
-from herald import registry
-from herald.base import EmailNotification
+from ... import registry
+from ...base import EmailNotification
 
 
 class PasswordResetEmail(EmailNotification):

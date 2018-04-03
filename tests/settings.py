@@ -27,11 +27,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
 ]
 
-if django.VERSION < (1, 10):
-    MIDDLEWARE_CLASSES = MIDDLEWARE + [
-        'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-    ]
-
 SITE_ID = 1
 
 ROOT_URLCONF = 'tests.urls'

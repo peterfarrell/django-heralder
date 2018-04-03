@@ -14,6 +14,26 @@ A Django messaging library that features:
 - Maintains a history of messaging sending attempts and can view these messages
 - Disabling notifications per user
 
+# Python/Django Support
+
+We try to make herald support all versions of django that django supports + all versions in between. 
+
+For python, herald supports all versions of python that the above versions of django support.
+
+So as of herald v0.2 we support django 1.11 and 2.0, and python 2.7, 3.4, 3.5, and 3.6.
+
+## What version of herald do I need if I have django x and python x?
+
+If the django/python version combination has a `---` in the table, it is not guaranteed to be supported.
+
+|                   | py 2.7   | py 3.3   | py 3.4   | py 3.5   | py 3.6   |
+|:-----------------:|:--------:|:--------:|:--------:|:--------:|:--------:|
+| **dj 1.8**        | <0.2     | <0.2     | <0.2     | <0.2     | ---      |
+| **dj 1.9 - 1.10** | <0.2     | ---      | <0.2     | <0.2     | ---      |
+| **dj 1.11**       | \>=0.1.5 | ---      | \>=0.1.5 | \>=0.1.5 | \>=0.1.5 |
+| **dj 2.0**        | ---      | ---      | \>=0.1.5 | \>=0.1.5 | \>=0.1.5 |
+
+
 # Installation
 
 1. `pip install django-herald`

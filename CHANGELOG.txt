@@ -1,3 +1,7 @@
+=== 0.2 (unreleased) ===
+- Drop official support for django < 1.11 and python 3.2-3.3
+
+
 === 0.1.9 (10-09-2017) ===
 - Changed SentNotification.error_message to a TextField to fix issues when message is longer than 255 characters
 
