@@ -82,8 +82,8 @@ class Notification(models.Model):
     """
     NotificationClasses are created on app init.
     """
-    notification_class = models.CharField(max_length=80, unique=True)
-    verbose_name = models.CharField(max_length=100, blank=True, null=True)
+    notification_class = models.CharField(max_length=255, unique=True)
+    verbose_name = models.CharField(max_length=255, blank=True, null=True)
     can_disable = models.BooleanField(default=True)
 
     def __str__(self):
