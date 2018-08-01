@@ -43,6 +43,23 @@ matrix:
     - python: "3.7"
       env: DJANGO='django>=1.11,<1.12'
       
+  include:
+    - python: 2.7
+      dist: trusty
+      sudo: false
+    - python: 3.4
+      dist: trusty
+      sudo: false
+    - python: 3.5
+      dist: trusty
+      sudo: false
+    - python: 3.6
+      dist: trusty
+      sudo: false
+    - python: 3.7
+      dist: xenial
+      sudo: true
+
   allow_failures:
     - env: DJANGO='https://github.com/django/django/archive/master.tar.gz'
   fast_finish: true
