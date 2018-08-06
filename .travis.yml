@@ -4,6 +4,13 @@ sudo: false
 
 cache: pip
 
+python:
+   - "2.7"
+   - "3.4"
+   - "3.5"
+   - "3.6"
+   - "3.7"
+
 env:
   - DJANGO='https://github.com/django/django/archive/master.tar.gz'
   - DJANGO='django>=2.1,<2.2'
