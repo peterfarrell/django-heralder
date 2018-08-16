@@ -1,4 +1,4 @@
-=== 0.2 (unreleased) ===
+=== 0.2 (08-16-2018) ===
 - Drop official support for django < 1.11 and python 3.2-3.3
 - Changed Notification.notification_class and Notification.verbose_name fields to have less restrictive `max_length`
 - Added support for django 2.1
