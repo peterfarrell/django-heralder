@@ -40,11 +40,8 @@ class NotificationBase(object):
 
         context = self.context or {}
 
-        if settings.DEBUG:
-            context['base_url'] = ''
-        else:
-            site = Site.objects.get_current()
-            context['base_url'] = 'http://' + site.domain
+        site = Site.objects.get_current()
+        context['base_url'] = 'http://' + site.domain
 
         return context
 
@@ -114,6 +111,22 @@ class NotificationBase(object):
                 new_attachments.append(attachment)
 
         return jsonpickle.dumps(new_attachments)
+
+    @staticmethod
+    def _delete_expired_notifications():
+        """
+        This deletes any notifications that have passed the retention time setting
+        """
+        retention_time = getattr(settings, 'HERALD_NOTIFICATION_RETENTION_TIME', None)
+
+        if not retention_time:
+            return
+
+        cutoff_date = timezone.now() - retention_time
+
+        notifications = SentNotification.objects.filter(date_sent__lt=cutoff_date)
+        count = notifications.delete()
+        print('Deleted {} expired notifications.'.format(count))
 
     def get_recipients(self):
         """
@@ -223,6 +236,8 @@ class NotificationBase(object):
         sent_notification.date_sent = timezone.now()
         sent_notification.save()
 
+        cls._delete_expired_notifications()
+
         return sent_notification.status == sent_notification.STATUS_SUCCESS
 
     @staticmethod
@@ -260,6 +275,7 @@ class EmailNotification(NotificationBase):
 
     def get_sent_from(self):
         from_email = self.from_email
+
         if not from_email:
             from_email = settings.DEFAULT_FROM_EMAIL
 

@@ -96,8 +96,21 @@ class WelcomeEmail(EmailNotification):
 
 5. View the sent emails in django admin and even be able to resend it.
 
+## Automatically Deleting Old Notifications
 
-## Deleting Old Notifications
+Herald can automatically delete old notifications whenever a new notification is sent.
+
+To enable this, set the `HERALD_NOTIFICATION_RETENTION_TIME` setting to a timedelta instance.
+
+For example:
+
+```
+HERALD_NOTIFICATION_RETENTION_TIME = timedelta(weeks=8)
+```
+
+Will delete all notifications older than 8 weeks every time a new notification is sent.
+
+## Manually Deleting Old Notifications
 
 The `delnotifs` command is useful for purging the notification history.
 
