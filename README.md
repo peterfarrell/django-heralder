@@ -20,18 +20,19 @@ We try to make herald support all versions of django that django supports + all 
 
 For python, herald supports all versions of python that the above versions of django support.
 
-So as of herald v0.2 we support django 1.11 and 2.0, and python 2.7, 3.4, 3.5, and 3.6.
+So as of herald v0.2 we support django 1.11, 2.0, and 2.1, and python 2.7, 3.4, 3.5, 3.6, and 3.7.
 
 ## What version of herald do I need if I have django x and python x?
 
 If the django/python version combination has a `---` in the table, it is not guaranteed to be supported.
 
-|                   | py 2.7   | py 3.3   | py 3.4   | py 3.5   | py 3.6   |
-|:-----------------:|:--------:|:--------:|:--------:|:--------:|:--------:|
-| **dj 1.8**        | <0.2     | <0.2     | <0.2     | <0.2     | ---      |
-| **dj 1.9 - 1.10** | <0.2     | ---      | <0.2     | <0.2     | ---      |
-| **dj 1.11**       | \>=0.1.5 | ---      | \>=0.1.5 | \>=0.1.5 | \>=0.1.5 |
-| **dj 2.0**        | ---      | ---      | \>=0.1.5 | \>=0.1.5 | \>=0.1.5 |
+|                   | py 2.7   | py 3.3   | py 3.4   | py 3.5   | py 3.6   | py 3.7   |
+|:-----------------:|:--------:|:--------:|:--------:|:--------:|:--------:|:--------:|
+| **dj 1.8**        | <0.2     | <0.2     | <0.2     | <0.2     | ---      | ---      |
+| **dj 1.9 - 1.10** | <0.2     | ---      | <0.2     | <0.2     | ---      | ---      |
+| **dj 1.11**       | \>=0.1.5 | ---      | \>=0.1.5 | \>=0.1.5 | \>=0.1.5 | ---      |
+| **dj 2.0**        | ---      | ---      | \>=0.1.5 | \>=0.1.5 | \>=0.1.5 | \>=0.2   |
+| **dj 2.1**        | ---      | ---      | ---      | \>=0.2   | \>=0.2   | \>=0.2   |
 
 
 # Installation
@@ -96,8 +97,21 @@ class WelcomeEmail(EmailNotification):
 
 5. View the sent emails in django admin and even be able to resend it.
 
+## Automatically Deleting Old Notifications
 
-## Deleting Old Notifications
+Herald can automatically delete old notifications whenever a new notification is sent.
+
+To enable this, set the `HERALD_NOTIFICATION_RETENTION_TIME` setting to a timedelta instance.
+
+For example:
+
+```
+HERALD_NOTIFICATION_RETENTION_TIME = timedelta(weeks=8)
+```
+
+Will delete all notifications older than 8 weeks every time a new notification is sent.
+
+## Manually Deleting Old Notifications
 
 The `delnotifs` command is useful for purging the notification history.
 

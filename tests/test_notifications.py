@@ -1,9 +1,12 @@
+from datetime import timedelta
+
 import jsonpickle
 from django.core import mail
 from django.core.files import File
 from django.core.mail import EmailMultiAlternatives
 from django.template import TemplateDoesNotExist
 from django.test import TestCase, override_settings
+from django.utils import timezone
 from mock import patch
 
 try:
@@ -20,12 +23,6 @@ from .notifications import MyNotification
 
 class BaseNotificationTests(TestCase):
     def test_get_context_data(self):
-        with override_settings(DEBUG=True):
-            self.assertDictEqual(
-                MyNotification().get_context_data(),
-                {'hello': 'world', 'base_url': '', 'subject': None}
-            )
-
         self.assertDictEqual(
             MyNotification().get_context_data(),
             {'hello': 'world', 'base_url': 'http://example.com', 'subject': None}
@@ -166,6 +163,41 @@ class BaseNotificationTests(TestCase):
         attachments = jsonpickle.loads(TestNotification()._get_encoded_attachments())
         self.assertEqual(attachments[0][0], 'tests/python.jpeg')
         self.assertEqual(attachments[0][2], 'image/jpeg')
+
+    def test_delete_notifications_no_setting(self):
+        # create a test notification from a long time ago
+        SentNotification.objects.create(
+            recipients='test@test.com', date_sent=timezone.now() - timedelta(weeks=52),
+            notification_class='MyNotification'
+        )
+        # create a test notification from recently
+        SentNotification.objects.create(
+            recipients='test@test.com', date_sent=timezone.now() - timedelta(weeks=10),
+            notification_class='MyNotification'
+        )
+        MyNotification().send()
+        # all three were not deleted because we didn't have a setting
+        self.assertEquals(SentNotification.objects.count(), 3)
+
+    @override_settings(HERALD_NOTIFICATION_RETENTION_TIME=timedelta(weeks=26))
+    def test_delete_notifications(self):
+        # create a test notification from a long time ago
+        n1 = SentNotification.objects.create(
+            recipients='test@test.com', date_sent=timezone.now() - timedelta(weeks=52),
+            notification_class='MyNotification'
+        )
+        # create a test notification from recently
+        n2 = SentNotification.objects.create(
+            recipients='test@test.com', date_sent=timezone.now() - timedelta(weeks=10),
+            notification_class='MyNotification'
+        )
+        MyNotification().send()
+
+        # the one from a year ago was deleted, but not the one from 10 weeks ago.
+        self.assertEquals(SentNotification.objects.count(), 2)
+        ids = SentNotification.objects.values_list('id', flat=True)
+        self.assertTrue(n2.id in ids)
+        self.assertFalse(n1.id in ids)
 
 
 class EmailNotificationTests(TestCase):
