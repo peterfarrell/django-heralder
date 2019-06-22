@@ -105,8 +105,10 @@ class NotificationBase(object):
 
         for attachment in attachments or []:
             if isinstance(attachment, File):
-                attachment.seek(0)
+                # cannot do with attachment.open() since django 1.11 doesn't support that
+                attachment.open()
                 new_attachments.append((attachment.name, attachment.read(), guess_type(attachment.name)[0]))
+                attachment.close()
             else:
                 new_attachments.append(attachment)
 

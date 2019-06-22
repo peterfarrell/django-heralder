@@ -11,8 +11,10 @@ class ViewsTests(TestCase):
         client = Client()
         response = client.get('/herald/0/text/')
         self.assertContains(response, 'Hello World')
+        self.assertEqual(response['content-type'], 'text/plain; charset=utf-8')
 
     def test_preview_html(self):
         client = Client()
         response = client.get('/herald/0/html/')
         self.assertContains(response, '<html><body>Hello World</body></html>')
+        self.assertEqual(response['content-type'], 'text/html; charset=utf-8')

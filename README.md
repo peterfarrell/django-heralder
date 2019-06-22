@@ -97,6 +97,25 @@ class WelcomeEmail(EmailNotification):
 
 5. View the sent emails in django admin and even be able to resend it.
 
+## Email options
+
+The following options can be set on the email notification class. For Example:
+
+```
+class WelcomeEmail(EmailNotification):
+    cc = ['test@example.com']
+```
+
+- `from_email`: (`str`, default: `settings.DEFAULT_FROM_EMAIL`) email address of sender
+- `subject`: (`str`, default: ) email subject
+- `to_emails`: (`List[str]`, default: `None`) list of email strings to send to
+- `bcc`: (`List[str]`, default: `None`) list of email strings to send as bcc
+- `cc`: (`List[str]`, default: `None`) list of email strings to send as cc
+- `headers`: (`dict`, default: `None`) extra headers to be passed along to the `EmailMultiAlternatives` object
+- `reply_to`: (`List[str]`, default: `None`) list of email strings to send as the Reply-To emails
+- `attachments`: (`list`) list of attachments. See "Email Attachments" below for more info
+    
+    
 ## Automatically Deleting Old Notifications
 
 Herald can automatically delete old notifications whenever a new notification is sent.
