@@ -1,7 +1,9 @@
-=== 0.2.1 (unreleased) ===
+=== 0.2.1 (06-22-2019) ===
 - Fix bug that could occur sometimes in herald.contrib.auth when reversing the password reset url
 - Add feature to automatically delete old notifications after configured period of time
 - Don't set base_url to empty string when DEBUG==True
+- Fix for attaching files to a notification that may be closed before the notification is sent
+- Text view for viewing notification now uses the text/plain content type, and the default charset setting
 
 
 === 0.2 (08-16-2018) ===

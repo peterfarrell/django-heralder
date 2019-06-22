@@ -18,7 +18,7 @@ except ImportError:
 
 from herald.base import NotificationBase, EmailNotification, TwilioTextNotification
 from herald.models import SentNotification
-from .notifications import MyNotification
+from .notifications import MyNotification, MyNotificationAttachmentOpen
 
 
 class BaseNotificationTests(TestCase):
@@ -76,7 +76,13 @@ class BaseNotificationTests(TestCase):
     def test_real_send_attachments(self):
         MyNotification().send()
         self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].attachments[0][1],'Some Report Data')
+        self.assertEqual(mail.outbox[0].attachments[0][1], 'Some Report Data')
+
+    def test_real_send_attachments_open(self):
+        MyNotificationAttachmentOpen().send()
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].attachments[0][0], 'tests/python.jpeg')
+        self.assertEqual(mail.outbox[0].attachments[1][0], 'tests/python.jpeg')
 
     def test_render_no_type(self):
         class DummyNotification(NotificationBase):

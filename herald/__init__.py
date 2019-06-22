@@ -1,7 +1,7 @@
 """
 Notification classes. Used for sending texts and emails
 """
-__version__ = '0.2.1b2'
+__version__ = '0.2.1'
 
 default_app_config = 'herald.apps.HeraldConfig'
 
@@ -22,9 +22,11 @@ class NotificationRegistry(object):
         from .base import NotificationBase
 
         if not issubclass(kls, NotificationBase):
-                raise ValueError('Notification must subclass NotificationBase.')
+            raise ValueError('Notification must subclass NotificationBase.')
 
         self._registry.append(kls)
+
+        return kls
 
     def unregister(self, kls):
         """
@@ -35,15 +37,12 @@ class NotificationRegistry(object):
 
     def register_decorator(self):
         """
-        Registers the given notification with Django Herold
-
+        Registers the given notification with Django Herald
         """
 
         def _notification_wrapper(kls):
+            return self.register(kls)
 
-            self.register(kls)
-
-            return kls
         return _notification_wrapper
 
 
