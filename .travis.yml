@@ -30,24 +30,6 @@ notifications:
   email: false
 
 matrix:
-  include:
-    - python: 3.7
-      dist: xenial
-      sudo: true
-      env: DJANGO='django>=2.2,<3.0'
-    - python: 3.7
-      dist: xenial
-      sudo: true
-      env: DJANGO='django>=2.1,<2.2'
-    - python: 3.7
-      dist: xenial
-      sudo: true
-      env: DJANGO='django>=2.0,<2.1'
-    - python: 3.7
-      dist: xenial
-      sudo: true
-      env: DJANGO='https://github.com/django/django/archive/master.tar.gz'
-
   exclude:
     - python: "2.7"
       env: DJANGO='https://github.com/django/django/archive/master.tar.gz'
