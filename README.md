@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.org/worthwhile/django-herald.svg?branch=master)](https://travis-ci.org/worthwhile/django-herald)
 [![Coverage Status](https://coveralls.io/repos/github/worthwhile/django-herald/badge.svg?branch=master)](https://coveralls.io/github/worthwhile/django-herald?branch=master)
 
-[![Logo](https://github.com/worthwhile/django-herald/blob/master/logo.png)](https://github.com/worthwhile/django-herald)
+[![Logo](https://github.com/worthwhile/django-herald/raw/master/logo.png)](https://github.com/worthwhile/django-herald)
 
 A Django messaging library that features:
 
@@ -42,12 +42,12 @@ If the django/python version combination has a `---` in the table, it is not gua
 2. Add `herald` and `django.contrib.sites` to `INSTALLED_APPS`.
 3. Add herald's URLS:
 
-```python
-if settings.DEBUG:
-    urlpatterns = [
-        url(r'^herald/', include('herald.urls')),
-    ] + urlpatterns
-```
+    ```python
+    if settings.DEBUG:
+        urlpatterns = [
+            url(r'^herald/', include('herald.urls')),
+        ] + urlpatterns
+    ```
 
 # Usage
 

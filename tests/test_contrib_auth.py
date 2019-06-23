@@ -13,8 +13,8 @@ class ContribAuthTests(TestCase):
         form.is_valid()
         form.save()
         self.assertEqual(len(mail.outbox), 1)
-        self.assertEquals(mail.outbox[0].to, ['test@example.com'])
-        
+        self.assertEqual(mail.outbox[0].to, ['test@example.com'])
+
     def test_save_form_domain_override(self):
         User = get_user_model()
         User.objects.create_user(username='test@example.com', email='test@example.com', password='password')
@@ -22,4 +22,4 @@ class ContribAuthTests(TestCase):
         form.is_valid()
         form.save(domain_override='foo')
         self.assertEqual(len(mail.outbox), 1)
-        self.assertEquals(mail.outbox[0].to, ['test@example.com'])
+        self.assertEqual(mail.outbox[0].to, ['test@example.com'])

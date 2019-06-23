@@ -71,7 +71,7 @@ class BaseNotificationTests(TestCase):
     def test_real_send(self):
         MyNotification().send()
         self.assertEqual(len(mail.outbox), 1)
-        self.assertEquals(mail.outbox[0].to, ['test@test.com'])
+        self.assertEqual(mail.outbox[0].to, ['test@test.com'])
 
     def test_real_send_attachments(self):
         MyNotification().send()
@@ -183,7 +183,7 @@ class BaseNotificationTests(TestCase):
         )
         MyNotification().send()
         # all three were not deleted because we didn't have a setting
-        self.assertEquals(SentNotification.objects.count(), 3)
+        self.assertEqual(SentNotification.objects.count(), 3)
 
     @override_settings(HERALD_NOTIFICATION_RETENTION_TIME=timedelta(weeks=26))
     def test_delete_notifications(self):
@@ -200,7 +200,7 @@ class BaseNotificationTests(TestCase):
         MyNotification().send()
 
         # the one from a year ago was deleted, but not the one from 10 weeks ago.
-        self.assertEquals(SentNotification.objects.count(), 2)
+        self.assertEqual(SentNotification.objects.count(), 2)
         ids = SentNotification.objects.values_list('id', flat=True)
         self.assertTrue(n2.id in ids)
         self.assertFalse(n1.id in ids)

@@ -7,15 +7,14 @@ from django.core.management import call_command
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.utils import timezone
-from django.utils.six import StringIO
+
+from six import StringIO
 
 from herald.models import SentNotification
 from herald.management.commands.delnotifs import valid_date
 
 MSG = 'Successfully deleted {num} notification(s)'
 NOTIFICATION_CLASS = 'tests.notifications.MyNotification'
-
-
 
 
 class DeleteNotificationNoArgs(TestCase):
