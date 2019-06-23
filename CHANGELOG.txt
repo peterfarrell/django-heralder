@@ -1,4 +1,4 @@
-=== 0.2.1 (06-22-2019) ===
+=== 0.2.1 (06-23-2019) ===
 - Fix bug that could occur sometimes in herald.contrib.auth when reversing the password reset url
 - Add feature to automatically delete old notifications after configured period of time
 - Don't set base_url to empty string when DEBUG==True

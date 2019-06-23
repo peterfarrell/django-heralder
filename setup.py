@@ -34,6 +34,7 @@ setup(
     download_url='https://github.com/worthwhile/django-herald/tarball/'+VERSION,
     description="Django library for separating the message content from transmission method",
     long_description=read_file('README.md'),
+    long_description_content_type="text/markdown",
     keywords=['django', 'notifications', 'messaging'],
     classifiers=[
         'Framework :: Django',
