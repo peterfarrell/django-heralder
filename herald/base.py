@@ -150,7 +150,7 @@ class NotificationBase(object):
         Returns a "sent from" string. However the subclass defines that. (email, phone number, etc)
         """
 
-        raise NotImplementedError('Must implement get_recipients.')
+        raise NotImplementedError('Must implement get_sent_from.')
 
     def get_subject(self):
         """
