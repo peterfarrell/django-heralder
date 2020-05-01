@@ -271,6 +271,22 @@ And in your template you would refer to it like this, and you would not need to 
     <img src="cid:python.jpeg" />
 ```
 
+### Twilio
+
+You can retrieve these values on [Twilio Console](https://twilio.com/console). Once you have retrieve the necessary ids, you can place those to your `settings.py`.
+
+For reference, Twilio has some great tutorials for python.
+[Twilio Python Tutorial](https://www.twilio.com/docs/sms/quickstart/python)
+
+```
+# Twilio configurations
+# values taken from `twilio console`
+TWILIO_ACCOUNT_SID = "ACe0bfc543af2cf98996beac0175b86c12"
+TWILIO_AUTH_TOKEN = "your_auth_token"
+TWILIO_DEFAULT_FROM_NUMBER = "+1234567890"
+
+```
+
 ### Other MIME attachments
 
 You can also attach any MIMEBase objects as regular attachments, but you must add a content-disposition header, or they will be inaccessible:  
