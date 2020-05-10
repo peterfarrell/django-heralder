@@ -7,7 +7,13 @@ from django.core.mail import EmailMultiAlternatives
 from django.template import TemplateDoesNotExist
 from django.test import TestCase, override_settings
 from django.utils import timezone
+from herald.base import (EmailNotification, NotificationBase,
+                         TwilioTextNotification)
+from herald.models import SentNotification
+
 from mock import patch
+
+from .notifications import MyNotification, MyNotificationAttachmentOpen
 
 try:
     # twilio version 6
@@ -16,9 +22,6 @@ except ImportError:
     # twillio version < 6
     from twilio.rest.resources import Messages as MessageList
 
-from herald.base import NotificationBase, EmailNotification, TwilioTextNotification
-from herald.models import SentNotification
-from .notifications import MyNotification, MyNotificationAttachmentOpen
 
 
 class BaseNotificationTests(TestCase):
@@ -306,6 +309,29 @@ class TwilioNotificationTests(TestCase):
                 to='1231231234',
                 from_='1231231234'
             )
+
+    @override_settings(
+        TWILIO_ACCOUNT_SID='sid',
+        TWILIO_AUTH_TOKEN='token'
+    )
+    def test_sending_to_multiple_numbers(self):
+        class TestNotification(TwilioTextNotification):
+            from_number = '1231231234'
+            template_name = 'hello_world'
+
+            def get_recipients(self):
+                return ['1234567890', '0987654321']
+
+        with patch.object(MessageList, 'create') as mocked_create:
+            notification = TestNotification()
+            notification.send()
+            self.assertEqual(mocked_create.call_count, 2)
+            for recipient in notification.get_recipients():
+                mocked_create.assert_any_call(
+                    body='Hello World',
+                    to=recipient,
+                    from_=notification.get_sent_from()
+                )
 
     def test_send_no_settings(self):
         class TestNotification(TwilioTextNotification):

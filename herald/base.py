@@ -383,20 +383,19 @@ class TwilioTextNotification(NotificationBase):
                 # twillio version < 6
                 from twilio.rest import TwilioRestClient as Client
             except ImportError:
-                raise Exception('Twilio is required for sending a TwilioTextNotification.')
+                raise Exception(
+                    "Twilio is required for sending a TwilioTextNotification."
+                )
 
         try:
             account_sid = settings.TWILIO_ACCOUNT_SID
             auth_token = settings.TWILIO_AUTH_TOKEN
         except AttributeError:
             raise Exception(
-                'TWILIO_ACCOUNT_SID and TWILIO_AUTH_TOKEN settings are required for sending a TwilioTextNotification'
+                "TWILIO_ACCOUNT_SID and TWILIO_AUTH_TOKEN settings are required for sending a TwilioTextNotification"
             )
 
         client = Client(account_sid, auth_token)
 
-        client.messages.create(
-            body=text_content,
-            to=recipients[0],
-            from_=sent_from
-        )
+        for recipient in recipients:
+            client.messages.create(body=text_content, to=recipient, from_=sent_from)
