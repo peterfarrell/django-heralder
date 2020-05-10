@@ -281,7 +281,7 @@ For reference, Twilio has some great tutorials for python.
 ```
 # Twilio configurations
 # values taken from `twilio console`
-TWILIO_ACCOUNT_SID = "ACe0bfc543af2cf98996beac0175b86c12"
+TWILIO_ACCOUNT_SID = "your_account_sid"
 TWILIO_AUTH_TOKEN = "your_auth_token"
 TWILIO_DEFAULT_FROM_NUMBER = "+1234567890"
 
