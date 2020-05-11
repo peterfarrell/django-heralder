@@ -273,6 +273,11 @@ And in your template you would refer to it like this, and you would not need to 
 
 ### Twilio
 
+```
+# Install twilio
+pip install django-herald[twilio]
+```
+
 You can retrieve these values on [Twilio Console](https://twilio.com/console). Once you have retrieve the necessary ids, you can place those to your `settings.py`.
 
 For reference, Twilio has some great tutorials for python.
