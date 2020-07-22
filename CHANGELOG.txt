@@ -1,3 +1,6 @@
+=== TBD (TBD) ===
+- Added auto-complete for user in admin
+
 === 0.2.1 (06-23-2019) ===
 - Fix bug that could occur sometimes in herald.contrib.auth when reversing the password reset url
 - Add feature to automatically delete old notifications after configured period of time
