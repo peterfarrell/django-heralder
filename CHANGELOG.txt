@@ -1,3 +1,7 @@
+=== TBD (TBD) ===
+- Added support for automatic HTML2text support for plain text emails
+
+
 === 0.2.1 (06-23-2019) ===
 - Fix bug that could occur sometimes in herald.contrib.auth when reversing the password reset url
 - Add feature to automatically delete old notifications after configured period of time

@@ -26,6 +26,9 @@ dev_requires = [
 twilio_requires = [
     'twilio',
 ]
+html2text_requires = [
+    'html2text',
+]
 
 setup(
     name='django-herald',
@@ -36,6 +39,7 @@ setup(
     extras_require={
         'dev': install_requires + dev_requires,
         'twilio': twilio_requires,
+        'html2text': html2text_requires,
     },
     packages=find_packages(include=('herald', 'herald.*')),
     include_package_data=True,  # declarations in MANIFEST.in

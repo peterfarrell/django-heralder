@@ -271,6 +271,32 @@ And in your template you would refer to it like this, and you would not need to 
     <img src="cid:python.jpeg" />
 ```
 
+### HTML2Text Support
+
+Django Herald can auto convert your HTML emails to plain text.  Any email without a plain text version
+will be auto converted if you enable this feature.
+
+```
+# Install html2text
+pip install django-herald[html2text]
+```
+
+In your settings.py file:
+
+```
+HERALD_HTML2TEXT_ENABLED = True
+```
+
+You can customize the output of HTML2Text by setting a configuration dictionary. See 
+[HTML2Text Configuration](https://github.com/Alir3z4/html2text/blob/master/docs/usage.md) for options
+
+```
+HERALD_HTML2TEXT_CONFIG = {
+    # Key / value configuration of html2text 
+    'ignore_images': True  # Ignores images in conversion
+}
+```
+
 ### Twilio
 
 ```

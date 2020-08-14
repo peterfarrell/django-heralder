@@ -249,6 +249,19 @@ class EmailNotificationTests(TestCase):
             'reply_to': 'reply_to@test.com',
         })
 
+    @override_settings(HERALD_HTML2TEXT_ENABLED=True)
+    def test_render_html2text(self):
+        class TestNotificationHTML2Text(EmailNotification):
+            template_name = 'hello_world_html2text'
+
+        output = TestNotificationHTML2Text().render(render_type='text', context={})
+        self.assertEqual(output, '# Hello World\n\n')
+
+        # Also test with DEBUG on so TemplateDoesNotExist is thrown
+        with override_settings(DEBUG=True):
+            output = TestNotificationHTML2Text().render(render_type='text', context={})
+            self.assertEqual(output, '# Hello World\n\n')
+
     def test_send_html_content(self):
         class TestNotification(EmailNotification):
             subject = 'test subject'
