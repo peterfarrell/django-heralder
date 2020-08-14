@@ -25,6 +25,7 @@ class SentNotificationAdmin(admin.ModelAdmin):
     date_hierarchy = 'date_sent'
     readonly_fields = ('resend', )
     search_fields = ('recipients', 'subject', 'text_content', 'html_content', 'sent_from')
+    autocomplete_fields = ('user', )
 
     def resend(self, obj):
         """
