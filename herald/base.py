@@ -314,16 +314,16 @@ class EmailNotification(NotificationBase):
     def render(self, render_type, context):
         if render_type == 'text' and getattr(settings, 'HERALD_HTML2TEXT_ENABLED', False):
             try:
-                content = super().render('text', context)
+                content = super(EmailNotification, self).render('text', context)
 
             # Render plain text version from HTML
             except TemplateDoesNotExist:
                 content = None
 
             if content is None:
-                content = self.get_html2text_converter().handle(super().render('html', context))
+                content = self.get_html2text_converter().handle(super(EmailNotification, self).render('html', context))
         else:
-            content = super().render(render_type, context)
+            content = super(EmailNotification, self).render(render_type, context)
 
         return content
 
