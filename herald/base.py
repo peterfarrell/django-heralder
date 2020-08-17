@@ -311,6 +311,39 @@ class EmailNotification(NotificationBase):
         """
         return self.attachments
 
+    def render(self, render_type, context):
+        if render_type == 'text' and getattr(settings, 'HERALD_HTML2TEXT_ENABLED', False):
+            try:
+                content = super(EmailNotification, self).render('text', context)
+
+            # Render plain text version from HTML
+            except TemplateDoesNotExist:
+                content = None
+
+            if content is None:
+                content = self.get_html2text_converter().handle(super(EmailNotification, self).render('html', context))
+        else:
+            content = super(EmailNotification, self).render(render_type, context)
+
+        return content
+
+    @staticmethod
+    def get_html2text_converter():
+        try:
+            import html2text
+        except ImportError:
+            raise Exception(
+                "HTML2Text is required for sending an EmailNotification with auto HTML to text conversion."
+            )
+
+        h = html2text.HTML2Text()
+
+        if hasattr(settings, 'HERALD_HTML2TEXT_CONFIG'):
+            for k, v in settings.HERALD_HTML2TEXT_CONFIG.items():
+                setattr(h, k, v)
+
+        return h
+
     @staticmethod
     def _send(recipients, text_content=None, html_content=None, sent_from=None, subject=None, extra_data=None,
               attachments=None):

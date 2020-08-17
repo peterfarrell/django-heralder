@@ -1,4 +1,5 @@
 === TBD (TBD) ===
+- Added support for automatic HTML2text support for plain text emails
 - Added auto-complete for user in admin
 
 === 0.2.1 (06-23-2019) ===
