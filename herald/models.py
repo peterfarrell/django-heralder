@@ -58,7 +58,7 @@ class SentNotification(models.Model):
         """
 
         notification_class = import_string(self.notification_class)
-        notification_class.resend(self)
+        return notification_class.resend(self)
 
     def get_extra_data(self):
         """
