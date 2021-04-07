@@ -142,6 +142,9 @@ python manage.py delnotifs
 ```
 
 However, you can also pass arguments for `start` or `end` dates. `end` is up to, but not including that date.
+- if only `end` is specified, delete anything sent before the end date.
+- if only `start` is specified, delete anything sent since the start date.
+- if both `start` and `end` are specified, delete anything sent in between, not including the end date.
 
 ```bash
 python manage.py delnotifs --start='2016-01-01' --end='2016-01-10'
