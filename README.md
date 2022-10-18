@@ -20,7 +20,7 @@ We try to make herald support all versions of django that django supports + all 
 
 For python, herald supports all versions of python that the above versions of django support.
 
-So as of herald v0.2 we support django 1.11, 2.0, 2.1, and 2.2, and python 2.7, 3.4, 3.5, 3.6, and 3.7.
+So as of herald v0.3 we support django 1.11, 2.0, 2.1, and 2.2, and python 2.7, 3.4, 3.5, 3.6, and 3.7.
 
 ## What version of herald do I need if I have django x and python x?
 
