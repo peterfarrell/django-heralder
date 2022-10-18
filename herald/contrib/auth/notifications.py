@@ -6,7 +6,12 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.models import Site
 from django.template import loader
-from django.utils.encoding import force_bytes, force_text
+from django.utils.encoding import force_bytes
+try:
+    from django.utils.encoding import force_str as force_text
+except ImportError:
+    from django.utils.encoding import force_text
+
 from django.utils.http import urlsafe_base64_encode
 from django.urls import reverse
 
