@@ -59,6 +59,7 @@ class BaseNotificationTests(TestCase):
             obj = mocked_resend.call_args[0][0]
             self.assertEqual(obj.recipients, 'test@test.com')
 
+    @override_settings(HERALD_RAISE_MISSING_TEMPLATES=False)
     def test_send_no_text(self):
         class DummyNotification(EmailNotification):
             render_types = ['html']
@@ -94,6 +95,7 @@ class BaseNotificationTests(TestCase):
         with self.assertRaises(AssertionError):
             DummyNotification().render('text', {})
 
+    @override_settings(HERALD_RAISE_MISSING_TEMPLATES=False)
     def test_render_invalid_template(self):
         class DummyNotification(NotificationBase):
             render_types = ['text']
