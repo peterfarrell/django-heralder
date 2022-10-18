@@ -20,21 +20,7 @@ We try to make herald support all versions of django that django supports + all 
 
 For python, herald supports all versions of python that the above versions of django support.
 
-So as of herald v0.3 we support django 1.11, 2.0, 2.1, and 2.2, and python 2.7, 3.4, 3.5, 3.6, and 3.7.
-
-## What version of herald do I need if I have django x and python x?
-
-If the django/python version combination has a `---` in the table, it is not guaranteed to be supported.
-
-|                   | py 2.7   | py 3.3   | py 3.4   | py 3.5   | py 3.6   | py 3.7   |
-|:-----------------:|:--------:|:--------:|:--------:|:--------:|:--------:|:--------:|
-| **dj 1.8**        | <0.2     | <0.2     | <0.2     | <0.2     | ---      | ---      |
-| **dj 1.9 - 1.10** | <0.2     | ---      | <0.2     | <0.2     | ---      | ---      |
-| **dj 1.11**       | \>=0.1.5 | ---      | \>=0.1.5 | \>=0.1.5 | \>=0.1.5 | ---      |
-| **dj 2.0**        | ---      | ---      | \>=0.1.5 | \>=0.1.5 | \>=0.1.5 | \>=0.2   |
-| **dj 2.1**        | ---      | ---      | ---      | \>=0.2   | \>=0.2   | \>=0.2   |
-| **dj 2.2**        | ---      | ---      | ---      | \>=0.2   | \>=0.2   | \>=0.2   |
-
+So as of herald v0.3 we support django 3.2 and 4.x+, and python 3.5, 3.6, 3.7, 3.8, and 3.9.
 
 # Installation
 
@@ -42,12 +28,17 @@ If the django/python version combination has a `---` in the table, it is not gua
 2. Add `herald` and `django.contrib.sites` to `INSTALLED_APPS`.
 3. Add herald's URLS:
 
-    ```python
-    if settings.DEBUG:
-        urlpatterns = [
-            url(r'^herald/', include('herald.urls')),
-        ] + urlpatterns
-    ```
+```python
+from django.conf import settings
+from django.conf.urls import url, include
+
+urlpatterns = []
+
+if settings.DEBUG:
+    urlpatterns = [
+        url(r'^herald/', include('herald.urls')),
+   ] + urlpatterns
+```
 
 # Usage
 
