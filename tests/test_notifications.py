@@ -7,16 +7,14 @@ from django.core.mail import EmailMultiAlternatives
 from django.template import TemplateDoesNotExist
 from django.test import TestCase, override_settings
 from django.utils import timezone
-from herald.base import EmailNotification, NotificationBase, TwilioTextNotification
-from herald.models import SentNotification
-
 from mock import patch
 
-from .notifications import (
-    MyNotification,
-    MyNotificationAttachmentOpen,
-    MyBccOnlyNotification,
-)
+from herald.base import (EmailNotification, NotificationBase,
+                         TwilioTextNotification)
+from herald.models import SentNotification
+
+from .notifications import (MyBccOnlyNotification, MyNotification,
+                            MyNotificationAttachmentOpen)
 
 try:
     # twilio version 6

@@ -8,13 +8,14 @@ try:
     from django.urls import re_path as url
 except ImportError:
     from django.conf.urls import url
+
 from django.contrib import admin, messages
 from django.contrib.admin.options import csrf_protect_m
 from django.contrib.admin.utils import unquote
-from django.utils.safestring import mark_safe
 from django.urls import reverse
+from django.utils.safestring import mark_safe
 
-from .models import SentNotification, Notification
+from .models import Notification, SentNotification
 
 
 @admin.register(SentNotification)
@@ -32,7 +33,7 @@ class SentNotificationAdmin(admin.ModelAdmin):
     )
     list_filter = ("status", "notification_class")
     date_hierarchy = "date_sent"
-    readonly_fields = ("resend", "preview")
+    readonly_fields = ("resend",)
     search_fields = (
         "recipients",
         "subject",
@@ -55,13 +56,6 @@ class SentNotificationAdmin(admin.ModelAdmin):
         )
 
         return mark_safe('<a href="{}">Resend</a>'.format(resend_url))
-    
-    def preview(self, obj):
-        """
-        Creates a link field that allow user to preview the email with the forms' data before sending it
-        """
-
-        
 
     def get_urls(self):
         urls = super(SentNotificationAdmin, self).get_urls()

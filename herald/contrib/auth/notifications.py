@@ -13,8 +13,8 @@ try:
 except ImportError:
     from django.utils.encoding import force_text
 
-from django.utils.http import urlsafe_base64_encode
 from django.urls import reverse
+from django.utils.http import urlsafe_base64_encode
 
 from ... import registry
 from ...base import EmailNotification

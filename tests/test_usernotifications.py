@@ -1,7 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
-from herald.models import SentNotification, UserNotification, Notification
+from herald.models import Notification, SentNotification, UserNotification
+
 from .notifications import MyNotification, MyOtherNotification
 
 
