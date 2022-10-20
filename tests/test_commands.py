@@ -8,7 +8,7 @@ from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.utils import timezone
 
-from six import StringIO
+from io import StringIO
 
 from herald.models import SentNotification
 from herald.management.commands.delnotifs import valid_date
