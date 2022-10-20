@@ -1,11 +1,11 @@
-# django-herald
+# django-heralder
 
-[![Latest PyPI version](https://badge.fury.io/py/django-herald.svg)](https://pypi.python.org/pypi/django-herald)
-[![Tests](https://github.com/worthwhile/django-herald/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/worthwhile/django-herald/actions/workflows/ci.yml)
-[![Black](https://github.com/worthwhile/django-herald/actions/workflows/black.yml/badge.svg)](https://github.com/worthwhile/django-herald/actions/workflows/black.yml)
-[![Coverage Status](https://codecov.io/gh/worthwhile/django-herald/coverage.svg?branch=master)](https://app.codecov.io/gh/worthwhile/django-herald)
+[![Latest PyPI version](https://badge.fury.io/py/django-heralder.svg)](https://pypi.python.org/pypi/django-heralder)
+[![Tests](https://github.com/peterfarrell/django-heralder/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/peterfarrell/django-heralder/actions/workflows/ci.yml)
+[![Black](https://github.com/worthwhile/django-herald/actions/workflows/black.yml/badge.svg)](https://github.com/peterfarrell/django-heralder/actions/workflows/black.yml)
+[![Coverage Status](https://codecov.io/gh/peterfarrell/django-heralder/coverage.svg?branch=main)](https://app.codecov.io/gh/peterfarrell/django-heralder)
 
-[![Logo](https://github.com/worthwhile/django-herald/raw/master/logo.png)](https://github.com/worthwhile/django-herald)
+[![Logo](https://github.com/worthwhile/django-herald/raw/master/logo.png)](https://github.com/peterfarrell/django-heralder)
 
 A Django messaging library that features:
 
@@ -14,6 +14,11 @@ A Django messaging library that features:
 - Browser-based previewing of messages
 - Maintains a history of messaging sending attempts and can view these messages
 - Disabling notifications per user
+- Auto conversion of HTML emails to text versions
+
+# History
+
+Django-Heralder is a fork of the legacy [Django-Herald](https://github.com/worthwhile/django-herald).
 
 # Python/Django Support
 
