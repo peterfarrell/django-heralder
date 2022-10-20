@@ -36,6 +36,13 @@ class MyOtherNotification(EmailNotification):
 
 
 @registry.register
+class MyBccOnlyNotification(EmailNotification):
+    context = {"hello": "world"}
+    template_name = "hello_world"
+    bcc = ["test1@test.com","test2@test.com"]
+
+
+@registry.register
 class MyTwilioNotification(TwilioTextNotification):
     context = {"hello": "world"}
     template_name = "hello_world"

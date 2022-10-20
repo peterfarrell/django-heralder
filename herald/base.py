@@ -287,7 +287,7 @@ class EmailNotification(NotificationBase):
         return context
 
     def get_recipients(self):
-        return self.to_emails
+        return self.to_emails or []
 
     def get_sent_from(self):
         from_email = self.from_email

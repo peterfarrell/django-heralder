@@ -11,22 +11,22 @@ class InitTests(TestCase):
 
         registry.register(TestNotification)
 
-        self.assertEqual(len(registry._registry), 6)
+        self.assertEqual(len(registry._registry), 7)
 
         registry.unregister(TestNotification)
 
-        self.assertEqual(len(registry._registry), 5)
+        self.assertEqual(len(registry._registry), 6)
 
     def test_register_decorator(self):
         @registry.register_decorator()
         class TestNotification(EmailNotification):
             pass
 
-        self.assertEqual(len(registry._registry), 6)
+        self.assertEqual(len(registry._registry), 7)
 
         registry.unregister(TestNotification)
 
-        self.assertEqual(len(registry._registry), 5)
+        self.assertEqual(len(registry._registry), 6)
 
     def test_register_invalid(self):
         class TestNotification(object):
@@ -35,4 +35,4 @@ class InitTests(TestCase):
         with self.assertRaises(ValueError):
             registry.register(TestNotification)
 
-        self.assertEqual(len(registry._registry), 5)
+        self.assertEqual(len(registry._registry), 6)
