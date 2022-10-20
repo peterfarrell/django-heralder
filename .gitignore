@@ -63,3 +63,6 @@ target/
 
 # pycharm files
 .idea/
+
+# Herald Specific
+*.sqlite3
