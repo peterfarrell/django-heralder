@@ -8,13 +8,14 @@ try:
     from django.urls import re_path as url
 except ImportError:
     from django.conf.urls import url
+
 from django.contrib import admin, messages
 from django.contrib.admin.options import csrf_protect_m
 from django.contrib.admin.utils import unquote
-from django.utils.safestring import mark_safe
 from django.urls import reverse
+from django.utils.safestring import mark_safe
 
-from .models import SentNotification, Notification
+from .models import Notification, SentNotification
 
 
 @admin.register(SentNotification)

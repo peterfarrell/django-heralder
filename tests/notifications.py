@@ -3,8 +3,7 @@ from email.mime.image import MIMEImage
 from django.core.files import File
 
 from herald import registry
-from herald.base import EmailNotification
-from herald.base import TwilioTextNotification
+from herald.base import EmailNotification, TwilioTextNotification
 
 
 @registry.register

@@ -92,11 +92,15 @@ class WelcomeEmail(EmailNotification):
 
 3. Test how your email looks by navigating to `/herald/`.
 
-4. Send your email wherever you need in your code:
+4. Additionally, preview your email before you send:
 
-        WelcomeEmail(user).send()
+        `WelcomeEmail().preview(render_type="html")`
 
-5. View the sent emails in django admin and even be able to resend it.
+5. Send your email wherever you need in your code:
+
+        `WelcomeEmail(user).send()`
+
+6. View the sent emails in django admin and even be able to resend it.
 
 ## Advanced templatename options
 
