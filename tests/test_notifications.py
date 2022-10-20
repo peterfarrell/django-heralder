@@ -9,12 +9,14 @@ from django.test import TestCase, override_settings
 from django.utils import timezone
 from mock import patch
 
-from herald.base import (EmailNotification, NotificationBase,
-                         TwilioTextNotification)
+from herald.base import EmailNotification, NotificationBase, TwilioTextNotification
 from herald.models import SentNotification
 
-from .notifications import (MyBccOnlyNotification, MyNotification,
-                            MyNotificationAttachmentOpen)
+from .notifications import (
+    MyBccOnlyNotification,
+    MyNotification,
+    MyNotificationAttachmentOpen,
+)
 
 try:
     # twilio version 6
@@ -58,6 +60,15 @@ class BaseNotificationTests(TestCase):
             mocked_resend.assert_called_once()
             obj = mocked_resend.call_args[0][0]
             self.assertEqual(obj.recipients, "test@test.com")
+
+    def test_preview(self):
+        with patch.object(MyNotification, "render") as mocked_render:
+            MyNotification().preview("html")
+            mocked_render.assert_called_once()
+
+        with self.assertRaises(ValueError):
+            MyNotification().preview("herald")
+            mocked_render.assert_not_called()
 
     @override_settings(HERALD_RAISE_MISSING_TEMPLATES=False)
     def test_send_no_text(self):
