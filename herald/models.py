@@ -78,7 +78,6 @@ class SentNotificationAbstract(models.Model):
 
 
 class SentNotification(SentNotificationAbstract):
-
     class Meta(SentNotificationAbstract.Meta):
         abstract = False
 
