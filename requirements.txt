@@ -1,4 +1,3 @@
-six
 mock
 jsonpickle
 twilio

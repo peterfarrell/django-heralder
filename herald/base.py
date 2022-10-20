@@ -8,7 +8,6 @@ from mimetypes import guess_type
 
 import jsonpickle
 import re
-import six
 
 from django.conf import settings
 from django.contrib.sites.models import Site
@@ -271,7 +270,7 @@ class NotificationBase(object):
         except Exception as exc:  # pylint: disable=W0703
             # we want to handle any exception whatsoever
             sent_notification.status = sent_notification.STATUS_FAILED
-            sent_notification.error_message = six.text_type(exc)
+            sent_notification.error_message = str(exc)
 
             if raise_exception:
                 raise exc
