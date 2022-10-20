@@ -390,7 +390,6 @@ You will need to run migrations:
 
 ```bash
 python manage.py migrate
-```
 
 Run server:
 
