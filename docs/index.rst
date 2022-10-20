@@ -6,6 +6,10 @@
 Welcome to django-heralder's documentation!
 ===========================================
 
+TODO: add notes here!
+
+
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
