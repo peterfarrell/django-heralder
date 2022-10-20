@@ -119,7 +119,8 @@ There's three different ways to specify `templatename`:
                     welcome_email.txt
                     welcome_email.html
 
-3. a dict e.g. ```
+3. a dict e.g.
+```
 {
     "text": "path/to/welcome_email_t.txt",
     "html": "path/to/welcome_email_h.html"
