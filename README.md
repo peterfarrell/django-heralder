@@ -125,7 +125,8 @@ There's three different ways to specify `templatename`:
     "text": "path/to/welcome_email_t.txt",
     "html": "path/to/welcome_email_h.html"
 }
-``` and Herald will expect
+```
+and Herald will expect
 
         templates/
             path/
