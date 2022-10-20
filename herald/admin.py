@@ -81,8 +81,11 @@ class SentNotificationAdmin(admin.ModelAdmin):
 
     @csrf_protect_m
     def resend_view(
-        self, request, object_id, extra_context=None
-    ):  # pylint: disable=W0613
+        self,
+        request,
+        object_id,
+        extra_context=None,
+    ):
         """
         View that re-sends the notification
         """
@@ -109,5 +112,13 @@ class NotificationAdmin(admin.ModelAdmin):
     Admin for viewing/managing notifications in the system
     """
 
-    list_display = ("notification_class", "verbose_name", "can_disable")
-    search_fields = ("notification_class", "verbose_name")
+    list_display = (
+        "notification_class",
+        "verbose_name",
+        "can_disable",
+    )
+    list_filter = ("can_disable",)
+    search_fields = (
+        "notification_class",
+        "verbose_name",
+    )

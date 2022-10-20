@@ -8,7 +8,6 @@ from mimetypes import guess_type
 
 import jsonpickle
 import re
-import six
 
 from django.conf import settings
 from django.contrib.sites.models import Site
@@ -179,14 +178,48 @@ class NotificationBase(object):
         assert render_type in self.render_types, "Invalid Render Type"
 
         try:
-            content = render_to_string(
-                "herald/{}/{}.{}".format(
-                    render_type,
-                    self.template_name,
-                    "txt" if render_type == "text" else render_type,
-                ),
-                context,
-            )
+            # template_name is a dict, e.g.
+            # {
+            #     "text": "path/to/welcome_email_t.txt",
+            #     "html": "path/to/welcome_email_h.html"
+            # }
+            if isinstance(self.template_name, dict):
+                if render_type not in self.template_name:
+                    raise ValueError(
+                        "template_name is a dict, but key '{}' is missing".format(
+                            render_type
+                        )
+                    )
+                content = render_to_string(
+                    self.template_name[render_type],
+                    context,
+                )
+
+            # template_name is a string containing slashes
+            # e.g. "path/to/welcome_email"
+            # will look for templates/path/to/welcome_email.txt
+            #           and templates/path/to/welcome_email.html
+            elif self.template_name and "/" in self.template_name:
+                content = render_to_string(
+                    "{}.{}".format(
+                        self.template_name,
+                        "txt" if render_type == "text" else render_type,
+                    ),
+                    context,
+                )
+
+            # default behaviour, e.g. "welcome_email"
+            # will look for herald/text/welcome_email.txt
+            #           and herald/html/welcome_email.html
+            else:
+                content = render_to_string(
+                    "herald/{}/{}.{}".format(
+                        render_type,
+                        self.template_name,
+                        "txt" if render_type == "text" else render_type,
+                    ),
+                    context,
+                )
         except TemplateDoesNotExist:
             content = None
 
@@ -237,7 +270,7 @@ class NotificationBase(object):
         except Exception as exc:  # pylint: disable=W0703
             # we want to handle any exception whatsoever
             sent_notification.status = sent_notification.STATUS_FAILED
-            sent_notification.error_message = six.text_type(exc)
+            sent_notification.error_message = str(exc)
 
             if raise_exception:
                 raise exc
