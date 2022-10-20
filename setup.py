@@ -17,7 +17,6 @@ def read_file(filename):
 
 install_requires = [
     "django>=3.2",
-    "six",
     "jsonpickle",
 ]
 dev_requires = [
