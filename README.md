@@ -20,6 +20,9 @@ A Django messaging library that features:
 
 Django-Heralder is a fork of the legacy [Django-Herald](https://github.com/worthwhile/django-herald).
 
+The v0.3.0 release of Django-Herald has the same features and is equal to Django-Heralder v0.3.0.
+Releases of Django-Heralder after v0.3.0 will diverge with new features and bug fixes.
+
 # Python/Django Support
 
 We try to make herald support all versions of django that django supports + all versions in between. 

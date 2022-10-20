@@ -31,10 +31,10 @@ html2text_requires = [
 ]
 
 setup(
-    name="django-herald",
+    name="django-heralder",
     version=VERSION,
-    author="Worthwhile",
-    author_email="devs@worthwhile.com",
+    author="PJ Farrell",
+    author_email="pjf@maepub.com",
     install_requires=install_requires,
     extras_require={
         "dev": install_requires + dev_requires,
@@ -44,8 +44,8 @@ setup(
     packages=find_packages(include=("herald", "herald.*")),
     include_package_data=True,  # declarations in MANIFEST.in
     license="MIT",
-    url="https://github.com/worthwhile/django-herald/",
-    download_url="https://github.com/worthwhile/django-herald/tarball/" + VERSION,
+    url="https://github.com/peterfarrell/django-heralder/",
+    download_url="https://github.com/peterfarrell/django-heralder/tarball/" + VERSION,
     description="Django library for separating the message content from transmission method",
     long_description=read_file("README.md"),
     long_description_content_type="text/markdown",
