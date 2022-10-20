@@ -3,7 +3,7 @@ import os
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.environ.get('HERALD_TEST_DB_NAME', default="db.sqlite3"),
+        "NAME": os.environ.get("HERALD_TEST_DB_NAME", default="db.sqlite3"),
     },
 }
 
