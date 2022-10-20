@@ -14,6 +14,7 @@ INSTALLED_APPS = (
     "django.contrib.admin",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "django.contrib.staticfiles",
     "herald",
     "tests",
     "herald.contrib.auth",
@@ -40,6 +41,8 @@ SECRET_KEY = "foobar"
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+STATIC_URL = "/static/"
 
 TEMPLATES = [
     {
