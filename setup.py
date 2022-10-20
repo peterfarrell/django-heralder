@@ -40,7 +40,7 @@ setup(
         "twilio": twilio_requires,
         "html2text": html2text_requires,
     },
-    packages=find_packages(include=("herald", "herald.*")),
+    packages=find_packages(exclude=["tests"]),
     include_package_data=True,  # declarations in MANIFEST.in
     license="MIT",
     url="https://github.com/peterfarrell/django-heralder/",
