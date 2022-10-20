@@ -98,6 +98,43 @@ class WelcomeEmail(EmailNotification):
 
 5. View the sent emails in django admin and even be able to resend it.
 
+## Advanced templatename options
+
+There's three different ways to specify `templatename`:
+
+1. a string without any slash, e.g. `"welcome_email"` and Herald will expect
+
+        templates/
+            herald/
+                text/
+                    welcome_email.txt
+                html/
+                    welcome_email.html
+
+2. a string with slashes, e.g. `"path/to/welcome_email"` and Herald will expect
+
+        templates/
+            path/
+                to/
+                    welcome_email.txt
+                    welcome_email.html
+
+3. a dict e.g.
+```
+{
+    "text": "path/to/welcome_email_t.txt",
+    "html": "path/to/welcome_email_h.html"
+}
+```
+and Herald will expect
+
+        templates/
+            path/
+                to/
+                    welcome_email_t.txt
+                    welcome_email_h.html
+
+
 ## Email options
 
 The following options can be set on the email notification class. For Example:
@@ -353,7 +390,6 @@ You will need to run migrations:
 
 ```bash
 python manage.py migrate
-```
 
 Run server:
 

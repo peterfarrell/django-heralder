@@ -178,14 +178,48 @@ class NotificationBase(object):
         assert render_type in self.render_types, "Invalid Render Type"
 
         try:
-            content = render_to_string(
-                "herald/{}/{}.{}".format(
-                    render_type,
-                    self.template_name,
-                    "txt" if render_type == "text" else render_type,
-                ),
-                context,
-            )
+            # template_name is a dict, e.g.
+            # {
+            #     "text": "path/to/welcome_email_t.txt",
+            #     "html": "path/to/welcome_email_h.html"
+            # }
+            if isinstance(self.template_name, dict):
+                if render_type not in self.template_name:
+                    raise ValueError(
+                        "template_name is a dict, but key '{}' is missing".format(
+                            render_type
+                        )
+                    )
+                content = render_to_string(
+                    self.template_name[render_type],
+                    context,
+                )
+
+            # template_name is a string containing slashes
+            # e.g. "path/to/welcome_email"
+            # will look for templates/path/to/welcome_email.txt
+            #           and templates/path/to/welcome_email.html
+            elif self.template_name and "/" in self.template_name:
+                content = render_to_string(
+                    "{}.{}".format(
+                        self.template_name,
+                        "txt" if render_type == "text" else render_type,
+                    ),
+                    context,
+                )
+
+            # default behaviour, e.g. "welcome_email"
+            # will look for herald/text/welcome_email.txt
+            #           and herald/html/welcome_email.html
+            else:
+                content = render_to_string(
+                    "herald/{}/{}.{}".format(
+                        render_type,
+                        self.template_name,
+                        "txt" if render_type == "text" else render_type,
+                    ),
+                    context,
+                )
         except TemplateDoesNotExist:
             content = None
 
