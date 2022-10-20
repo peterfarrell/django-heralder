@@ -4,14 +4,12 @@ Models for notifications app.
 
 import json
 import jsonpickle
-import six
 
 from django.conf import settings
 from django.db import models
 from django.utils.module_loading import import_string
 
 
-@six.python_2_unicode_compatible
 class SentNotification(models.Model):
     """
     Stores info on the notification that was sent.
@@ -76,7 +74,6 @@ class SentNotification(models.Model):
             return None
 
 
-@six.python_2_unicode_compatible
 class Notification(models.Model):
     """
     NotificationClasses are created on app init.
