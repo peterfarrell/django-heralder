@@ -12,7 +12,7 @@ from django.utils.module_loading import import_string
 
 
 @six.python_2_unicode_compatible
-class SentNotification(models.Model):
+class SentNotificationAbstract(models.Model):
     """
     Stores info on the notification that was sent.
     """
@@ -74,6 +74,15 @@ class SentNotification(models.Model):
             return jsonpickle.loads(self.attachments)
         else:
             return None
+
+    class Meta:
+        abstract = True
+
+
+class SentNotification(SentNotificationAbstract):
+
+    class Meta(SentNotificationAbstract.Meta):
+        abstract = False
 
 
 @six.python_2_unicode_compatible
