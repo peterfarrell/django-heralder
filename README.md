@@ -4,6 +4,8 @@
 [![Tests](https://github.com/peterfarrell/django-heralder/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/peterfarrell/django-heralder/actions/workflows/ci.yml)
 [![Black](https://github.com/worthwhile/django-herald/actions/workflows/black.yml/badge.svg)](https://github.com/peterfarrell/django-heralder/actions/workflows/black.yml)
 [![codecov](https://codecov.io/gh/peterfarrell/django-heralder/branch/master/graph/badge.svg?token=PZKJH2G5IN)](https://codecov.io/gh/peterfarrell/django-heralder)
+[![Documentation Status](https://readthedocs.org/projects/django-heralder/badge/?version=latest)](https://django-heralder.readthedocs.io/en/latest/?badge=latest)
+
 
 [![Logo](https://github.com/worthwhile/django-herald/raw/master/logo.png)](https://github.com/peterfarrell/django-heralder)
 
