@@ -186,7 +186,11 @@ class NotificationBase(object):
             # }
             if isinstance(self.template_name, dict):
                 if render_type not in self.template_name:
-                    raise ValueError("template_name is a dict, but key '{}' is missing".format(render_type))
+                    raise ValueError(
+                        "template_name is a dict, but key '{}' is missing".format(
+                            render_type
+                        )
+                    )
                 content = render_to_string(
                     self.template_name[render_type],
                     context,
@@ -196,7 +200,7 @@ class NotificationBase(object):
             # e.g. "path/to/welcome_email"
             # will look for templates/path/to/welcome_email.txt
             #           and templates/path/to/welcome_email.html
-            elif self.template_name and '/' in self.template_name:
+            elif self.template_name and "/" in self.template_name:
                 content = render_to_string(
                     "{}.{}".format(
                         self.template_name,
