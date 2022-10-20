@@ -121,6 +121,27 @@ class BaseNotificationTests(TestCase):
 
         self.assertEqual(DummyNotification().render("text", {}), "Hello World")
 
+    def test_render_templatename_with_slash(self):
+        class DummyNotification(NotificationBase):
+            render_types = ["text", "html"]
+            template_name = "custompath/templatename_with_slash_hello_world"
+
+        self.assertEqual(DummyNotification().render("text", {}), "Hello World")
+        self.assertEqual(DummyNotification().render("html", {}),
+                "<html><body>Hello World</body></html>")
+
+    def test_render_templatename_with_dict(self):
+        class DummyNotification(NotificationBase):
+            render_types = ["text", "html"]
+            template_name = {
+                "text": "custompath/templatename_with_slash_hello_world.txt",
+                "html": "custompath/templatename_with_slash_hello_world.html",
+            }
+
+        self.assertEqual(DummyNotification().render("text", {}), "Hello World")
+        self.assertEqual(DummyNotification().render("html", {}),
+                "<html><body>Hello World</body></html>")
+
     def test_resend_error(self):
         notification = SentNotification()
 
