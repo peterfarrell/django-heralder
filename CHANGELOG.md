@@ -7,6 +7,7 @@
 - #74 - Added support for conditional enable/disable to raise error for missing templates `HERALD_RAISE_MISSING_TEMPLATES`
 - Updated to use GitHub Actions for CI
 - Switched to Black for code formatting
+- #4 - Added support for BCC-only (no TO) emails.
 
 
 ## 0.2.1 (06-23-2019)
