@@ -39,7 +39,7 @@ class MyOtherNotification(EmailNotification):
 class MyBccOnlyNotification(EmailNotification):
     context = {"hello": "world"}
     template_name = "hello_world"
-    bcc = ["test1@test.com","test2@test.com"]
+    bcc = ["test1@test.com", "test2@test.com"]
 
 
 @registry.register
