@@ -97,6 +97,8 @@ class UserNotification(models.Model):
     """
 
     user = models.OneToOneField(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, primary_key=True
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        primary_key=True,
     )
     disabled_notifications = models.ManyToManyField(Notification)
