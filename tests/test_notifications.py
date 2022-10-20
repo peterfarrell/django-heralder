@@ -12,7 +12,11 @@ from herald.models import SentNotification
 
 from mock import patch
 
-from .notifications import MyNotification, MyNotificationAttachmentOpen, MyBccOnlyNotification
+from .notifications import (
+    MyNotification,
+    MyNotificationAttachmentOpen,
+    MyBccOnlyNotification,
+)
 
 try:
     # twilio version 6
@@ -271,12 +275,8 @@ class EmailNotificationTests(TestCase):
 
         TestBccOnlyNotification().send()
         self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].to, [''])
+        self.assertEqual(mail.outbox[0].to, [""])
         self.assertEqual(len(mail.outbox[0].bcc), 2)
-
-
-
-
 
     @override_settings(HERALD_HTML2TEXT_ENABLED=True)
     def test_render_html2text(self):
