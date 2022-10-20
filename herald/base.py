@@ -396,6 +396,18 @@ class EmailNotification(NotificationBase):
         return h
 
     @staticmethod
+    def _preview(
+        recipients,
+        text_content=None,
+        html_content=None,
+        sent_from=None,
+        subject=None,
+        extra_data=None,
+        attachments=None,
+    ):
+        pass
+
+    @staticmethod
     def _send(
         recipients,
         text_content=None,

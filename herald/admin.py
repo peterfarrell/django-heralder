@@ -32,7 +32,7 @@ class SentNotificationAdmin(admin.ModelAdmin):
     )
     list_filter = ("status", "notification_class")
     date_hierarchy = "date_sent"
-    readonly_fields = ("resend",)
+    readonly_fields = ("resend", "preview")
     search_fields = (
         "recipients",
         "subject",
@@ -55,6 +55,13 @@ class SentNotificationAdmin(admin.ModelAdmin):
         )
 
         return mark_safe('<a href="{}">Resend</a>'.format(resend_url))
+    
+    def preview(self, obj):
+        """
+        Creates a link field that allow user to preview the email with the forms' data before sending it
+        """
+
+        
 
     def get_urls(self):
         urls = super(SentNotificationAdmin, self).get_urls()

@@ -53,3 +53,10 @@ class TestNotification(View):
         return HttpResponse(
             content, content_type="text/{}; charset={}".format(render_type, charset)
         )
+
+
+class TestNotificationPreview(View):
+    """
+    View for chowing rendered 
+    """
+    pass

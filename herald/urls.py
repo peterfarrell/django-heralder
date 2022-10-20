@@ -16,4 +16,5 @@ urlpatterns = [
         TestNotification.as_view(),
         name="herald_preview",
     ),
+    
 ]
