@@ -29,10 +29,14 @@ class SentNotificationAdmin(admin.ModelAdmin):
         "subject",
         "date_sent",
         "status",
+        "view_link",
     )
     list_filter = ("status", "notification_class")
     date_hierarchy = "date_sent"
-    readonly_fields = ("resend",)
+    readonly_fields = (
+        "resend",
+        "view_link",
+    )
     search_fields = (
         "recipients",
         "subject",
@@ -41,6 +45,17 @@ class SentNotificationAdmin(admin.ModelAdmin):
         "sent_from",
     )
     autocomplete_fields = ("user",)
+
+    @admin.display(description="View email")
+    def view_link(self, obj):
+        return mark_safe(
+            '<a href="%s" target="_blank">View</a>'
+            % reverse(
+                "herald_sent_notification_detail",
+                current_app=self.admin_site.name,
+                args=(obj.pk,),
+            )
+        )
 
     def resend(self, obj):
         """

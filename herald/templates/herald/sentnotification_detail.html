@@ -1,0 +1,22 @@
+<p>
+  <b>Date:</b> {{ object.date_sent }}<br/>
+  <b>From:</b> {{ object.sent_from }}<br/>
+  <b>Subject:</b> {{ object.subject }}<br/>
+  <b>To:</b> {{ object.recipients }}<br/>
+</p>
+<hr/>
+<pre>
+{{ object.text_content }}
+</pre>
+<hr/>
+{{ object.html_content|safe }}
+<hr/>
+{% if attachments_json %}
+Attachments:
+<ul>
+{% for i in attachments_json %}
+<li>{{ i }}</li>
+{% endfor %}
+</ul>
+{% endif%}
+

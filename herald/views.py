@@ -3,9 +3,12 @@ Views for testing notifications. Should not be present in production
 """
 from django.conf import settings
 from django.http import HttpResponse
-from django.views.generic import TemplateView, View
+from django.views.generic import TemplateView, View, DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
+import json
 
 from . import registry
+from . import models
 
 
 class TestNotificationList(TemplateView):
@@ -53,3 +56,12 @@ class TestNotification(View):
         return HttpResponse(
             content, content_type="text/{}; charset={}".format(render_type, charset)
         )
+
+
+class SentNotificationDetail(LoginRequiredMixin, DetailView):
+    model = models.SentNotification
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["attachments_json"] = json.loads(self.object.attachments)
+        return context
