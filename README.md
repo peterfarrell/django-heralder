@@ -1,11 +1,11 @@
-# django-herald
+# django-heralder
 
-[![Latest PyPI version](https://badge.fury.io/py/django-herald.svg)](https://pypi.python.org/pypi/django-herald)
-[![Tests](https://github.com/worthwhile/django-herald/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/worthwhile/django-herald/actions/workflows/ci.yml)
-[![Black](https://github.com/worthwhile/django-herald/actions/workflows/black.yml/badge.svg)](https://github.com/worthwhile/django-herald/actions/workflows/black.yml)
-[![Coverage Status](https://codecov.io/gh/worthwhile/django-herald/coverage.svg?branch=master)](https://app.codecov.io/gh/worthwhile/django-herald)
+[![Latest PyPI version](https://badge.fury.io/py/django-heralder.svg)](https://pypi.python.org/pypi/django-heralder)
+[![Tests](https://github.com/peterfarrell/django-heralder/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/peterfarrell/django-heralder/actions/workflows/ci.yml)
+[![Black](https://github.com/worthwhile/django-herald/actions/workflows/black.yml/badge.svg)](https://github.com/peterfarrell/django-heralder/actions/workflows/black.yml)
+[![codecov](https://codecov.io/gh/peterfarrell/django-heralder/branch/master/graph/badge.svg?token=PZKJH2G5IN)](https://codecov.io/gh/peterfarrell/django-heralder)
 
-[![Logo](https://github.com/worthwhile/django-herald/raw/master/logo.png)](https://github.com/worthwhile/django-herald)
+[![Logo](https://github.com/worthwhile/django-herald/raw/master/logo.png)](https://github.com/peterfarrell/django-heralder)
 
 A Django messaging library that features:
 
@@ -14,6 +14,11 @@ A Django messaging library that features:
 - Browser-based previewing of messages
 - Maintains a history of messaging sending attempts and can view these messages
 - Disabling notifications per user
+- Auto conversion of HTML emails to text versions
+
+# History
+
+Django-Heralder is a fork of the legacy [Django-Herald](https://github.com/worthwhile/django-herald).
 
 # Python/Django Support
 
@@ -25,7 +30,7 @@ So as of herald v0.3 we support django 3.2 and 4.x+, and python 3.6, 3.7, 3.8, 3
 
 # Installation
 
-1. `pip install django-herald`
+1. `pip install django-heralder`
 2. Add `herald` and `django.contrib.sites` to `INSTALLED_APPS`.
 3. Add herald's URLS:
 
@@ -273,7 +278,7 @@ will be auto converted if you enable this feature.
 
 ```
 # Install html2text
-pip install django-herald[html2text]
+pip install django-heralder[html2text]
 ```
 
 In your settings.py file:
@@ -302,7 +307,7 @@ By default, Herald will raise an exception if a template is missing when true (d
 
 ```
 # Install twilio
-pip install django-herald[twilio]
+pip install django-heralder[twilio]
 ```
 
 You can retrieve these values on [Twilio Console](https://twilio.com/console). Once you have retrieve the necessary ids, you can place those to your `settings.py`.
