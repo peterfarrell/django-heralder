@@ -65,7 +65,7 @@ class NotificationBase(object):
         # Check if render_type is valid
         if render_type is None or render_type not in self.render_types:
             raise ValueError(
-                f"{render_type} is not a valid render type. Must be among {self.render_types}"
+                "%s is not a valid render type. Must be among %s" % (render_type, self.render_types)
             )
 
         return self.render(render_type, self.get_context_data())
