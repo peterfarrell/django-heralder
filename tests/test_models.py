@@ -1,8 +1,7 @@
-from django.test import TestCase, override_settings
+from django.test import TestCase
 from mock import patch
 
 from herald.models import Notification, SentNotification
-from herald.utils import get_sent_notification_model
 from tests.notifications import MyNotification
 from tests.models import SentNotificationCompany
 
@@ -46,10 +45,6 @@ class SwappedSentNotificationTests(TestCase):
             company_name="My Company",
         )
         self.assertEqual(notification.company_name, "My Company")
-
-    @override_settings(HERALD_SENT_NOTIFICATION_MODEL="tests.SentNotificationCompany")
-    def test_get_sent_notification_model(self):
-        self.assertEqual(get_sent_notification_model(), SentNotificationCompany)
 
 
 class NotificationTests(TestCase):

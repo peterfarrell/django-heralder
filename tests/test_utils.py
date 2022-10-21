@@ -2,9 +2,14 @@ from django.test import TestCase, override_settings
 from django.core.exceptions import ImproperlyConfigured
 
 from herald.utils import get_sent_notification_model
+from tests.models import SentNotificationCompany
 
 
 class UtilsTests(TestCase):
+    @override_settings(HERALD_SENT_NOTIFICATION_MODEL="tests.SentNotificationCompany")
+    def test_get_sent_notification_model(self):
+        self.assertEqual(get_sent_notification_model(), SentNotificationCompany)
+
     @override_settings(HERALD_SENT_NOTIFICATION_MODEL="fake.Model")
     def test_fake_model(self):
         with self.assertRaisesMessage(
