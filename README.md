@@ -152,8 +152,7 @@ class WelcomeEmail(EmailNotification):
 - `headers`: (`dict`, default: `None`) extra headers to be passed along to the `EmailMultiAlternatives` object
 - `reply_to`: (`List[str]`, default: `None`) list of email strings to send as the Reply-To emails
 - `attachments`: (`list`) list of attachments. See "Email Attachments" below for more info
-    
-    
+
 ## Automatically Deleting Old Notifications
 
 Herald can automatically delete old notifications whenever a new notification is sent.
@@ -187,11 +186,9 @@ However, you can also pass arguments for `start` or `end` dates. `end` is up to,
 python manage.py delnotifs --start='2016-01-01' --end='2016-01-10'
 ```
 
-
 ## Asynchronous Email Sending
 
 If you are sending slightly different emails to a large number of people, it might take quite a while to process. By default, Django will process this all synchronously. For asynchronous support, we recommend django-celery-email. It is very straightfoward to setup and integrate: https://github.com/pmclanahan/django-celery-email
-
 
 ## herald.contrib.auth
 
