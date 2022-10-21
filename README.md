@@ -190,6 +190,36 @@ python manage.py delnotifs --start='2016-01-01' --end='2016-01-10'
 
 If you are sending slightly different emails to a large number of people, it might take quite a while to process. By default, Django will process this all synchronously. For asynchronous support, we recommend django-celery-email. It is very straightfoward to setup and integrate: https://github.com/pmclanahan/django-celery-email
 
+## Custom SentNotification Model
+
+To create a custom `SentNotification` model, inherit `SentNotificationAbstract`. From there you can add fields and methods as desired. To use this model through Heralder, set `HERALD_SENT_NOTIFICATION_MODEL` in your `settings.py` to the `app.ModelName` path. Then use `get_sent_notification_model` in `herald.utils` to retrieve the model.
+
+Example:
+
+```python
+from herald.models import SentNotificationAbstract
+
+class SentNotificationCompany(SentNotificationAbstract):
+   company_name = models.CharField(max_length=32)
+   
+   class Meta(SentNotificationAbstract.Meta):
+      abstract = False
+```
+
+In `settings.py`:
+
+```python
+HERALD_SENT_NOTIFICATION_MODEL = "mpapp.SentNotificationCompany"
+```
+
+Using throughout your app:
+
+```python
+from herald.utils import get_sent_notification_model
+
+SentNotification = get_sent_notification_model()
+```
+
 ## herald.contrib.auth
 
 Django has built-in support for sending password reset emails. If you would like to send those emails using herald, you can use the notification class in herald.contrib.auth.
