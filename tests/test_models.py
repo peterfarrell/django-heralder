@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from mock import patch
 
 from herald.models import Notification, SentNotification
