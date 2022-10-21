@@ -40,9 +40,7 @@ class SentNotificationTests(TestCase):
             mocked_resend.assert_called_once_with(notification)
 
 
-@override_settings(HERALD_SENT_NOTIFICATION_MODEL='tests.SentNotificationCompany')
 class SwappedSentNotificationTests(TestCase):
-
     def test_swapped_model(self):
         notification = SentNotificationCompany(
             notification_class="tests.notifications.MyNotification",
@@ -50,8 +48,11 @@ class SwappedSentNotificationTests(TestCase):
         )
         self.assertEqual(notification.company_name, "My Company")
 
+    @override_settings(HERALD_SENT_NOTIFICATION_MODEL="tests.SentNotificationCompany")
     def test_get_sent_notification_model(self):
-        self.assertEqual(get_sent_notification_model(), SentNotificationCompany)
+        self.assertEqual(
+            get_sent_notification_model(), SentNotificationCompany
+        )
 
 
 class NotificationTests(TestCase):
