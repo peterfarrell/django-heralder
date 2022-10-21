@@ -4,10 +4,10 @@ from django.conf import settings
 
 
 def get_sent_notification_model():
+    sent_notification = getattr(
+        settings, "HERALD_SENT_NOTIFICATION_MODEL", "herald.SentNotification"
+    )
     try:
-        sent_notification = getattr(
-            settings, "HERALD_SENT_NOTIFICATION_MODEL", "herald.SentNotification"
-        )
         return django_apps.get_model(sent_notification)
     except ValueError:
         raise ImproperlyConfigured(
@@ -15,5 +15,5 @@ def get_sent_notification_model():
         )
     except LookupError:
         raise ImproperlyConfigured(
-            f"SENT_NOTIFICATION_MODEL refers to model 'herald.SentNotification' that has not been installed"
+            f"SENT_NOTIFICATION_MODEL refers to model '{sent_notification}' that has not been installed"
         )
