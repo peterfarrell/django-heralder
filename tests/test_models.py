@@ -50,9 +50,7 @@ class SwappedSentNotificationTests(TestCase):
 
     @override_settings(HERALD_SENT_NOTIFICATION_MODEL="tests.SentNotificationCompany")
     def test_get_sent_notification_model(self):
-        self.assertEqual(
-            get_sent_notification_model(), SentNotificationCompany
-        )
+        self.assertEqual(get_sent_notification_model(), SentNotificationCompany)
 
 
 class NotificationTests(TestCase):

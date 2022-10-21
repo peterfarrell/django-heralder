@@ -6,9 +6,7 @@ from django.conf import settings
 def get_sent_notification_model():
     try:
         sent_notification = getattr(
-            settings,
-            "HERALD_SENT_NOTIFICATION_MODEL",
-            'herald.SentNotification'
+            settings, "HERALD_SENT_NOTIFICATION_MODEL", "herald.SentNotification"
         )
         return django_apps.get_model(sent_notification)
     except ValueError:
