@@ -3,19 +3,18 @@ Base notification classes
 """
 
 import json
+import re
 from email.mime.base import MIMEBase
 from mimetypes import guess_type
 
 import jsonpickle
-import re
-
 from django.conf import settings
 from django.contrib.sites.models import Site
+from django.core.files import File
 from django.core.mail import EmailMultiAlternatives
 from django.template import TemplateDoesNotExist
 from django.template.loader import render_to_string
 from django.utils import timezone
-from django.core.files import File
 
 from herald.utils import get_sent_notification_model
 
@@ -58,6 +57,21 @@ class NotificationBase:
     @classmethod
     def get_class_path(cls):
         return "{}.{}".format(cls.__module__, cls.__name__)
+
+    def preview(self, render_type=None):
+        """
+        Renders a notification for user to preview a notification before sending it out.
+        This method only renders and does not send the email.
+        """
+
+        # Check if render_type is valid
+        if render_type is None or render_type not in self.render_types:
+            raise ValueError(
+                "%s is not a valid render type. Must be among %s"
+                % (render_type, self.render_types)
+            )
+
+        return self.render(render_type, self.get_context_data())
 
     def send(self, raise_exception=False, user=None):
         """
@@ -396,6 +410,18 @@ class EmailNotification(NotificationBase):
                 setattr(h, k, v)
 
         return h
+
+    @staticmethod
+    def _preview(
+        recipients,
+        text_content=None,
+        html_content=None,
+        sent_from=None,
+        subject=None,
+        extra_data=None,
+        attachments=None,
+    ):
+        pass
 
     @staticmethod
     def _send(

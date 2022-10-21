@@ -7,7 +7,7 @@ try:
 except ImportError:
     from django.conf.urls import url
 
-from .views import TestNotificationList, TestNotification
+from .views import TestNotification, TestNotificationList
 
 urlpatterns = [
     url(r"^$", TestNotificationList.as_view(), name="herald_preview_list"),

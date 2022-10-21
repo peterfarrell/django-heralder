@@ -1,8 +1,7 @@
+from django.test import TestCase
 from mock import patch
 
-from django.test import TestCase, override_settings
-
-from herald.models import SentNotification, Notification
+from herald.models import Notification, SentNotification
 from herald.utils import get_sent_notification_model
 from tests.notifications import MyNotification
 from tests.models import SentNotificationCompany

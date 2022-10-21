@@ -1,17 +1,16 @@
 """
 Testing custom commands
 """
-from datetime import timedelta, datetime
+from datetime import datetime, timedelta
+from io import StringIO
 
-from django.core.management import call_command
 from django.core.exceptions import ValidationError
+from django.core.management import call_command
 from django.test import TestCase
 from django.utils import timezone
 
-from io import StringIO
-
-from herald.models import SentNotification
 from herald.management.commands.delnotifs import valid_date
+from herald.models import SentNotification
 
 MSG = "Successfully deleted {num} notification(s)"
 NOTIFICATION_CLASS = "tests.notifications.MyNotification"
