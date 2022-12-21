@@ -15,7 +15,10 @@ from django.contrib.admin.utils import unquote
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 
-from .models import Notification, SentNotification
+from herald.utils import get_sent_notification_model
+from .models import Notification
+
+SentNotification = get_sent_notification_model()
 
 
 @admin.register(SentNotification)

@@ -3,6 +3,7 @@ from mock import patch
 
 from herald.models import Notification, SentNotification
 from tests.notifications import MyNotification
+from tests.models import SentNotificationCompany
 
 
 class SentNotificationTests(TestCase):
@@ -35,6 +36,15 @@ class SentNotificationTests(TestCase):
         with patch.object(MyNotification, "resend") as mocked_resend:
             notification.resend()
             mocked_resend.assert_called_once_with(notification)
+
+
+class SwappedSentNotificationTests(TestCase):
+    def test_swapped_model(self):
+        notification = SentNotificationCompany(
+            notification_class="tests.notifications.MyNotification",
+            company_name="My Company",
+        )
+        self.assertEqual(notification.company_name, "My Company")
 
 
 class NotificationTests(TestCase):

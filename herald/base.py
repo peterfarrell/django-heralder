@@ -16,10 +16,12 @@ from django.template import TemplateDoesNotExist
 from django.template.loader import render_to_string
 from django.utils import timezone
 
-from .models import SentNotification
+from herald.utils import get_sent_notification_model
+
+SentNotification = get_sent_notification_model()
 
 
-class NotificationBase(object):
+class NotificationBase:
     """
     base class for sending notifications
     """

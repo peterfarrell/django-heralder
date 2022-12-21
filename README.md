@@ -156,8 +156,7 @@ class WelcomeEmail(EmailNotification):
 - `headers`: (`dict`, default: `None`) extra headers to be passed along to the `EmailMultiAlternatives` object
 - `reply_to`: (`List[str]`, default: `None`) list of email strings to send as the Reply-To emails
 - `attachments`: (`list`) list of attachments. See "Email Attachments" below for more info
-    
-    
+
 ## Automatically Deleting Old Notifications
 
 Herald can automatically delete old notifications whenever a new notification is sent.
@@ -191,11 +190,41 @@ However, you can also pass arguments for `start` or `end` dates. `end` is up to,
 python manage.py delnotifs --start='2016-01-01' --end='2016-01-10'
 ```
 
-
 ## Asynchronous Email Sending
 
 If you are sending slightly different emails to a large number of people, it might take quite a while to process. By default, Django will process this all synchronously. For asynchronous support, we recommend django-celery-email. It is very straightfoward to setup and integrate: https://github.com/pmclanahan/django-celery-email
 
+## Custom SentNotification Model
+
+To create a custom `SentNotification` model, inherit `SentNotificationAbstract`. From there you can add fields and methods as desired. To use this model through Heralder, set `HERALD_SENT_NOTIFICATION_MODEL` in your `settings.py` to the `app.ModelName` path. Then use `get_sent_notification_model` in `herald.utils` to retrieve the model.
+
+Note that using a custom model should be implemented as early as possible, ideally at the beginning of the project. Otherwise data may be split between the default table and the newly created custom table. To mitigate this, data will have to either be dropped or migrated to the new table. 
+
+Example:
+
+```python
+from herald.models import SentNotificationAbstract
+
+class SentNotificationCompany(SentNotificationAbstract):
+   company_name = models.CharField(max_length=32)
+   
+   class Meta(SentNotificationAbstract.Meta):
+      abstract = False
+```
+
+In `settings.py`:
+
+```python
+HERALD_SENT_NOTIFICATION_MODEL = "mpapp.SentNotificationCompany"
+```
+
+Using throughout your app:
+
+```python
+from herald.utils import get_sent_notification_model
+
+SentNotification = get_sent_notification_model()
+```
 
 ## herald.contrib.auth
 
