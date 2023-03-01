@@ -433,7 +433,6 @@ class EmailNotification(NotificationBase):
         extra_data=None,
         attachments=None,
     ):
-
         extra_data = extra_data or {}
 
         mail = EmailMultiAlternatives(
