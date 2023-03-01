@@ -11,6 +11,7 @@ class HeraldConfig(AppConfig):
     Django app config for herald. Using this to call autodiscover
     """
 
+    default_auto_field = "django.db.models.AutoField"
     name = "herald"
 
     def ready(self):
