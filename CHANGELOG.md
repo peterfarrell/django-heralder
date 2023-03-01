@@ -1,5 +1,6 @@
 ## TBD (TBD)
 - #19 - Removed Python 2 support and Six
+- #28 - Set default_auto_field to django.db.models.AutoField in HeraldConfig
 
 
 ## 0.3.0 (10-18-2022)
