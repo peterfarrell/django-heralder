@@ -9,28 +9,34 @@ jobs:
       matrix:
         include:
           # Django 3.2
-          - django-version: "3.2.0"
+          - django-version: "3.2.25"
             python-version: "3.7"
-          - django-version: "3.2.0"
+          - django-version: "3.2.25"
             python-version: "3.8"
-          - django-version: "3.2.0"
+          - django-version: "3.2.25"
             python-version: "3.9"
-          - django-version: "3.2.0"
+          - django-version: "3.2.25"
             python-version: "3.10"
-          # Django 4.0
-          - django-version: "4.0.0"
+          # Django 4.2
+          - django-version: "4.2.23"
             python-version: "3.8"
-          - django-version: "4.0.0"
+          - django-version: "4.2.23"
             python-version: "3.9"
-          - django-version: "4.0.0"
+          - django-version: "4.2.23"
             python-version: "3.10"
-          # Django 4.1
-          - django-version: "4.1.0"
-            python-version: "3.8"
-          - django-version: "4.1.0"
-            python-version: "3.9"
-          - django-version: "4.1.0"
+          - django-version: "4.2.23"
+            python-version: "3.11"
+          - django-version: "4.2.23"
+            python-version: "3.12"
+          # Django 5.2
+          - django-version: "5.2.3"
             python-version: "3.10"
+          - django-version: "5.2.3"
+            python-version: "3.11"
+          - django-version: "5.2.3"
+            python-version: "3.12"
+          - django-version: "5.2.3"
+            python-version: "3.13"
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python ${{ matrix.python-version }}
