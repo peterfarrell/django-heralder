@@ -1,6 +1,3 @@
-"""
-Testing custom commands
-"""
 from datetime import datetime, timedelta
 from io import StringIO
 
