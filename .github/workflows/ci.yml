@@ -10,10 +10,6 @@ jobs:
         include:
           # Django 3.2
           - django-version: "3.2.25"
-            python-version: "3.7"
-          - django-version: "3.2.25"
-            python-version: "3.8"
-          - django-version: "3.2.25"
             python-version: "3.9"
           - django-version: "3.2.25"
             python-version: "3.10"
