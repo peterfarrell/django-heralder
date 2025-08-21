@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.4.1 (08-21-2025)
+- #31 - Fix AppRegistryNotReady error on importing from herald.base
+
+
 ## 0.4.0 (06-10-2025)
 - #19 - Removed Python 2 support and Six
 - #28 - Set default_auto_field to django.db.models.AutoField in HeraldConfig
