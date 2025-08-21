@@ -3,25 +3,15 @@ Admin for notifications
 """
 
 from functools import update_wrapper
-
-try:
-    from django.urls import re_path as url
-except ImportError:
-    from django.conf.urls import url
-
 from django.contrib import admin, messages
 from django.contrib.admin.options import csrf_protect_m
 from django.contrib.admin.utils import unquote
-from django.urls import reverse
+from django.urls import re_path, reverse
 from django.utils.safestring import mark_safe
 
-from herald.utils import get_sent_notification_model
 from .models import Notification
 
-SentNotification = get_sent_notification_model()
 
-
-@admin.register(SentNotification)
 class SentNotificationAdmin(admin.ModelAdmin):
     """
     Admin for viewing historical notifications sent
@@ -80,7 +70,9 @@ class SentNotificationAdmin(admin.ModelAdmin):
         info = opts.app_label, opts.model_name
 
         return [
-            url(r"^(.+)/resend/$", wrap(self.resend_view), name="%s_%s_resend" % info),
+            re_path(
+                r"^(.+)/resend/$", wrap(self.resend_view), name="%s_%s_resend" % info
+            ),
         ] + urls
 
     @csrf_protect_m
@@ -110,7 +102,6 @@ class SentNotificationAdmin(admin.ModelAdmin):
         return self.response_post_save_change(request, obj)
 
 
-@admin.register(Notification)
 class NotificationAdmin(admin.ModelAdmin):
     """
     Admin for viewing/managing notifications in the system

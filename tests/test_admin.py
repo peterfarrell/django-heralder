@@ -4,7 +4,9 @@ from django.urls import reverse
 from django.utils import timezone
 from mock import patch
 
-from herald.models import SentNotification
+from herald.utils import get_sent_notification_model
+
+SentNotification = get_sent_notification_model()
 
 
 class ViewsTests(TestCase):

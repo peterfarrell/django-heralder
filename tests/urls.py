@@ -1,17 +1,10 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.contrib import admin
 from django.contrib.auth import urls as auth_urls
-from django.urls import include
-
-try:
-    from django.urls import re_path as url
-except ImportError:
-    from django.conf.urls import url
+from django.urls import include, re_path
 
 
 urlpatterns = [
-    url(r"^admin/", admin.site.urls),
-    url("^", include(auth_urls)),
-    url(r"^herald/", include("herald.urls")),
+    re_path(r"^admin/", admin.site.urls),
+    re_path("^", include(auth_urls)),
+    re_path(r"^herald/", include("herald.urls")),
 ]

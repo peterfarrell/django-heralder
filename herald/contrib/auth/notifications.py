@@ -9,9 +9,10 @@ from django.template import loader
 from django.utils.encoding import force_bytes
 
 try:
-    from django.utils.encoding import force_str as force_text
+    from django.utils.encoding import force_str
 except ImportError:
-    from django.utils.encoding import force_text
+    # Django 3.2 compatibility: force_text was renamed to force_str in Django 4.0
+    from django.utils.encoding import force_text as force_str
 
 from django.urls import reverse
 from django.utils.http import urlsafe_base64_encode
@@ -60,7 +61,7 @@ class PasswordResetEmail(EmailNotification):
             self.domain = current_site.domain
 
         protocol = "https" if self.use_https else "http"
-        uid = force_text(urlsafe_base64_encode(force_bytes(self.user.pk)))
+        uid = force_str(urlsafe_base64_encode(force_bytes(self.user.pk)))
         token = self.token_generator.make_token(self.user)
 
         context.update(
