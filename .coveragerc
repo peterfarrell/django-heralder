@@ -5,3 +5,5 @@ source = herald
 branch = True
 omit =
     */migrations/*
+    */tests/*
+    runtests.py

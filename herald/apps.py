@@ -19,6 +19,8 @@ class HeraldConfig(AppConfig):
 
         self.module.autodiscover()
 
+        self.register_admins()
+
         Notification = self.get_model("Notification")
 
         try:
@@ -43,3 +45,21 @@ class HeraldConfig(AppConfig):
         except ProgrammingError:
             # if the database is not created yet, keep going (ie: during testing)
             pass
+
+    def register_admins(self):
+        """
+        Register admin classes if they are not already registered.
+        This is the correct way to handle admin registration for swappable models.
+        """
+        from django.contrib import admin
+
+        from herald.admin import NotificationAdmin, SentNotificationAdmin
+        from herald.models import Notification
+        from herald.utils import get_sent_notification_model
+
+        SentNotification = get_sent_notification_model()
+
+        admin.site.register(Notification, NotificationAdmin)
+
+        if not admin.site.is_registered(SentNotification):
+            admin.site.register(SentNotification, SentNotificationAdmin)

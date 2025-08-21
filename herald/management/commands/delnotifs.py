@@ -3,7 +3,7 @@ import datetime
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 
-from ...models import SentNotification
+from ...utils import get_sent_notification_model
 
 
 def valid_date(s):
@@ -22,6 +22,7 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
+        SentNotification = get_sent_notification_model()
         start_date = options.get("start")
         end_date = options.get("end")
 

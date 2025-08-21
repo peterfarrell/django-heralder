@@ -1,7 +1,3 @@
-"""
-Base notification classes
-"""
-
 import json
 import re
 from email.mime.base import MIMEBase
@@ -17,8 +13,6 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 
 from herald.utils import get_sent_notification_model
-
-SentNotification = get_sent_notification_model()
 
 
 class NotificationBase:
@@ -97,6 +91,8 @@ class NotificationBase:
         subject = self.get_subject()
         extra_data = self.get_extra_data()
 
+        SentNotification = get_sent_notification_model()
+
         sent_notification = SentNotification(
             recipients=",".join(recipients),
             text_content=text_content,
@@ -138,6 +134,8 @@ class NotificationBase:
 
         if not retention_time:
             return
+        
+        SentNotification = get_sent_notification_model()
 
         cutoff_date = timezone.now() - retention_time
 
