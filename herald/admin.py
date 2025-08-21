@@ -11,6 +11,7 @@ from django.utils.safestring import mark_safe
 
 from .models import Notification
 
+
 class SentNotificationAdmin(admin.ModelAdmin):
     """
     Admin for viewing historical notifications sent
@@ -69,7 +70,9 @@ class SentNotificationAdmin(admin.ModelAdmin):
         info = opts.app_label, opts.model_name
 
         return [
-            re_path(r"^(.+)/resend/$", wrap(self.resend_view), name="%s_%s_resend" % info),
+            re_path(
+                r"^(.+)/resend/$", wrap(self.resend_view), name="%s_%s_resend" % info
+            ),
         ] + urls
 
     @csrf_protect_m

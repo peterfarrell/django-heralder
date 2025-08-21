@@ -134,7 +134,7 @@ class NotificationBase:
 
         if not retention_time:
             return
-        
+
         SentNotification = get_sent_notification_model()
 
         cutoff_date = timezone.now() - retention_time
