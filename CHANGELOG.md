@@ -3,6 +3,7 @@
 ## Unreleased
 
 - #35 via MR #36 - Add security policy via `SECURITY.md`
+- #33 via MR #38 - Switch to `uv` for package dependencies
 
 
 ## 0.4.1 (08-21-2025)
