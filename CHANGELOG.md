@@ -1,6 +1,11 @@
 # Changelog
 
-### 0.4.1 (08-21-2025)
+## Unreleased
+
+- #35 via MR #36 - Add security policy via `SECURITY.md`
+
+
+## 0.4.1 (08-21-2025)
 - #31 - Fix AppRegistryNotReady error on importing from herald.base
 
 
