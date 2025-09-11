@@ -2,7 +2,8 @@ version = 1
 revision = 3
 requires-python = ">=3.9"
 resolution-markers = [
-    "python_full_version >= '3.10'",
+    "python_full_version >= '3.11'",
+    "python_full_version == '3.10.*'",
     "python_full_version < '3.10'",
 ]
 
@@ -376,12 +377,13 @@ name = "django"
 version = "4.2.24"
 source = { registry = "https://pypi.org/simple" }
 resolution-markers = [
+    "python_full_version == '3.10.*'",
     "python_full_version < '3.10'",
 ]
 dependencies = [
-    { name = "asgiref", marker = "python_full_version < '3.10'" },
-    { name = "sqlparse", marker = "python_full_version < '3.10'" },
-    { name = "tzdata", marker = "python_full_version < '3.10' and sys_platform == 'win32'" },
+    { name = "asgiref", marker = "python_full_version < '3.11'" },
+    { name = "sqlparse", marker = "python_full_version < '3.11'" },
+    { name = "tzdata", marker = "python_full_version < '3.11' and sys_platform == 'win32'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/ca/1a/3b7d8722a4c605078808b9839a6cf207f7aa763655bcf165fa219bedb39e/django-4.2.24.tar.gz", hash = "sha256:40cd7d3f53bc6cd1902eadce23c337e97200888df41e4a73b42d682f23e71d80", size = 10452798, upload-time = "2025-09-03T13:14:05.643Z" }
 wheels = [
@@ -393,12 +395,12 @@ name = "django"
 version = "5.2.6"
 source = { registry = "https://pypi.org/simple" }
 resolution-markers = [
-    "python_full_version >= '3.10'",
+    "python_full_version >= '3.11'",
 ]
 dependencies = [
-    { name = "asgiref", marker = "python_full_version >= '3.10'" },
-    { name = "sqlparse", marker = "python_full_version >= '3.10'" },
-    { name = "tzdata", marker = "python_full_version >= '3.10' and sys_platform == 'win32'" },
+    { name = "asgiref", marker = "python_full_version >= '3.11'" },
+    { name = "sqlparse", marker = "python_full_version >= '3.11'" },
+    { name = "tzdata", marker = "python_full_version >= '3.11' and sys_platform == 'win32'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/4c/8c/2a21594337250a171d45dda926caa96309d5136becd1f48017247f9cdea0/django-5.2.6.tar.gz", hash = "sha256:da5e00372763193d73cecbf71084a3848458cecf4cee36b9a1e8d318d114a87b", size = 10858861, upload-time = "2025-09-03T13:04:03.23Z" }
 wheels = [
@@ -410,8 +412,8 @@ name = "django-heralder"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
-    { name = "django", version = "4.2.24", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
-    { name = "django", version = "5.2.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
+    { name = "django", version = "4.2.24", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
+    { name = "django", version = "5.2.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
     { name = "jsonpickle" },
 ]
 
@@ -432,7 +434,8 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "django", specifier = ">=3.2" },
+    { name = "django", marker = "python_full_version >= '3.10'", specifier = ">=3.2,<5.3" },
+    { name = "django", marker = "python_full_version < '3.11'", specifier = "<=5" },
     { name = "html2text", marker = "extra == 'html2text'", specifier = ">=2024.2.26" },
     { name = "jsonpickle", specifier = ">=4.1.1" },
     { name = "twilio", marker = "extra == 'twilio'", specifier = ">=8.11.1" },
