@@ -1,10 +1,11 @@
 [project]
 name = "django-heralder"
 version = "0.1.0"
-requires-python = ">=3.9"
+#requires-python = ">=3.9"
 dependencies = [
-    "django<5; python_version<='3.10'",
-    "django>=3.2, <5.3; python_version>='3.10'",
+    "django>=3.2,<4; python_version<='3.10'",
+    "django>=4.2,<5; python_version<='3.12'",
+    "django>=5.2,<6; python_version<='3.13'",
     "jsonpickle>=4.1.1",
 ]
 
@@ -13,7 +14,7 @@ twilio = [
     "twilio>=8.11.1",
 ]
 html2text = [
-    "html2text>=2024.2.26",
+    "html2text",
 ]
 
 [dependency-groups]
