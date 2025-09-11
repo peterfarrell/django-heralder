@@ -33,14 +33,14 @@ jobs:
             python-version: "3.13"
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ matrix.python-version }}
     - name: Set up uv
       uses: astral-sh/setup-uv@v6
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Generate lock file for specific django version
+      run: uv lock -P django~=${{ matrix.django-version }}
     - name: Install dependencies
-      run: uv pip install -e .[twilio,html2text] "django~=${{ matrix.django-version }}"
+      run: uv sync --all-extras
     - name: Run tests
       run: |
         uv run coverage run --source herald runtests.py -v 2
