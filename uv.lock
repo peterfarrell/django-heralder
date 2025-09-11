@@ -435,7 +435,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "django", marker = "python_full_version >= '3.10'", specifier = ">=3.2,<5.3" },
-    { name = "django", marker = "python_full_version < '3.11'", specifier = "<=5" },
+    { name = "django", marker = "python_full_version < '3.11'", specifier = "<5" },
     { name = "html2text", marker = "extra == 'html2text'", specifier = ">=2024.2.26" },
     { name = "jsonpickle", specifier = ">=4.1.1" },
     { name = "twilio", marker = "extra == 'twilio'", specifier = ">=8.11.1" },
