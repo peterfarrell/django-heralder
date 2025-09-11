@@ -4,7 +4,7 @@ version = "0.0.0"
 requires-python = ">=3.9"
 readme = "README.md"
 license = "MIT"
-description = "description="Django library for separating the message content from transmission method."
+description = "Django library for separating the message content from transmission method."
 authors = [
     { name = "PJ Farrell", email = "pj@mariska.dev" }
 ]
