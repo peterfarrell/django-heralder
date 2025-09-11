@@ -37,8 +37,8 @@ jobs:
       uses: astral-sh/setup-uv@v6
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Generate lock file for specific django version
-      run: uv lock -P django~=${{ matrix.django-version }}
+    - name: Use specific django version
+      run: uv add -U django~=${{ matrix.django-version }}
     - name: Install dependencies
       run: uv sync --all-extras
     - name: Run tests

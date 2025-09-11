@@ -1,12 +1,43 @@
 [project]
 name = "django-heralder"
-version = "0.1.0"
-#requires-python = ">=3.9"
+version = "0.0.0"
+requires-python = ">=3.9"
+readme = "README.md"
+license = "MIT"
+description = "description="Django library for separating the message content from transmission method."
+authors = [
+    { name = "PJ Farrell", email = "pj@mariska.dev" }
+]
+
 dependencies = [
-    "django>=3.2,<4; python_version<='3.10'",
-    "django>=4.2,<5; python_version<='3.12'",
-    "django>=5.2,<6; python_version<='3.13'",
+    "django>=3.2",
     "jsonpickle>=4.1.1",
+]
+
+keywords = [
+    "django",
+     "notifications",
+     "messaging",
+]
+
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Framework :: Django",
+    "Intended Audience :: Developers",
+    "Framework :: Django",
+    "Framework :: Django :: 3.2",
+    "Framework :: Django :: 4.2",
+    "Framework :: Django :: 5.2",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3 :: Only",
+    "License :: OSI Approved :: MIT License",
 ]
 
 [project.optional-dependencies]
@@ -14,7 +45,7 @@ twilio = [
     "twilio>=8.11.1",
 ]
 html2text = [
-    "html2text",
+    "html2text>=2025.2.26",
 ]
 
 [dependency-groups]
