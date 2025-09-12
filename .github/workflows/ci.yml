@@ -40,5 +40,6 @@ jobs:
     - name: Run tests
       run: |
         uv run coverage run --source herald runtests.py -v 2
+        uv run coverage run -m django test --settings=tests.settings --pythonpath=. -v 2
     - name: Report coverage to Codecov
       uses: codecov/codecov-action@v3

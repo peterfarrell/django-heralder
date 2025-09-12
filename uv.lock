@@ -312,8 +312,8 @@ wheels = [
 
 [[package]]
 name = "django-heralder"
-version = "0.0.0"
-source = { virtual = "." }
+version = "0.5.1"
+source = { editable = "." }
 dependencies = [
     { name = "django" },
     { name = "jsonpickle" },

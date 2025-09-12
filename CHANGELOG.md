@@ -4,6 +4,7 @@
 
 - #35 via MR #36 - Add security policy via `SECURITY.md`
 - #33 via MR #38 - Switch to `uv` for package dependencies
+- #34 - Switch to `uv` for building and publishing package
 - Chore/Docs: Drop official support for Python 3.9 (EOL October 2025)
 
 

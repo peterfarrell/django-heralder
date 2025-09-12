@@ -45,11 +45,24 @@
 
 ## Running Tests
 
-This will run with a SQLite3 in-memory database:
-
+This will run tests with a SQLite3 in-memory database and coverage:
 ```bash
-uv run runtests.py -v 2
+uv run coverage run -m django test --settings=tests.settings --pythonpath=. -v 2
 ```
+
+* `--pythonpath=.` is required to set the context otherwise you will recieve the error `ModuleNotFoundError: No module named 'tests'`
+* `-v 3` sets the verbosity high enough to be able to see pre-migrate handlers, migrations, and post-migrate handlers.
+
+Show the coverage report to gain feedback on missing test case coverage:
+```bash
+uv run coverage report --show-missing
+```
+
+### Supported environment variables for tests
+
+| Environment Name | Description | Default Value |
+| ----- | ----- | ----- |
+| `HERALD_TEST_DB_NAME` | The path and name to the SQLite DB name. | `db.sqlite3` |
 
 ## Running Server to See Views
 
@@ -62,3 +75,5 @@ Run server:
 ```bash
 uv run manage.py runserver 0.0.0.0:8000
 ```
+
+Open a browser to: [http://localhost:8000/](http://localhost:8000)
