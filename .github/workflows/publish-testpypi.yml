@@ -1,0 +1,21 @@
+name: Publish Package
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: testpypi
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install UV
+        uses: astral-sh/setup-uv@v6
+      - name: Install Dependencies
+        run: uv sync --locked --all-extras --dev
+      - name: Build Package
+        run: uv build --no-sources
+      - name: Publish to Test PyPI
+        run: uv publish testpypi
