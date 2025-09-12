@@ -4,10 +4,11 @@
 
 - #35 via MR #36 - Add security policy via `SECURITY.md`
 - #33 via MR #38 - Switch to `uv` for package dependencies
+- Chore/Docs: Drop official support for Python 3.9 (EOL October 2025)
 
 
 ## 0.4.1 (08-21-2025)
-- #31 - Fix AppRegistryNotReady error on importing from herald.base
+- #31 - Fix AppRegistryNotReady error on importing from `herald.base`
 
 
 ## 0.4.0 (06-10-2025)
