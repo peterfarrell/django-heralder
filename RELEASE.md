@@ -31,9 +31,10 @@ When incrementing the:
 
 ## Publish Package Using UV
 
-### Manual
+## Using GitHub Actions
 
 1. Update the `CHANGELOG.md` file.  Move any `[Unreleased]` items into a version using an appropriate SemVer version (see above).
+
 2. Bump the version number in the `pyproject.toml` using the `uv version` command below by providing a positional arugment. This is update the `pyproject.toml` file.
 
     ```bash
@@ -52,7 +53,22 @@ When incrementing the:
 
 3. Commit the file changes to `main` and push to GitHub.
 
-4. Build the package:
+4. Create a new release and tag on GitHub:
+    
+    1. Go to [Draft a new release](https://github.com/peterfarrell/django-heralder/releases/new)
+    2. Choose tag. If you have not created a tag yet, you can create one "on publish". Use the format of `vX.X.X`.
+    3. Set the release title to the version. Ex: `vX.X.X`
+    5. In the body for the release, copy the bullets of items from the `CHANGELOG.md`.
+
+By creating a new git tag using the `vX.X.X` pattern, the GitHub Action in `.github/workflows/publish-pypi.yml` will automatically build and publish the new version of the package.
+
+If you want to test publishing to Test PyPI, create a git tag using the `test-vX.X.X` pattern which will run the GitHub Action in `.github/workflows/publish-testpypi.yml`.
+
+### If you have to do it manually
+
+After preparing the release in steps 1-3 from above, continue to manually build and publish the package. 
+
+1. Build the package:
 
     ```bash
     rm -rf dist/
@@ -61,22 +77,10 @@ When incrementing the:
 
     * Use `--no-sources` when building to publish per [recommendatation from UV](https://docs.astral.sh/uv/guides/publish/#building-your-package)
 
-5. Publish the package to `pypi` (production), or `testpypi` (test) package repository:
+2. Publish the package to `pypi` (production), or `testpypi` (test) package repository:
 
     ```bash
     uv publish --index [pypi|testpypi]
     ```
 
     Follow the prompts for a API username `__token__` and password (API token). You can configure an API token in your PyPI account or Test PyPI account.
-
-6. Create a new release and tag on GitHub:
-    
-    1. Go to [Draft a new release](https://github.com/peterfarrell/django-heralder/releases/new)
-    2. Choose tag. If you have not created a tag yet, you can create one "on publish". Use the format of `vX.X.X`.
-    3. Set the release title to the version. Ex: `vX.X.X`
-    5. In the body for the release, copy the bullets of items from the `CHANGELOG.md`.
-
-
-### Using GithHub Trusted Publisher
-
-TODO: See [#39 - Enhance publishing using GitHub Actions and PyPI Trusted Publishers](https://github.com/peterfarrell/django-heralder/issues/39)
