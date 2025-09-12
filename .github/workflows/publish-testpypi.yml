@@ -15,7 +15,7 @@ jobs:
         uses: astral-sh/setup-uv@v6
       - name: Install Dependencies
         run: uv sync --locked --all-extras --dev
-      - name: Build Package
-        run: uv build --no-sources
-      - name: Publish to Test PyPI
-        run: uv publish testpypi
+      - name: Build and Publish Package to testpypi
+        run: |
+          uv build --no-sources
+          uv publish testpypi
