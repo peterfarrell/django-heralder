@@ -1,6 +1,13 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/herald"]
+
 [project]
 name = "django-heralder"
-version = "0.0.0"
+version = "0.5.1"
 requires-python = ">=3.10,<3.14"
 readme = "README.md"
 license = "MIT"
@@ -16,8 +23,8 @@ dependencies = [
 
 keywords = [
     "django",
-     "notifications",
-     "messaging",
+    "notifications",
+    "messaging",
 ]
 
 classifiers = [
@@ -52,3 +59,24 @@ dev = [
     "mock>=5.2.0",
     "pytz>=2025.2",
 ]
+
+[project.urls]
+Homepage = "https://github.com/peterfarrell/django-heralder"
+Repository = "https://github.com/peterfarrell/django-heralder.git"
+Issues = "https://github.com/peterfarrell/django-heralder/issues"
+Changelog = "https://github.com/peterfarrell/django-heralder/blob/main/CHANGELOG.md"
+
+[tool.uv]
+package = true
+
+[[tool.uv.index]]
+name = "testpypi"
+url = "https://test.pypi.org/simple/"
+publish-url = "https://test.pypi.org/legacy/"
+explicit = true
+
+[[tool.uv.index]]
+name = "pypi"
+url = "https://pypi.org/simple/"
+publish-url = "https://pypi.org/legacy/"
+explicit = true

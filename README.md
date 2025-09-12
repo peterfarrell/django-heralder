@@ -1,4 +1,4 @@
-# django-heralder
+# Django Heralder
 
 [![Latest PyPI version](https://badge.fury.io/py/django-heralder.svg)](https://pypi.python.org/pypi/django-heralder)
 [![Tests](https://github.com/peterfarrell/django-heralder/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/peterfarrell/django-heralder/actions/workflows/ci.yml)
@@ -28,24 +28,28 @@ As of Django-Heralder `v0.4.0`, Django-Heralder has diverged from original proje
 
 ### Supported Django / Python Versions
 
-We try to make Heralder support all versions of django that django supports + all versions in between. 
+We try to make Heralder support all versions of LTS that Django supports + all versions in between. 
 
 For python, Heralder supports all versions of python that the above versions of django support.
 
-As of Heralder v0.4.0, we support:
+We currently support:
 
 | Django | Python `3.10` | Python `3.11` | Python `3.12` | Python `3.13` |
-| --- | --- | --- | --- | --- | --- |
+| --- | --- | --- | --- | --- |
 | `3.2.x` | **Y** | - | - | - |
 | `4.2.x` | **Y** | **Y** | **Y** | - |
 | `5.2.x` | **Y** | **Y** | **Y** | **Y** |
 
 ### Installation
 
-1. Install Django-Heralder using your favority packagement management tool (e.g. `pip`, `uv`, etc.)
+1. Install Django Heralder using your favority packagement management tool (e.g. `pip`, `uv`, etc.)
 
     ```bash
     pip install django-heralder
+    ```
+
+    ```bash
+    uv add django-heralder
     ```
 
 2. In your `settings.py` file, add `herald` and `django.contrib.sites` to `INSTALLED_APPS`:
