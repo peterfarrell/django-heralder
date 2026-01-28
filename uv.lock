@@ -475,7 +475,7 @@ wheels = [
 
 [[package]]
 name = "django-heralder"
-version = "0.4.2"
+version = "0.5.0"
 source = { editable = "." }
 dependencies = [
     { name = "django", version = "3.2.25", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-15-django-heralder-django32' or (extra == 'group-15-django-heralder-django42' and extra == 'group-15-django-heralder-django52') or (extra == 'group-15-django-heralder-django42' and extra == 'group-15-django-heralder-django60') or (extra == 'group-15-django-heralder-django52' and extra == 'group-15-django-heralder-django60')" },

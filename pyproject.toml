@@ -7,7 +7,7 @@ packages = ["src/herald"]
 
 [project]
 name = "django-heralder"
-version = "0.4.2"
+version = "0.5.0"
 requires-python = ">=3.10,<3.15"
 readme = "README.md"
 license = "MIT"
