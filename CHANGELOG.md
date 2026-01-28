@@ -2,6 +2,9 @@
 
 ## Unrelease (tbd)
 
+## 0.5.0 (2025-01-28)
+- #42 via MR #43 - Add support for Django 6.0, fix support for Django 5.2, add support for Python 3.14
+
 
 ## 0.4.2 (2025-09-12)
 - #35 via MR #36 - Add security policy via `SECURITY.md`
