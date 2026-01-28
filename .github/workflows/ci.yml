@@ -9,24 +9,33 @@ jobs:
       matrix:
         include:
           # Django 3.2
-          - django-version: "3.2.25"
+          - django-version: "3.2"
             python-version: "3.10"
           # Django 4.2
-          - django-version: "4.2.23"
+          - django-version: "4.2"
             python-version: "3.10"
-          - django-version: "4.2.23"
+          - django-version: "4.2"
             python-version: "3.11"
-          - django-version: "4.2.23"
+          - django-version: "4.2"
             python-version: "3.12"
           # Django 5.2
-          - django-version: "5.2.3"
+          - django-version: "5.2"
             python-version: "3.10"
-          - django-version: "5.2.3"
+          - django-version: "5.2"
             python-version: "3.11"
-          - django-version: "5.2.3"
+          - django-version: "5.2"
             python-version: "3.12"
-          - django-version: "5.2.3"
+          - django-version: "5.2"
             python-version: "3.13"
+          - django-version: "5.2"
+            python-version: "3.14"
+          # Django 6.0
+          - django-version: "6.0"
+            python-version: "3.12"
+          - django-version: "6.0"
+            python-version: "3.13"
+          - django-version: "6.0"
+            python-version: "3.14"
     steps:
     - uses: actions/checkout@v4
     - name: Set up uv

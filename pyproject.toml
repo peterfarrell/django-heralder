@@ -17,7 +17,7 @@ authors = [
 ]
 
 dependencies = [
-    "django>=3.2,<=5.2",
+    "django>=3.2,<=6.1",
     "jsonpickle>=4.1.1",
 ]
 
@@ -35,12 +35,14 @@ classifiers = [
     "Framework :: Django :: 3.2",
     "Framework :: Django :: 4.2",
     "Framework :: Django :: 5.2",
+    "Framework :: Django :: 6.0",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Programming Language :: Python :: 3 :: Only",
     "License :: OSI Approved :: MIT License",
 ]

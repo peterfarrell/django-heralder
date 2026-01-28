@@ -34,11 +34,14 @@ For python, Heralder supports all versions of python that the above versions of 
 
 We currently support:
 
-| Django | Python `3.10` | Python `3.11` | Python `3.12` | Python `3.13` |
-| --- | --- | --- | --- | --- |
-| `3.2.x` | **Y** | - | - | - |
-| `4.2.x` | **Y** | **Y** | **Y** | - |
-| `5.2.x` | **Y** | **Y** | **Y** | **Y** |
+| Django | Python `3.10` | Python `3.11` | Python `3.12` | Python `3.13` | Python `3.14` |
+| --- | --- | --- | --- | --- | --- |
+| `3.2.x` | **Y** | - | - | - | - |
+| `4.2.x` | **Y** | **Y** | **Y** | - | - |
+| `5.2.x` | **Y** | **Y** | **Y** | **Y** | **Y** |
+| `6.0.x` | - | - | **Y** | **Y** | **Y** |
+
+
 
 ### Installation
 
