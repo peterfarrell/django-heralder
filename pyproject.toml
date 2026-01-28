@@ -57,6 +57,7 @@ html2text = [
 
 [dependency-groups]
 dev = [
+    "black>=26.1.0",
     "coveralls>=4.0.1",
     "mock>=5.2.0",
     "pytz>=2025.2",
