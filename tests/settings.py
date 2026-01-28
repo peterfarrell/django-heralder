@@ -40,7 +40,7 @@ SECRET_KEY = "foobar"
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
 
 STATIC_URL = "/static/"
 
