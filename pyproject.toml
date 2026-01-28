@@ -8,7 +8,7 @@ packages = ["src/herald"]
 [project]
 name = "django-heralder"
 version = "0.4.2"
-requires-python = ">=3.10,<3.14"
+requires-python = ">=3.10,<3.15"
 readme = "README.md"
 license = "MIT"
 description = "Django library for separating the message content from transmission method."
