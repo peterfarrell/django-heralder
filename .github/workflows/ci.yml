@@ -9,34 +9,41 @@ jobs:
       matrix:
         include:
           # Django 3.2
-          - django-version: "3.2.25"
+          - django-version: "32"
             python-version: "3.10"
           # Django 4.2
-          - django-version: "4.2.23"
+          - django-version: "42"
             python-version: "3.10"
-          - django-version: "4.2.23"
+          - django-version: "42"
             python-version: "3.11"
-          - django-version: "4.2.23"
+          - django-version: "42"
             python-version: "3.12"
           # Django 5.2
-          - django-version: "5.2.3"
+          - django-version: "52"
             python-version: "3.10"
-          - django-version: "5.2.3"
+          - django-version: "52"
             python-version: "3.11"
-          - django-version: "5.2.3"
+          - django-version: "52"
             python-version: "3.12"
-          - django-version: "5.2.3"
+          - django-version: "52"
             python-version: "3.13"
+          - django-version: "52"
+            python-version: "3.14"
+          # Django 6.0
+          - django-version: "60"
+            python-version: "3.12"
+          - django-version: "60"
+            python-version: "3.13"
+          - django-version: "60"
+            python-version: "3.14"
     steps:
     - uses: actions/checkout@v4
     - name: Set up uv
       uses: astral-sh/setup-uv@v6
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Use specific django version
-      run: uv add -U django~=${{ matrix.django-version }}
-    - name: Install dependencies
-      run: uv sync --all-extras
+    - name: Install dependencies using specifc django dependency group
+      run: uv sync --all-extras --group django${{ matrix.django-version }}
     - name: Run tests
       run: uv run coverage run -m django test --settings=tests.settings --pythonpath=. -v 2
     - name: Report coverage to Codecov

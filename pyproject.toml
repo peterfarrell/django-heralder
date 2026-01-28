@@ -8,7 +8,7 @@ packages = ["src/herald"]
 [project]
 name = "django-heralder"
 version = "0.4.2"
-requires-python = ">=3.10,<3.14"
+requires-python = ">=3.10,<3.15"
 readme = "README.md"
 license = "MIT"
 description = "Django library for separating the message content from transmission method."
@@ -17,7 +17,7 @@ authors = [
 ]
 
 dependencies = [
-    "django>=3.2,<=5.2",
+    "django>=3.2,<=6.1",
     "jsonpickle>=4.1.1",
 ]
 
@@ -35,12 +35,14 @@ classifiers = [
     "Framework :: Django :: 3.2",
     "Framework :: Django :: 4.2",
     "Framework :: Django :: 5.2",
+    "Framework :: Django :: 6.0",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Programming Language :: Python :: 3 :: Only",
     "License :: OSI Approved :: MIT License",
 ]
@@ -55,10 +57,15 @@ html2text = [
 
 [dependency-groups]
 dev = [
+    "black>=26.1.0",
     "coveralls>=4.0.1",
     "mock>=5.2.0",
     "pytz>=2025.2",
 ]
+django32 = [ "django>=3.2a1,<4; python_version>='3.10'" ]
+django42 = [ "django>=4.2a1,<5; python_version>='3.10'" ]
+django52 = [ "django>=5.2a1,<6; python_version>='3.10'" ]
+django60 = [ "django>=6a1,<6.1; python_version>='3.12'" ]
 
 [project.urls]
 Homepage = "https://github.com/peterfarrell/django-heralder"
@@ -68,6 +75,15 @@ Changelog = "https://github.com/peterfarrell/django-heralder/blob/main/CHANGELOG
 
 [tool.uv]
 package = true
+# Conflicts: https://docs.astral.sh/uv/reference/settings/#conflicts
+conflicts = [
+  [
+    { group = "django32" },
+    { group = "django42" },
+    { group = "django52" },
+    { group = "django60" },
+  ],
+]
 
 [[tool.uv.index]]
 name = "testpypi"

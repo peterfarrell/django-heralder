@@ -2,7 +2,6 @@ from django.urls import re_path
 
 from .views import TestNotification, TestNotificationList
 
-
 urlpatterns = [
     re_path(r"^$", TestNotificationList.as_view(), name="herald_preview_list"),
     re_path(

@@ -43,6 +43,16 @@
 * Twilio (SemVer) is supported till latest major version - 1 (e.g 9.x.x - 1 = version 8.x.x and higher)
 * html2text (CalVer) is supported till current calendar year  - 1 (e.g. 2025 - 1 = version 2024.x.x and newer)
 
+## Code Style
+
+### Python Code
+
+To format your code with Black, open a terminal and ensure your virtual environment is activated.
+
+```bash
+uv run black .
+```
+
 ## Running Tests
 
 This will run tests with a SQLite3 in-memory database and coverage:

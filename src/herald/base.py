@@ -4,6 +4,7 @@ from email.mime.base import MIMEBase
 from mimetypes import guess_type
 
 import jsonpickle
+import django
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.files import File
@@ -13,6 +14,10 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 
 from herald.utils import get_sent_notification_model
+
+use_legacy_mixed_subtype: bool = False
+if django.VERSION < (5, 0):
+    use_legacy_mixed_subtype: bool = True
 
 
 class NotificationBase:
@@ -451,7 +456,8 @@ class EmailNotification(NotificationBase):
             # All mimebase attachments must have a Content-ID or Content-Disposition header
             # or they will show up as unnamed attachments"
             if isinstance(attachment, MIMEBase):
-                if attachment.get("Content-ID", False):
+                # `mixed_subtype` was removed from Django 5+
+                if use_legacy_mixed_subtype and attachment.get("Content-ID", False):
                     # if you are sending attachment with content id,
                     # subtype must be 'related'.
                     mail.mixed_subtype = "related"
