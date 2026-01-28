@@ -38,7 +38,7 @@ class UserNotificationTests(TestCase):
         )
 
     def test_send_enabled(self):
-        result = MyNotification().send(user=self.user)
+        result = MyNotification().send(user=self.user, raise_exception=True)
         self.assertTrue(result, True)
 
         sent_notification = SentNotification.objects.all()[0]
@@ -54,7 +54,7 @@ class UserNotificationTestsNoSetting(TestCase):
         self.user.save()
 
     def test_send_enabled(self):
-        result = MyNotification().send(user=self.user)
+        result = MyNotification().send(user=self.user, raise_exception=True)
         self.assertTrue(result, True)
 
         sent_notification = SentNotification.objects.all()[0]
