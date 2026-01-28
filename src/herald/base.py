@@ -17,7 +17,7 @@ from herald.utils import get_sent_notification_model
 
 use_legacy_mixed_subtype: bool = False
 if django.VERSION < (5, 0):
-        use_legacy_mixed_subtype: bool = True
+    use_legacy_mixed_subtype: bool = True
 
 
 class NotificationBase:
