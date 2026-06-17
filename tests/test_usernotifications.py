@@ -19,10 +19,9 @@ class UserNotificationTests(TestCase):
         # refresh the user
         self.user = User.objects.get(id=user.id)
         # add a notification
-        notification = Notification(
+        notification, created = Notification.objects.get_or_create(
             notification_class=MyOtherNotification.get_class_path()
         )
-        notification.save()
 
         # disable the notification
         self.user.usernotification.disabled_notifications.add(notification)
