@@ -4,6 +4,7 @@ Django app config for herald. Using this to call autodiscover
 
 from django.apps import AppConfig
 from django.db.models.signals import post_migrate
+from django.db.utils import OperationalError, ProgrammingError
 
 
 class HeraldConfig(AppConfig):
@@ -15,8 +16,6 @@ class HeraldConfig(AppConfig):
     name = "herald"
 
     def ready(self):
-        from herald import registry
-
         self.module.autodiscover()
 
         self.register_admins()
@@ -46,14 +45,13 @@ def register_notifications(sender, **kwargs):
     """
     Register notification classes after migrations have run.
     """
-    from django.db.utils import OperationalError, ProgrammingError
     from herald import registry
 
     Notification = sender.get_model("Notification")
 
     try:
         # add any new notifications to database.
-        for index, klass in enumerate(registry._registry):
+        for _, klass in enumerate(registry._registry):
             notification, created = Notification.objects.get_or_create(
                 notification_class=klass.get_class_path(),
                 defaults={
