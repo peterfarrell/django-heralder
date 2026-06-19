@@ -3,6 +3,7 @@ Django app config for herald. Using this to call autodiscover
 """
 
 from django.apps import AppConfig
+from django.db.models.signals import post_migrate
 from django.db.utils import OperationalError, ProgrammingError
 
 
@@ -15,36 +16,11 @@ class HeraldConfig(AppConfig):
     name = "herald"
 
     def ready(self):
-        from herald import registry
-
         self.module.autodiscover()
 
         self.register_admins()
 
-        Notification = self.get_model("Notification")
-
-        try:
-            # add any new notifications to database.
-            for index, klass in enumerate(registry._registry):
-                notification, created = Notification.objects.get_or_create(
-                    notification_class=klass.get_class_path(),
-                    defaults={
-                        "verbose_name": klass.get_verbose_name(),
-                        "can_disable": klass.can_disable,
-                    },
-                )
-
-                if not created:
-                    notification.verbose_name = klass.get_verbose_name()
-                    notification.can_disable = klass.can_disable
-                    notification.save()
-
-        except OperationalError:
-            # if the table is not created yet, just keep going.
-            pass
-        except ProgrammingError:
-            # if the database is not created yet, keep going (ie: during testing)
-            pass
+        post_migrate.connect(register_notifications, sender=self)
 
     def register_admins(self):
         """
@@ -63,3 +39,32 @@ class HeraldConfig(AppConfig):
 
         if not admin.site.is_registered(SentNotification):
             admin.site.register(SentNotification, SentNotificationAdmin)
+
+
+def register_notifications(sender, **kwargs):
+    """
+    Register notification classes after migrations have run.
+    """
+    from herald import registry
+
+    Notification = sender.get_model("Notification")
+
+    try:
+        # add any new notifications to database.
+        for _, klass in enumerate(registry._registry):
+            notification, created = Notification.objects.get_or_create(
+                notification_class=klass.get_class_path(),
+                defaults={
+                    "verbose_name": klass.get_verbose_name(),
+                    "can_disable": klass.can_disable,
+                },
+            )
+
+            if not created:
+                notification.verbose_name = klass.get_verbose_name()
+                notification.can_disable = klass.can_disable
+                notification.save()
+
+    except (OperationalError, ProgrammingError):
+        # if the table is not created yet, just keep going.
+        pass

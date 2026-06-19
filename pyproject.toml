@@ -16,8 +16,10 @@ authors = [
     { name = "PJ Farrell", email = "pj@mariska.dev" }
 ]
 
+# Do not pin upper bounds on dependencies in libraries.
+# See https://packaging.python.org/discussions/install-requires-vs-requirements/#install-requires for more details.
 dependencies = [
-    "django>=3.2,<=6.1",
+    "django>=3.2",
     "jsonpickle>=4.1.1",
 ]
 

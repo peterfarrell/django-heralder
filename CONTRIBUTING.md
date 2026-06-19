@@ -23,7 +23,7 @@
 
     Next, install all required dependencies and extras for development in editable mode:
     ```bash
-    uv sync --all-extras
+    uv sync --all-extras --dev
     ```
 
 4. **Optional: Change Python version**
