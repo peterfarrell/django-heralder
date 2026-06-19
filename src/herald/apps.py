@@ -23,7 +23,6 @@ class HeraldConfig(AppConfig):
 
         post_migrate.connect(register_notifications, sender=self)
 
-
     def register_admins(self):
         """
         Register admin classes if they are not already registered.
@@ -71,4 +70,3 @@ def register_notifications(sender, **kwargs):
     except (OperationalError, ProgrammingError):
         # if the table is not created yet, just keep going.
         pass
-
