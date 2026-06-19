@@ -2,6 +2,18 @@
 
 ## Unrelease (tbd)
 
+## 0.5.1 (2026-06-18)
+
+**Fixed:**
+- #44 - Resolve Django 5.x database access during app initialization warning
+    - Thank you @ricosalomar and congrats on your first pull request!
+- #45 - Remove upper bounds pin on Django dependency per recommendations from: https://packaging.python.org/discussions/install-requires-vs-requirements/#install-requires
+
+**Changed:**
+- #45 - Bump development dependencies in `uv.lock`
+- #45 - Update `CHANGELOG.md` for `0.5.1` release
+
+
 ## 0.5.0 (2025-01-28)
 - #42 via MR #43 - Add support for Django 6.0, fix support for Django 5.2, add support for Python 3.14
 
